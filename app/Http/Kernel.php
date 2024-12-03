@@ -9,6 +9,6 @@ class Kernel extends HttpKernel
     
     protected $routeMiddleware = [
         'check.status' => \App\Http\Middleware\CheckStatus::class,
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'admin' => \App\Http\Middleware\Admin::class,
     ];
 }

@@ -118,6 +118,10 @@
 </head>
 <body>
 
+@extends('includes.navbar')
+
+@section('content')
+
 <header>
     <h1>Kehadiran Pengunjung</h1>
 </header>
@@ -175,6 +179,6 @@
 <footer>
     <p>&copy; {{ date('Y') }} Pengurusan Acara. Semua hak cipta terpelihara.</p>
 </footer>
-
+@endsection
 </body>
 </html>

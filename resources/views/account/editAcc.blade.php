@@ -26,7 +26,6 @@
 
         .nav-tabs {
             border-bottom: 2px solid #dee2e6;
-            background-color: #d3d3d3;
         }
 
         .nav-tabs .nav-link {

@@ -20,12 +20,13 @@
 
         .tab-content {
             background-color: #f9f9f9;
-            padding: 10px;
+            padding: 20px;
             border-radius: 5px;
         }
 
         .nav-tabs {
             border-bottom: 2px solid #dee2e6;
+            text-align: left;
         }
 
         .nav-tabs .nav-link {

@@ -19,11 +19,11 @@
         }
 
         .tab-content {
-            width: 85%;
+            width: 100%;
             margin: 40px auto;
-            padding: 30px;
+            padding: 10px;
             background-color: white;
-            border-radius: 8px;
+            border-radius: 5px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 

@@ -21,7 +21,7 @@
         .tab-content {
             width: 100%;
             margin: 40px auto;
-            padding: 10px;
+            padding: 20px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);

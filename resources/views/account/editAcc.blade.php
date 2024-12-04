@@ -11,8 +11,15 @@
             font-family: Arial, sans-serif;
         }
 
+        .nav-tabs-container {
+            background-color: #d3d3d3;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
         .nav-tabs {
             border-bottom: 2px solid #dee2e6;
+            background-color: #d3d3d3;
         }
 
         .nav-tabs .nav-link {

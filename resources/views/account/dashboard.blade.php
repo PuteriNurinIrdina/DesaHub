@@ -7,7 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
+        .container {
+            width: 100%;
+            margin: auto auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>

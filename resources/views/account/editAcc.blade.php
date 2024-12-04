@@ -15,6 +15,13 @@
             background-color: #d3d3d3;
             padding: 10px;
             border-radius: 5px;
+            text-align: left;
+        }
+
+        .tab-content {
+            background-color: #d3d3d3;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .nav-tabs {

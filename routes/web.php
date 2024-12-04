@@ -36,11 +36,9 @@ Route::post('/register', [AccController::class, 'registerPost'])->name("register
 Route::get('/resetpassword', [AccController::class, 'resetpassword'])->name("resetpassword");
 Route::post('/resetpassword', [AccController::class, 'resetpasswordPost'])->name("resetpassword.post");
 
-Route::get('/editAcc', [AccController::class, 'editAcc'])->name("editAcc");
-Route::post('/editAcc', [AccController::class, 'editAccPost'])->name("editAcc.post");
-
 Route::get('/dashboard', [AccController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('/editAcc', [AccController::class, 'editAcc'])->middleware(['auth'])->name('editAcc');
+Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['auth'])->name('editAcc.post');
     
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');

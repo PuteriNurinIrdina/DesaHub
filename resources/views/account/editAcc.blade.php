@@ -12,14 +12,14 @@
         }
 
         .nav-tabs-container {
-            background-color: #d3d3d3;
+            background-color: #fff;
             padding: 10px;
             border-radius: 5px;
             text-align: left;
         }
 
         .tab-content {
-            background-color: #d3d3d3;
+            background-color: #f9f9f9;
             padding: 10px;
             border-radius: 5px;
         }

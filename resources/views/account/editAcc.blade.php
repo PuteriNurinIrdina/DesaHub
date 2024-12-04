@@ -18,7 +18,7 @@
             text-align: left;
         }
 
-        .tab-content {
+        .container {
             width: 100%;
             margin: 40px auto;
             padding: 20px;
@@ -60,10 +60,6 @@
         }
 
         .settings-header {
-            text-align: left;
-        }
-
-        .nav-tabs-container {
             text-align: left;
         }
     </style>

@@ -69,8 +69,8 @@
 @extends('includes.navbar')
 
 @section('content')
+<header><h2 class="settings-header">Tetapan Akaun</h2></header>
     <div class="container mt-3">
-        <h2 class="settings-header">Tetapan Akaun</h2>
         <div class="nav-tabs-container">
             <ul class="nav nav-tabs mt-4" id="settingsTabs">
                 <li class="nav-item">

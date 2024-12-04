@@ -307,7 +307,7 @@
                         <ul>
                             <li><a href="#"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
                             <li><a href="#"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
-                            <li><a href="{{ route('kehadiran') }}"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
+                            <li><a href="{{ route('attendance') }}"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
                         </ul>
                     </li>
                 </div>

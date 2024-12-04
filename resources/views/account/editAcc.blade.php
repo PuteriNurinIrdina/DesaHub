@@ -18,7 +18,7 @@
 
         .container {
             width: 100%;
-            margin: 40px auto;
+            margin: auto auto;
             padding: 25px;
             background-color: white;
             border-radius: 5px;

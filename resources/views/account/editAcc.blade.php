@@ -19,9 +19,12 @@
         }
 
         .tab-content {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 5px;
+            width: 85%;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         .nav-tabs {

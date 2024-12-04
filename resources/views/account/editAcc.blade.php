@@ -13,15 +13,13 @@
 
         .nav-tabs-container {
             background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
             text-align: left;
         }
 
         .container {
             width: 100%;
             margin: 40px auto;
-            padding: 20px;
+            padding: 25px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);

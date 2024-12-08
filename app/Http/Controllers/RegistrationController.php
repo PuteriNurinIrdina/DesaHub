@@ -56,6 +56,22 @@ class RegistrationController extends Controller
         ]);
     }
     
+    public function attendees() {
+        $attendees = RegisterEvent::where('attendance', 1)->get();
+        return view('EventRegistration.attendees', compact('attendees'));
+    }
+
+    public function absent() {
+        $nonAttendees = RegisterEvent::where('attendance', 0)->get();
+        return view('EventRegistration.absent', compact('nonAttendees'));
+    }
+
+    public function showAllRegistrants() {
+        $registrants = RegisterEvent::all(); 
+    
+        return view('EventRegistration.registrant', compact('registrants'));
+    }
+    
     
     
 }

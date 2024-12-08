@@ -48,4 +48,8 @@ Route::get('/editAcc', [AccController::class, 'editAcc'])->middleware(['auth'])-
     
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');
+
+Route::get('/peserta', [RegistrationController::class, 'attendees']);
+Route::get('/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
+Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants']);
 ?>

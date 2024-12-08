@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Requests;
 
-use Illuminate\Http\Request;
-use App\Models\RegisterEvent;
+use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrationController extends Controller
+class RegisterEventRequest extends FormRequest
 {
-    public function index() {
-        return view('EventRegistration.index');
-    }
-
-    public function store(Request $request) {
-        $data = $request->validate([
+    public function rules()
+    {
+        return [
             'ic_num' => 'required|digits:12',
             'name' => 'required',
             'phone_num' => 'required|digits_between:10,11',
@@ -22,14 +18,18 @@ class RegistrationController extends Controller
             'state' => 'required',
             'email' => 'nullable|email',
             'house_category' => 'required',
-            'age_class' => 'required'
-        ], 
-        [
+            'age_class' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
             'ic_num.required' => 'Sila Isi No Kad Pengenalan Anda.',
             'ic_num.digits' => "No Kad Pengenalan Mestilah Mengandungi 12 Digit Sahaja (tanpa '-')",
             'name.required' => 'Sila Isi Nama Anda.',
             'phone_num.required' => 'Sila Isi No Telefon Bimbit Anda.',
-            'phone_num.digits_between' => "No Telefon Bimbit Mestilah Di Antara 10 Hingga 11 Digit Sahaja (tanpa '-')",
+            'phone_num.digits_between' => 'No Telefon Bimbit Mestilah Di Antara 10 Hingga 11 Digit.',
             'gender.required' => 'Sila Pilih Jantina Anda.',
             'address.required' => 'Sila Isi Alamat Anda.',
             'poscode.required' => 'Sila Isi Poskod Anda.',
@@ -38,25 +38,7 @@ class RegistrationController extends Controller
             'email.email' => 'Emel yang Dimasukkan Tidak Mengikut Format yang Sah.',
             'house_category.required' => 'Sila Pilih Isi Kategori Rumah Anda.',
             'age_class.required' => 'Sila Pilih Peringkat Umur Anda.',
-        ]);
-    
-        $data['name'] = strtoupper($data['name']);
-        RegisterEvent::create($data);
-    
-        if ($request->ajax()) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Pendaftaran Berjaya!',
-            ]);
-        } 
-    
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Pendaftaran berjaya!'
-        ]);
+        ];
     }
-    
-    
-    
 }
 ?>

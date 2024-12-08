@@ -2,7 +2,6 @@
 
 use App\Models\RegisterEvent;
 
-// In your blade file: resources/views/EventRegistration/absent.blade.php
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +12,6 @@ use App\Models\RegisterEvent;
     <title>Senarai Tidak Hadir</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f0f4f8;
@@ -111,7 +109,6 @@ use App\Models\RegisterEvent;
             color: #333;
         }
 
-        /* Responsive Styles */
         @media (max-width: 1200px) {
             .header h1 {
                 font-size: 32px;
@@ -168,7 +165,6 @@ use App\Models\RegisterEvent;
 
     <div class="container">
 
-        <!-- Display Total Number of Non-Attendees -->
         <div class="total-count">
             Jumlah Pendaftar Tidak Hadir: {{ $nonAttendees->count() }}
         </div>
@@ -182,7 +178,7 @@ use App\Models\RegisterEvent;
                 <table class="attendee-list">
                     <thead>
                         <tr>
-                            <th>No</th> <!-- Added column for numbering -->
+                            <th>No</th> 
                             <th>Nama</th>
                             <th>No Kad Pengenalan</th>
                             <th>No Telefon</th>
@@ -198,14 +194,14 @@ use App\Models\RegisterEvent;
                     <tbody>
                         @foreach ($nonAttendees as $index => $attendee)
                             <tr>
-                                <td>{{ $index + 1 }}</td> <!-- Number each entry -->
+                                <td>{{ $index + 1 }}</td> 
                                 <td>{{ $attendee->name }}</td>
                                 <td>{{ $attendee->ic_num }}</td>
                                 <td>{{ $attendee->phone_num }}</td>
                                 <td>{{ $attendee->gender }}</td>
                                 <td>{{ $attendee->address }}</td>
                                 <td>{{ $attendee->poscode }}</td>
-                                <td>{{ $attendee->email ?? '-' }}</td> <!-- Display "-" if no email -->
+                                <td>{{ $attendee->email ?? '-' }}</td> 
                                 <td>{{ $attendee->state }}</td>
                                 <td>{{ $attendee->house_category }}</td>
                                 <td>{{ $attendee->age_class }}</td>

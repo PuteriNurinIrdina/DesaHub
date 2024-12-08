@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DesaHub Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            will-change: transform;
+        }
+
+        .slider-item {
+            flex: 0 0 20%;
+            padding: 0 15px;
+            text-align: center;
+            opacity: 0.7; /* dim */
+            transition: opacity 0.3s ease;
+        }
+
+        .slider-item.active {
+            opacity: 1;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .slider-item .text-slider-item {
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 1; 
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .slider-item.active .text-slider-item {
+            color: #000;
+        }
+
+        /* navigation bar */
+        .category-nav {
+            margin-top: 10px;
+            padding: 0;
+            border-top: 2px solid #095c80;;
+        }
+
+        .category-nav .nav-item {
+            margin: 0 15px;
+        }
+
+        .category-nav .nav-link {
+            font-size: 1rem;
+            color: #555;
+            padding: 5px 10px;
+            transition: color 0.3s, border-color 0.3s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .category-nav .nav-link.active {
+            color: #095c80;
+            font-weight: bold;
+            border-bottom: 2px solid #095c80;;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* event/product */
+        .events-section, .products-section {
+            padding: 0;
+        }
+
+        .section-title {
+            display: inline-block;
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 5px;
+            color: #025478;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+@extends('includes.navbar')
+
+@section('content')
+
+    <!-- slider section -->
+    <section class="hero-section container-xxl py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h1>Selamat Datang</h1>
+                <p>Bina hubungan bersama komuniti melalui pelbagai program menarik dan produk tempatan</p>
+            </div>
+
+            <div class="text-center">
+                <h6 class="section-title px-3">Kategori</h6>
+            </div>
+
+            <!-- events slider -->
+            <div class="slider-container" id="events-slider">
+                <div class="slider" id="event-slider">
+                    <!-- E1 -->
+                    <div class="slider-item">
+                        <img src="https://miro.medium.com/v2/resize:fit:1024/0*VmGG5CvzspNvbZCa.png" alt="Event 1">
+                        <div class="text-slider-item active">Kelas</div>
+                    </div>
+                    <!-- E2 -->
+                    <div class="slider-item">
+                        <img src="https://i.pinimg.com/originals/f8/27/ee/f827eec376855d74d85bced3998046a6.jpg" alt="Event 2">
+                        <div class="text-slider-item">Kursus</div>
+                    </div>
+                    <!-- E3 -->
+                    <div class="slider-item">
+                        <img src="http://webneel.com/daily/sites/default/files/images/daily/07-2014/5-best-ads-agasalho-hamburguer.jpg" alt="Event 3">
+                        <div class="text-slider-item">Gotong-Royong</div>
+                    </div>
+                    <!-- E4 -->
+                    <div class="slider-item">
+                        <img src="https://cdn5.vectorstock.com/i/1000x1000/65/09/cosmetic-products-realistic-advertisement-poster-vector-19836509.jpg" alt="Event 4">
+                        <div class="text-slider-item">Majlis</div>
+                    </div>
+                    <!-- E5 -->
+                    <div class="slider-item">
+                        <img src="https://hips.hearstapps.com/hmg-prod/images/best-skincare-products-1656081764.jpg?crop=1xw:1xh;center,top&resize=640:*" alt="Event 5">
+                        <div class="text-slider-item">Mesyuarat</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- products slider -->
+            <div class="slider-container" id="products-slider" style="display: none;">
+                <div class="slider" id="product-slider">
+                    <!-- P1 -->
+                    <div class="slider-item">
+                        <img src="http://webneel.com/daily/sites/default/files/images/daily/07-2014/5-best-ads-agasalho-hamburguer.jpg" alt="Product 1">
+                        <div class="text-slider-item">Makanan</div>
+                    </div>
+                    <!-- P2 -->
+                    <div class="slider-item">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 2">
+                        <div class="text-slider-item">Kelengkapan Rumah</div>
+                    </div>
+                    <!-- P3 -->
+                    <div class="slider-item">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 3">
+                        <div class="text-slider-item">Fesyen</div>
+                    </div>
+                    <!-- P4 -->
+                    <div class="slider-item">
+                        <img src="https://hips.hearstapps.com/hmg-prod/images/best-skincare-products-1656081764.jpg?crop=1xw:1xh;center,top&resize=640:*" alt="Product 4">
+                        <div class="text-slider-item">Penjagaan Diri</div>
+                    </div>
+                    <!-- P5 -->
+                    <div class="slider-item">
+                        <img src="https://via.placeholder.com/300x200" alt="Product 5">
+                        <div class="text-slider-item">Mainan</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-container">
+                <ul class="category-nav nav justify-content-center mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="switchCategory('events')">Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="switchCategory('products')">Produk</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="#about-us" class="btn btn-outline-primary">Ketahui Lebih Lanjut</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- about section -->
+    <section id="about-us" class="about-us-section container-xxl py-5" style="margin-bottom: 0;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h6 class="section-title px-3">Tentang Kami</h6>
+                <h2 class="mb-4">Apa itu DesaHub?</h2>
+            </div>
+            <div class="text-center mb-5">
+                    <p class="lead text-muted">
+                    DesaHub ialah satu platform yang direka untuk menghubungkan komuniti dengan mempromosikan program dan produk tempatan.
+                    </p>
+                    <p class="text-muted">
+                    Orang ramai boleh meneroka dan menyertai pelbagai program, menemui produk unik, serta membina hubungan dalam komuniti untuk kekal maklum dan aktif dalam penglibatan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- events section -->
+    <section class="events-section container-xxl py-5">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title px-3">Program</h6>
+                <h2 class="mb-5">Akan Datang</h2>
+            </div>
+            <div class="row g-4">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="card event-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Community Gathering">
+                        <div class="card-body">
+                            <h5 class="card-title">Community Gathering</h5>
+                            <p class="card-text">Join for a community event full of activities.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-lg-4 col-md-6">
+                    <div class="card event-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Workshop">
+                        <div class="card-body">
+                            <h5 class="card-title">Workshop: Skills for Success</h5>
+                            <p class="card-text">Enhance your skills with our interactive workshop.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
+                        </div>
+                    </div>
+                </div>
+          
+                <div class="col-lg-4 col-md-6">
+                    <div class="card event-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Charity Run">
+                        <div class="card-body">
+                            <h5 class="card-title">Charity Run</h5>
+                            <p class="card-text">Participate in our charity run.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- products section -->
+    <section class="products-section container-xxl py-5">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title px-3">Produk</h6>
+                <h2 class="mb-5">Produk Pilihan</h2>
+            </div>
+            <div class="row g-4">
+            
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Handmade Craft">
+                        <div class="card-body">
+                            <h5 class="card-title">Sabun</h5>
+                            <p class="card-text">RM 8.00</p>
+                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Organic Honey">
+                        <div class="card-body">
+                            <h5 class="card-title">Madu Asli 150g</h5>
+                            <p class="card-text">RM 120.00</p>
+                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Local Coffee">
+                        <div class="card-body">
+                            <h5 class="card-title">Kopi Kluang</h5>
+                            <p class="card-text">RM 15.00</p>
+                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let activeCategory = 'events';
+        let slidingInterval;
+
+        function switchCategory(category) {
+        const eventsSlider = document.getElementById('events-slider');
+        const productsSlider = document.getElementById('products-slider');
+
+        // Show or hide sliders based on the selected category
+        if (category === 'events') {
+            eventsSlider.style.display = 'flex';
+            productsSlider.style.display = 'none';
+            activeCategory = 'events';
+        } else if (category === 'products') {
+            productsSlider.style.display = 'flex';
+            eventsSlider.style.display = 'none';
+            activeCategory = 'products';
+        }
+
+        // Update the active class for the category navigation
+        const navLinks = document.querySelectorAll('.category-nav .nav-link');
+        navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.textContent === (category === 'events' ? 'Program' : 'Produk')) {
+                link.classList.add('active');
+            }
+        });
+
+        // Restart the sliding logic for the active slider
+        startSlider();
+    }
+
+        function updateActiveItem() {
+            const slider = activeCategory === 'events'
+                ? document.getElementById('event-slider')
+                : document.getElementById('product-slider');
+
+            const items = slider.children;
+            const middleIndex = Math.floor(items.length / 2); // Get the middle item's index
+
+            // Remove active class from all items
+            Array.from(items).forEach((item, index) => {
+                item.classList.remove('active');
+                if (index === middleIndex) {
+                    item.classList.add('active'); // Highlight the middle item
+                }
+            });
+        }
+
+        function startSlider() {
+            clearInterval(slidingInterval);
+
+            const slider = activeCategory === 'events' 
+                ? document.getElementById('event-slider') 
+                : document.getElementById('product-slider');
+            const items = slider.children;
+
+            let isSliding = false;
+
+            function slideNext() {
+                if (isSliding) return;
+                isSliding = true;
+
+                slider.style.transition = 'transform 0.5s ease-in-out';
+                slider.style.transform = 'translateX(-20%)';
+
+                slider.addEventListener(
+                    'transitionend',
+                    () => {
+                        slider.style.transition = 'none';
+                        slider.style.transform = 'translateX(0)';
+                        slider.appendChild(items[0]); // Move the first item to the end
+                        isSliding = false;
+                        updateActiveItem(); // Update active item after sliding
+                    },
+                    { once: true }
+                );
+            }
+
+            // Update the active item on load
+            updateActiveItem();
+
+            // Start sliding at intervals
+            slidingInterval = setInterval(slideNext, 2000);
+        }
+
+        // Run the slider logic on page load
+        document.addEventListener('DOMContentLoaded', startSlider);
+    </script>
+
+@endsection
+</body>
+</html>

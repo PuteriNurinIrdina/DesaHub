@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senarai Pendaftaran Keseluruhan</title>
+    <title>Senarai Pendaftar</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -42,7 +42,7 @@
             text-align: center;
         }
 
-        .registrant-list-wrapper {
+        .attendee-list-wrapper {
             width: 100%;
             overflow-x: auto;
             background-color: white;
@@ -51,20 +51,20 @@
             margin-top: 20px;
         }
 
-        .registrant-list {
+        .attendee-list {
             width: 100%;
             border-collapse: collapse;
             font-size: 18px;
         }
 
-        .registrant-list th,
-        .registrant-list td {
+        .attendee-list th,
+        .attendee-list td {
             text-align: left;
             padding: 18px;
             border: 1px solid #e0e0e0;
         }
 
-        .registrant-list th {
+        .attendee-list th {
             background-color: #007BFF;
             color: white;
             font-weight: 600;
@@ -72,16 +72,16 @@
             font-size: 18px;
         }
 
-        .registrant-list td {
+        .attendee-list td {
             font-size: 18px;
             color: #555;
         }
 
-        .registrant-list tr:nth-child(even) {
+        .attendee-list tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-        .registrant-list tr:hover {
+        .attendee-list tr:hover {
             background-color: #e6f2ff;
         }
 
@@ -103,20 +103,19 @@
             color: #333;
         }
 
-        @media (max-width: 1200px) {
-            .header h1 {
-                font-size: 32px;
-            }
+        .search-box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-            .table-title {
-                font-size: 26px;
-            }
-
-            .registrant-list th,
-            .registrant-list td {
-                font-size: 16px;
-                padding: 16px;
-            }
+        .search-box input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: block; /* Ensure the input is rendered as a block element */
+            margin: 0 auto; /* Center the input */
         }
 
         @media (max-width: 768px) {
@@ -128,50 +127,59 @@
                 font-size: 24px;
             }
 
-            .registrant-list th,
-            .registrant-list td {
+            .attendee-list th,
+            .attendee-list td {
                 font-size: 14px;
                 padding: 14px;
             }
         }
+    </style>
+    <script>
+        function filterTable() {
+            const input = document.getElementById("nameFilter");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("registrantTable");
+            const tr = table.getElementsByTagName("tr");
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .table-title {
-                font-size: 20px;
-            }
-
-            .registrant-list th,
-            .registrant-list td {
-                font-size: 12px;
-                padding: 12px;
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[1]; 
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+                }
             }
         }
-    </style>
+    </script>
 </head>
 <body>
     <div class="header">
-        <h1>Senarai Pendaftaran</h1>
+        <h1>SENARAI PENDAFTAR</h1>
     </div>
 
     <div class="container">
         <div class="total-count">
-            Jumlah Pendaftaran: {{ $registrants->count() }}
+            Jumlah Pendaftar: {{ $registrants->count() }}
+        </div>
+
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="nameFilter" 
+                onkeyup="filterTable()" 
+                placeholder="Cari nama pendaftar..." 
+            />
         </div>
 
         @if ($registrants->isEmpty())
             <div class="no-data-message">
-                Tiada Pendaftaran Buat Masa Terkini.
+                Tiada Pendaftar.
             </div>
         @else
-            <div class="registrant-list-wrapper">
-                <table class="registrant-list">
+            <div class="attendee-list-wrapper">
+                <table class="attendee-list" id="registrantTable">
                     <thead>
                         <tr>
-                            <th>No</th> 
+                            <th>No</th>
                             <th>Nama</th>
                             <th>No Kad Pengenalan</th>
                             <th>No Telefon</th>
@@ -194,7 +202,7 @@
                                 <td>{{ $registrant->gender }}</td>
                                 <td>{{ $registrant->address }}</td>
                                 <td>{{ $registrant->poscode }}</td>
-                                <td>{{ $registrant->email ?? '-' }}</td> 
+                                <td>{{ $registrant->email ?? '-' }}</td>
                                 <td>{{ $registrant->state }}</td>
                                 <td>{{ $registrant->house_category }}</td>
                                 <td>{{ $registrant->age_class }}</td>

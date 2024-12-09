@@ -52,4 +52,7 @@ Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc'
 Route::get('/peserta', [RegistrationController::class, 'attendees']);
 Route::get('/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
 Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants']);
+Route::get('/pendaftar', [RegistrationController::class, 'showRegistrants'])->name('registrants');
+Route::get('/peserta', [RegistrationController::class, 'showAttendees'])->name('attendees');
+
 ?>

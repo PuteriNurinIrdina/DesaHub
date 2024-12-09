@@ -1,9 +1,3 @@
-<?php
-
-use App\Models\RegisterEvent;
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,22 +103,6 @@ use App\Models\RegisterEvent;
             color: #333;
         }
 
-        @media (max-width: 1200px) {
-            .header h1 {
-                font-size: 32px;
-            }
-
-            .table-title {
-                font-size: 26px;
-            }
-
-            .attendee-list th,
-            .attendee-list td {
-                font-size: 16px;
-                padding: 16px;
-            }
-        }
-
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 28px;
@@ -140,33 +118,42 @@ use App\Models\RegisterEvent;
                 padding: 14px;
             }
         }
+    </style>
+    <script>
+        function filterTable() {
+            const input = document.getElementById("nameFilter");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("nonAttendeeTable");
+            const tr = table.getElementsByTagName("tr");
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .table-title {
-                font-size: 20px;
-            }
-
-            .attendee-list th,
-            .attendee-list td {
-                font-size: 12px;
-                padding: 12px;
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+                }
             }
         }
-    </style>
+    </script>
 </head>
 <body>
     <div class="header">
-        <h1>Senarai Peserta Tidak Hadir</h1>
+        <h1>SENARAI KETIDAKHADIRAN PESERTA</h1>
     </div>
 
     <div class="container">
-
         <div class="total-count">
             Jumlah Pendaftar Tidak Hadir: {{ $nonAttendees->count() }}
+        </div>
+
+        <div style="margin-bottom: 20px; text-align: center;">
+            <input 
+                type="text" 
+                id="nameFilter" 
+                onkeyup="filterTable()" 
+                placeholder="Cari nama peserta..." 
+                style="width: 50%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px;"
+            >
         </div>
 
         @if ($nonAttendees->isEmpty())
@@ -175,10 +162,10 @@ use App\Models\RegisterEvent;
             </div>
         @else
             <div class="attendee-list-wrapper">
-                <table class="attendee-list">
+                <table class="attendee-list" id="nonAttendeeTable">
                     <thead>
                         <tr>
-                            <th>No</th> 
+                            <th>No</th>
                             <th>Nama</th>
                             <th>No Kad Pengenalan</th>
                             <th>No Telefon</th>
@@ -194,14 +181,14 @@ use App\Models\RegisterEvent;
                     <tbody>
                         @foreach ($nonAttendees as $index => $attendee)
                             <tr>
-                                <td>{{ $index + 1 }}</td> 
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $attendee->name }}</td>
                                 <td>{{ $attendee->ic_num }}</td>
                                 <td>{{ $attendee->phone_num }}</td>
                                 <td>{{ $attendee->gender }}</td>
                                 <td>{{ $attendee->address }}</td>
                                 <td>{{ $attendee->poscode }}</td>
-                                <td>{{ $attendee->email ?? '-' }}</td> 
+                                <td>{{ $attendee->email ?? '-' }}</td>
                                 <td>{{ $attendee->state }}</td>
                                 <td>{{ $attendee->house_category }}</td>
                                 <td>{{ $attendee->age_class }}</td>

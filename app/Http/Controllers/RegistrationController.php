@@ -61,8 +61,15 @@ class RegistrationController extends Controller
         return view('EventRegistration.attendees', compact('attendees'));
     }
 
-    public function absent() {
-        $nonAttendees = RegisterEvent::where('attendance', 0)->get();
+    public function absent(Request $request) {
+        $query = RegisterEvent::where('attendance', 0);
+
+        if ($request->has('name') && !empty($request->name)) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $nonAttendees = $query->get();
+
         return view('EventRegistration.absent', compact('nonAttendees'));
     }
 
@@ -71,8 +78,20 @@ class RegistrationController extends Controller
     
         return view('EventRegistration.registrant', compact('registrants'));
     }
+
+    public function showRegistrants(Request $request) {
+        $searchQuery = $request->input('searchQuery', '');
+        $registrants = RegisterEvent::where('name', 'like', '%' . $searchQuery . '%')->get();
+        return view('EventRegistration.registrant', compact('registrants', 'searchQuery'));
+    }
     
+    public function showAttendees(Request $request) {
+        $searchQuery = $request->input('searchQuery', ''); // Get search query from request
+        $attendees = RegisterEvent::where('name', 'LIKE', "%{$searchQuery}%")->get(); // Search attendees by name
+
+        return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); // Pass results to the view
+    }
     
-    
+     
+
 }
-?>

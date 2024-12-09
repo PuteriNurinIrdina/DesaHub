@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senarai Peserta</title>
+    <title>Senarai Peserta Hadir</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -34,12 +34,33 @@
             max-width: 95%;
         }
 
+        .total-count {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
         .table-title {
             font-size: 28px;
             font-weight: 500;
             color: #007BFF;
             margin-bottom: 30px;
             text-align: center;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
 
         .attendee-list-wrapper {
@@ -95,14 +116,6 @@
             border-radius: 10px;
         }
 
-        .total-count {
-            font-size: 22px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #333;
-        }
-
         @media (max-width: 1200px) {
             .header h1 {
                 font-size: 32px;
@@ -151,6 +164,22 @@
             }
         }
     </style>
+    <script>
+        function filterTable() {
+            const input = document.getElementById("nameFilter");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("attendeTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName("td")[1]; 
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="header">
@@ -163,13 +192,23 @@
             Jumlah Peserta: {{ $attendees->count() }}
         </div>
 
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="nameFilter" 
+                onkeyup="filterTable()" 
+                placeholder="Cari nama peserta..." 
+            />
+        </div>
+
+
         @if ($attendees->isEmpty())
             <div class="no-data-message">
                 Tiada Peserta Buat Masa Terkini.
             </div>
         @else
             <div class="attendee-list-wrapper">
-                <table class="attendee-list">
+                <table class="attendee-list" id ="attendeTable">
                     <thead>
                         <tr>
                             <th>No</th> 

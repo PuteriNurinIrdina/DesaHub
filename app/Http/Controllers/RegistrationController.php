@@ -86,10 +86,9 @@ class RegistrationController extends Controller
     }
     
     public function showAttendees(Request $request) {
-        $searchQuery = $request->input('searchQuery', ''); // Get search query from request
-        $attendees = RegisterEvent::where('name', 'LIKE', "%{$searchQuery}%")->get(); // Search attendees by name
-
-        return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); // Pass results to the view
+        $searchQuery = $request->input('searchQuery', ''); 
+        $attendees = RegisterEvent::where('name', 'LIKE', "%{$searchQuery}%")->get(); 
+        return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); 
     }
     
      

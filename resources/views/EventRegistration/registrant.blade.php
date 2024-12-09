@@ -114,8 +114,8 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 8px;
-            display: block; /* Ensure the input is rendered as a block element */
-            margin: 0 auto; /* Center the input */
+            display: block;
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {

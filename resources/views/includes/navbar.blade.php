@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DesaHub Dashboard</title>
+  <title>DesaHub Nav</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <style>
@@ -56,15 +56,18 @@
 
     /* sidebar */
     .sidebar {
-      height: 100vh;
-      width: 15%;
-      background-color: #f9f9f9;
-      position: fixed;
-      transition: width 0.3s;
+        height: 100vh;
+        width: 15%;
+        background-color: #f9f9f9;
+        position: fixed;
+        transition: width 0.3s;
+        overflow-y: auto;
+        scrollbar-width: thin;
     }
 
     .sidebar .title {
       margin: 5px;
+      margin-bottom: 20px;
     }
 
     .sidebar ul {
@@ -73,7 +76,7 @@
     }
 
     .sidebar ul li {
-      padding: 10px 20px;
+      padding: 10px 15px;
       border-radius: 5px;
       transition: background-color 0.3s;
     }
@@ -89,8 +92,8 @@
     .sidebar .section-title {
       font-size: 15px;
       color: #525252;
-      margin: 20px 0 20px;
-      padding-left: 20px;
+      margin: 10px 0 20px;
+      padding-left: 10px;
       border-width: 1px;
       border-top: 1px solid #ddd;
     }
@@ -135,11 +138,6 @@
 
     .normal-section {
         margin: 10px;
-    }
-
-    .general-section {
-      margin-top: auto;
-      padding: 10px;
     }
 
     /* footer */
@@ -294,61 +292,114 @@
     <div>
         <!-- Sidebar -->
         <nav class="sidebar">
-            <div class="text-center mt-3" style="margin-bottom: 0; margin-left: 5%;">
-                <img src="https://raw.github.com/serinrayuni/coding-project/main/images/desahub-title.png" 
-                    alt="DesaHub Logo" class="title">
-            </div>
-            <ul>
-                <div class="normal-section">
+        <div class="text-center mt-3" style="margin-bottom: 0; margin-left: 5%;">
+            <img src="https://raw.github.com/serinrayuni/coding-project/main/images/desahub-title.png" 
+                alt="DesaHub Logo" class="title">
+        </div>
+
+        <ul>
+
+            <div class="normal-section">
                     <li class="dashboard"><a href="{{ route('dashboard') }}"><i class="bi-house"></i> Dashboard</a></li>
-                </div>
-                <div class="normal-section">
-                    <li class="section-title">Program
-                        <ul>
-                            <li><a href="#"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
-                            <li><a href="#"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
-                            <li><a href="{{ route('attendance.page') }}"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
-                        </ul>
-                    </li>
-                </div>
-                <div class="normal-section">
-                    <li class="section-title">Produk
-                        <ul>
-                            <li><a href="#"><i class="bi-bag"></i> Lihat Produk</a></li>
-                            <li><a href="#"><i class="bi-bag-plus"></i> Tambah Produk</a></li>
-                        </ul>
-                    </li>
-                </div>
-                <div class="general-section">
-                    <li class="section-title">Lain-lain
-                        <ul>
-                            <li><a href="{{ route('editAcc') }}"><i class="bi-gear"></i> Tetapan</a></li>
-                            <li>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <i class="bi-box-arrow-left"></i>
-                                    <button type="submit" class="btn-link"> Log Out</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </div>
-            </ul>
+            </div>
+
+            <!-- Normal User Sidebar -->
+            @if(Auth::user()->role === 'peserta')
+            <div class="normal-section">
+                <li class="section-title">Cari
+                    <ul>
+                        <li><a href="#"><i class="bi-calendar2-event"></i> Program</a></li>
+                        <li><a href="#"><i class="bi-bag"></i> Produk</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Lain-lain
+                    <ul>
+                        <li><a href="{{ route('editAcc') }}"><i class="bi-gear"></i> Tetapan</a></li>
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <i class="bi-box-arrow-left"></i>
+                                <button type="submit" class="btn-link"> Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+                
+
+            <!-- Seller Sidebar -->
+            @elseif(Auth::user()->role === 'penjual')
+            <div class="normal-section">
+                <li class="section-title">Produk
+                    <ul>
+                        <li><a href="#"><i class="bi-bag"></i> Lihat Produk</a></li>
+                        <li><a href="#"><i class="bi-bag-plus"></i> Tambah Produk</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Lain-lain
+                    <ul>
+                        <li><a href="{{ route('editAcc') }}"><i class="bi-gear"></i> Tetapan</a></li>
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <i class="bi-box-arrow-left"></i>
+                                <button type="submit" class="btn-link"> Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+            <!-- Admin Sidebar -->
+            @elseif(Auth::user()->role === 'admin')
+            <div class="normal-section">
+                <li class="section-title">Program
+                    <ul>
+                        <li><a href="#"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
+                        <li><a href="#"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
+                        <li><a href="#"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Produk
+                    <ul>
+                        <li><a href="#"><i class="bi-bag"></i> Lihat Produk</a></li>
+                        <li><a href="#"><i class="bi-bag-plus"></i> Tambah Produk</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Lain-lain
+                    <ul>
+                        <li><a href="{{ route('editAcc') }}"><i class="bi-gear"></i> Tetapan</a></li>
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <i class="bi-box-arrow-left"></i>
+                                <button type="submit" class="btn-link"> Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            @endif
+        </ul>
         </nav>
 
         <!-- Header -->
         <header class="header">
-            <img src="https://raw.github.com/serinrayuni/coding-project/main/images/desahub-removetitle.png" 
-                    alt="DesaHub Logo" class="logo">
-            <div class="user-profile">
-                <span>{{ Auth::user()->fullname }}</span>
-                <img src="https://via.placeholder.com/300x250" alt="User Avatar">
-            </div>
+        <img src="https://raw.github.com/serinrayuni/coding-project/main/images/desahub-removetitle.png" 
+            alt="DesaHub Logo" class="logo">
+        <div class="user-profile">
+            <span>{{ Auth::user()->fullname }}</span>
+            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : 'https://via.placeholder.com/300x250' }}" alt="User Avatar">
+        </div>
         </header>
 
         <!-- Main Content Area -->
         <main class="main-contentadmin">
-            @yield('content')
+        @yield('content')
         </main>
     </div>
 @endauth

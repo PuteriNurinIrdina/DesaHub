@@ -125,7 +125,7 @@
                     @csrf
 
                     <div class="form-group mt-4">
-                        <label for="fullname" class="form-label">Nama Penuh</label>
+                        <label for="fullname" class="form-label">Nama</label>
                         <input type="text" id="fullname" name="fullname" class="form-control" required>
                         @if($errors->has('fullname'))
                             <span class="text-danger">{{ $errors->first('fullname') }}</span>
@@ -149,6 +149,21 @@
                             <span class="text-danger">{{ $errors->first('password') }}</span>
                         @endif
                     </div>
+
+                    <div class="form-group">
+                        <label for="role" class="form-label">Peranan</label>
+                        <div class="field-description">Pilih peranan anda semasa mendaftar.</div>
+                        <select id="role" name="role" class="form-control" required>
+                            <option value="" disabled selected>Pilih peranan...</option>
+                            <option value="peserta">Peserta</option>
+                            <option value="penjual">Penjual</option>
+                            <option value="admin">PKD Admin</option>
+                        </select>
+                        @if($errors->has('role'))
+                            <span class="text-danger">{{ $errors->first('role') }}</span>
+                        @endif
+                    </div>
+
                     <button type="submit" class="btn btn-primary w-100">Daftar</button>
                     <div class="text-center mt-3" style="font-size: 15px;">
                         <span>Sudah Daftar Akaun? </span><a href="login" class="existing-acc" style="font-size: 15px">Log Masuk</a>

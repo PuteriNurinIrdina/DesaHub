@@ -11,6 +11,15 @@
             font-family: Arial, sans-serif;
         }
 
+        header {
+            background-color: #095c80;
+            height: 70px;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         .nav-tabs-container {
             background-color: #fff;
             text-align: left;
@@ -56,10 +65,6 @@
             object-fit: cover;
             border: 1px solid #dee2e6;
         }
-
-        .settings-header {
-            text-align: left;
-        }
     </style>
 </head>
 
@@ -69,6 +74,17 @@
 @section('content')
 <header><h2 class="settings-header">Tetapan Akaun</h2></header>
     <div class="container mt-3">
+    @if(session()->has("success"))
+                    <div class="alert alert-success">
+                        {{ session()->get("success") }}
+                    </div>
+                @endif
+
+                @if(session()->has("error"))
+                    <div class="alert alert-danger">
+                        {{ session()->get("error") }}
+                    </div>
+                @endif
         <div class="nav-tabs-container">
             <ul class="nav nav-tabs mt-4" id="settingsTabs">
                 <li class="nav-item">
@@ -93,7 +109,7 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="mb-3">
-                                <label for="fullname" class="form-label">Nama Penuh</label>
+                                <label for="fullname" class="form-label">Nama</label>
                                 <input type="text" id="fullname" name="fullname" class="form-control" value="{{ $account->fullname }}">
                             </div>
                             <div class="mb-3">
@@ -121,7 +137,7 @@
             <!-- Tukar Kata Laluan Section -->
             <div class="tab-pane fade" id="tukarKataLaluan">
                 <h3>Tukar Kata Laluan</h3>
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('changePassword') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label">Kata Laluan Sekarang</label>

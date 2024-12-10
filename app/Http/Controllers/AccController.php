@@ -62,15 +62,18 @@ class AccController extends Controller
             "fullname" => "required",
             "email" => "required|email|unique:account,email",
             "password" => "required|string|min:8",
+            "role" => "required",
         ], [
             'email.unique' => 'E-mel telah diambil.',
             'password.min' => 'Kata laluan mesti sekurang-kurangnya 8 karakter.',
+            'role.required' => 'Sila pilih peranan.',
         ]);
 
         $account = new Account();
         $account->fullname = $request->fullname;
         $account->email = $request->email;
         $account->password = Hash::make($request->password);
+        $account->role = $request->role;
         $account->save();
 
         if ($account->save()) {
@@ -84,7 +87,7 @@ class AccController extends Controller
     public function dashboard()
     {
         // Fetch admin info
-        $admin = auth()->user();
+        $user = auth()->user();
 
         /* Fetch counts
         $totalEvents = Event::count();
@@ -93,7 +96,7 @@ class AccController extends Controller
         // Fetch activity log
         $activityLogs = ActivityLog::latest()->limit(10)->get();
 
-        return view('account.dashboard', compact('admin', 'activityLogs'));
+        return view('account.dashboard', compact('user', 'activityLogs'));
     }
 
     public function default()
@@ -132,7 +135,11 @@ class AccController extends Controller
 
         $account->save();
 
-        return redirect()->route('dashboard')->with('success', 'Maklumat akaun telah berjaya dikemas kini!');
+        if ($account->save()) {
+            return redirect(route('editAcc'))->with('success', 'Maklumat akaun telah berjaya dikemas kini!');
+        }
+
+        return redirect(route('editAcc'))->with('error', 'Maklumat akaun tidak berjaya dikemas kini.');
     }
 
     // Logout the account
@@ -188,4 +195,31 @@ class AccController extends Controller
 
         return redirect()->route('login')->with('success', 'Kata laluan telah berjaya ditetapkan semula.');
     }
+
+
+    public function changePassword(Request $request)
+        {
+            $request->validate([
+                'current_password' => 'required',
+                'new_password' => 'required|min:8|confirmed',
+            ]);
+
+            // Retrieve the authenticated admin user
+            $admin = Auth::guard('web')->user();
+
+            // Verify if the current password matches
+            if (!Hash::check($request->current_password, $admin->password)) {
+                return redirect()->back()->with('error', 'Kata laluan semasa tidak sah.');
+            }
+
+            // Update the password
+            DB::table('account')
+                ->where('id', $admin->id)
+                ->update([
+                    'password' => bcrypt($request->new_password),
+                ]);
+
+            return redirect()->route('dashboard')->with('success', 'Kata laluan telah berjaya diubah.');
+        }
+
 }

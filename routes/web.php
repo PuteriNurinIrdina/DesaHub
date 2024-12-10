@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\WithdrawalController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\AccController;
 use App\Http\Controllers\GenController;
 
 use App\Http\Middleware\CheckAccountStatus;
+use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
@@ -42,4 +44,14 @@ Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['aut
     
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');
+
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::put('/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::get('/product', [ProductController::class, 'view'])->name('product.view');
+
+
 ?>

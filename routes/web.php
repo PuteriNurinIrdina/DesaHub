@@ -42,5 +42,4 @@ Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['aut
     
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');
-Route::post('/changePassword', [AccController::class, 'changePassword'])->name('changePassword');
 ?>

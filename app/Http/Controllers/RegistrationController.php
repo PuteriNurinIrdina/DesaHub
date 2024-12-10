@@ -29,7 +29,7 @@ class RegistrationController extends Controller
             'ic_num.digits' => "No Kad Pengenalan Mestilah Mengandungi 12 Digit Sahaja (tanpa '-')",
             'name.required' => 'Sila Isi Nama Anda.',
             'phone_num.required' => 'Sila Isi No Telefon Bimbit Anda.',
-            'phone_num.digits_between' => 'No Telefon Bimbit Mestilah Di Antara 10 Hingga 11 Digit.',
+            'phone_num.digits_between' => "No Telefon Bimbit Mestilah Di Antara 10 Hingga 11 Digit Sahaja (tanpa '-')",
             'gender.required' => 'Sila Pilih Jantina Anda.',
             'address.required' => 'Sila Isi Alamat Anda.',
             'poscode.required' => 'Sila Isi Poskod Anda.',
@@ -39,16 +39,58 @@ class RegistrationController extends Controller
             'house_category.required' => 'Sila Pilih Isi Kategori Rumah Anda.',
             'age_class.required' => 'Sila Pilih Peringkat Umur Anda.',
         ]);
-
-        $data['name'] = strtoupper($data['name']); 
-
-        RegisterEvent::create($data); 
-
-        return redirect(route('EventRegistration.success')); 
+    
+        $data['name'] = strtoupper($data['name']);
+        RegisterEvent::create($data);
+    
+        if ($request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Pendaftaran Berjaya!',
+            ]);
+        } 
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Pendaftaran berjaya!'
+        ]);
+    }
+    
+    public function attendees() {
+        $attendees = RegisterEvent::where('attendance', 1)->get();
+        return view('EventRegistration.attendees', compact('attendees'));
     }
 
-    public function success() {
-        return view('EventRegistration.success');
+    public function absent(Request $request) {
+        $query = RegisterEvent::where('attendance', 0);
+
+        if ($request->has('name') && !empty($request->name)) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $nonAttendees = $query->get();
+
+        return view('EventRegistration.absent', compact('nonAttendees'));
     }
+
+    public function showAllRegistrants() {
+        $registrants = RegisterEvent::all(); 
+    
+        return view('EventRegistration.registrant', compact('registrants'));
+    }
+
+    public function showRegistrants(Request $request) {
+        $searchQuery = $request->input('searchQuery', '');
+        $registrants = RegisterEvent::where('name', 'like', '%' . $searchQuery . '%')->get();
+        return view('EventRegistration.registrant', compact('registrants', 'searchQuery'));
+    }
+    
+    public function showAttendees(Request $request) {
+        $searchQuery = $request->input('searchQuery', ''); 
+        $attendees = RegisterEvent::where('name', 'LIKE', "%{$searchQuery}%")->get(); 
+        return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); 
+    }
+    
+     
+
 }
-?>

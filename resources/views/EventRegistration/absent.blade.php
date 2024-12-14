@@ -137,6 +137,8 @@
     </script>
 </head>
 <body>
+@extends('includes.navbar')
+@section('content')
     <div class="header">
         <h1>SENARAI KETIDAKHADIRAN PESERTA</h1>
     </div>
@@ -199,5 +201,6 @@
             </div>
         @endif
     </div>
+    @endsection
 </body>
 </html>

@@ -137,7 +137,7 @@
             <!-- Tukar Kata Laluan Section -->
             <div class="tab-pane fade" id="tukarKataLaluan">
                 <h3>Tukar Kata Laluan</h3>
-                <form method="POST" action="{{ route('changePassword') }}">
+                <form method="POST" action="">
                     @csrf
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label">Kata Laluan Sekarang</label>
@@ -153,18 +153,6 @@
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Padam Akaun Section -->
-            <div class="tab-pane fade" id="padamAkaun">
-                <h3>Hapus Akaun</h3>
-                <p>Adakah anda pasti ingin menghapuskan akaun ini? Proses ini adalah kekal.</p>
-                <form method="POST" action="{{ route('deleteAcc') }}">
-                    @csrf
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-danger">Hapus Akaun</button>
                     </div>
                 </form>
             </div>

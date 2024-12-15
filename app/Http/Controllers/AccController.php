@@ -29,20 +29,13 @@ class AccController extends Controller
 
         $account = Account::where('email', $credentials['email'])->first();
 
-        if (!$account) {
-            return redirect(route('login'))->with('error', 'E-mel Tidak Diketemui');
-        } elseif (!Hash::check($credentials['password'], $account->password)) {
-            return redirect(route('login'))->with('error', 'Salah Kata Laluan');
-        } elseif (!$account->status) {
-            return redirect(route('login'))->with('error', 'Akaun anda telah dinyahaktifkan.');
-        }
-
-        if (Auth::attempt($credentials)) {
-            // Check if the logged-in user is an admin
-            if (Auth::user()->status) {
-                return redirect()->intended(route('dashboard')); // Redirect to the admin page
-            } else {
-                return redirect()->intended(route('login')); // Redirect to the regular user page
+        if ($account && Hash::check($credentials['password'], $account->password)) {
+            if (Auth::attempt($credentials)) {
+                if (Auth::user()->status) {
+                    return redirect()->intended(route('dashboard'));
+                } else {
+                    return redirect()->intended(route('login'));
+                }
             }
         }
 
@@ -84,17 +77,25 @@ class AccController extends Controller
     }
 
     // Dashboard page
-    public function dashboard()
+    public function dashboard(Request $request)
     {
-        // Fetch admin info
+        // Fetch info
         $user = auth()->user();
 
-        /* Fetch counts
-        $totalEvents = Event::count();
-        $totalProducts = Product::count(); */
+        // Initialize query for activity logs
+        $query = ActivityLog::where('account_id', $user->id);
 
-        // Fetch activity log
-        $activityLogs = ActivityLog::latest()->limit(10)->get();
+        // If a search query is provided, filter by activity details or activity type
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = $request->input('search');
+            $query->where(function($query) use ($searchTerm) {
+                $query->where('activityDetails', 'LIKE', '%' . $searchTerm . '%')
+                    ->orWhere('activityType', 'LIKE', '%' . $searchTerm . '%');
+            });
+        }
+
+        // Fetch activity logs for the logged-in user
+        $activityLogs = $query->latest()->limit(10)->get();
 
         return view('account.dashboard', compact('user', 'activityLogs'));
     }
@@ -136,6 +137,12 @@ class AccController extends Controller
         $account->save();
 
         if ($account->save()) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Kemaskini',
+                'activityDetails' => 'kemaskini maklumat akaun',
+            ]);
+
             return redirect(route('editAcc'))->with('success', 'Maklumat akaun telah berjaya dikemas kini!');
         }
 
@@ -145,9 +152,8 @@ class AccController extends Controller
     // Logout the account
     public function logout(Request $request)
     {
-        Auth::logout(); // Log the user out of their session
+        Auth::logout();
 
-        // Optionally invalidate the session and regenerate the token for added security
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -204,7 +210,6 @@ class AccController extends Controller
                 'new_password' => 'required|min:8|confirmed',
             ]);
 
-            // Retrieve the authenticated admin user
             $admin = Auth::guard('web')->user();
 
             // Verify if the current password matches
@@ -221,5 +226,4 @@ class AccController extends Controller
 
             return redirect()->route('dashboard')->with('success', 'Kata laluan telah berjaya diubah.');
         }
-
 }

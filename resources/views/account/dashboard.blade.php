@@ -38,6 +38,31 @@
         .chart-box {
             margin-bottom: 20px;
         }
+
+        .log-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .log-container th, .log-container td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .log-container th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .log-container tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .log-container {
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
@@ -53,7 +78,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Total Events</h4>
+                        <h4>Jumlah Program</h4>
                         <p>10</p>
                     </div>
                 </div>
@@ -61,7 +86,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Total Products</h4>
+                        <h4>Jumlah Produk</h4>
                         <p>10</p>
                     </div>
                 </div>
@@ -70,38 +95,72 @@
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="chart-container">
-                    <h4>Monthly Events</h4>
+                    <h4>Program Bulanan</h4>
                     <canvas id="eventsChart"></canvas>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="chart-container">
-                    <h4>Monthly Products</h4>
+                    <h4>Produk Bulanan</h4>
                     <canvas id="productsChart"></canvas>
                 </div>
             </div>
         </div>
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4>Activity Log</h4>
-                <ul class="list-group">
-                    @forelse ($activityLogs as $log)
-                        <li class="list-group-item">
-                            <strong>{{ $log->activityType }}:</strong> {{ $log->activityDetails }}
-                            <small class="text-muted">{{ $log->timestamp->diffForHumans() }}</small>
-                        </li>
-                    @empty
-                        <li class="list-group-item">No recent activities</li>
-                    @endforelse
-                </ul>
+
+        <div class="log-container">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Activity Log</h4>
+                    <form action="{{ route('dashboard') }}" method="GET" class="d-flex">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            class="form-control me-2" 
+                            placeholder="Cari"
+                            value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <table class="table log-container">
+                        <thead>
+                            <tr>
+                                <th>Tarikh</th>
+                                <th>Masa</th>
+                                <th>Butiran</th>
+                                <th>Jenis Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($activityLogs as $log)
+                                <tr>
+                                    <td>{{ $log->updated_at->format('Y-m-d') }}</td>
+                                    <td>{{ $log->updated_at->format('H:i') }}</td>
+                                    <td>
+                                        <div>
+                                            <strong>{{ $log->account->fullname }}</strong>
+                                            {{ $log->activityDetails }}
+                                        </div>
+                                    </td>
+                                    <td>{{ $log->activityType }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">No recent activities</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
     @elseif($user->role === 'peserta')
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Total Events Registered</h4>
+                        <h4>Jumlah Program Berdaftar</h4>
                         <p>8</p>
                     </div>
                 </div>
@@ -109,20 +168,16 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Total Events to Attend</h4>
+                        <h4>Baki Program Perlu Hadir</h4>
                         <p>5</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="chart-container mt-4">
-            <h4>Event Calendar</h4>
-            <!-- Replace this with a calendar or chart -->
-            <canvas id="eventCalendarChart"></canvas>
-        </div>
+
         <div class="card mt-4">
             <div class="card-body">
-                <h4>Registered Events</h4>
+                <h4>Program Berdaftar</h4>
                 <ul class="list-group">
                     
                 </ul>
@@ -130,32 +185,84 @@
         </div>
     @elseif($user->role === 'penjual')
         <div class="row">
-            <div class="col">
+        <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4>Total Products</h4>
+                        <h4>Jumlah Produk</h4>
                         <p>10</p>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Jumlah Kategori Produk</h4>
+                        <p>2</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="chart-container mt-4">
-            <h4>Monthly Product Data</h4>
-            <canvas id="productsChart"></canvas>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Produk Bulanan</h4>
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Mengikut Kategori</h4>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4>Activity Log</h4>
-                <ul class="list-group">
-                    @forelse ($activityLogs as $log)
-                        <li class="list-group-item">
-                            <strong>{{ $log->activityType }}:</strong> {{ $log->activityDetails }}
-                            <small class="text-muted">{{ $log->timestamp->diffForHumans() }}</small>
-                        </li>
-                    @empty
-                        <li class="list-group-item">No recent activities</li>
-                    @endforelse
-                </ul>
+        
+        <div class="log-container">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Log Aktiviti</h4>
+                    <form action="{{ route('dashboard') }}" method="GET" class="d-flex">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            class="form-control me-2" 
+                            placeholder="Cari"
+                            value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <table class="table log-container">
+                        <thead>
+                            <tr>
+                                <th>Tarikh</th>
+                                <th>Masa</th>
+                                <th>Butiran</th>
+                                <th>Jenis Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($activityLogs as $log)
+                                <tr>
+                                    <td>{{ $log->updated_at->format('Y-m-d') }}</td>
+                                    <td>{{ $log->updated_at->format('H:i') }}</td>
+                                    <td>
+                                        <div>
+                                            <strong>{{ $log->account->fullname }}</strong>
+                                            {{ $log->activityDetails }}
+                                        </div>
+                                    </td>
+                                    <td>{{ $log->activityType }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">No recent activities</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     @endif
@@ -201,6 +308,32 @@
                         data: [5, 8, 3, 6, 7, 9, 4, 2, 8, 10, 7, 5],
                         backgroundColor: 'rgba(54, 162, 235, 0.6)',
                         borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Penjual: Products by Category Chart
+        if (document.getElementById('categoryChart')) {
+            const ctxCategory = document.getElementById('categoryChart').getContext('2d');
+            new Chart(ctxCategory, {
+                type: 'bar',
+                data: {
+                    labels: ['Electronics', 'Fashion', 'Home Appliances', 'Toys', 'Books'],  // Example categories
+                    datasets: [{
+                        label: 'Total Products by Category',
+                        data: [5, 3, 2, 0, 1],  // Example data: Replace with actual data from the backend
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
                     }]
                 },

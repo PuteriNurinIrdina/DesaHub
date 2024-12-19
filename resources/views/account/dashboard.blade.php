@@ -110,7 +110,7 @@
         <div class="log-container">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Activity Log</h4>
+                    <h4 class="mb-0">Log Activiti</h4>
                     <form action="{{ route('dashboard') }}" method="GET" class="d-flex">
                         <input 
                             type="text" 
@@ -270,56 +270,70 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Admin or Penjual: Products Chart
+        // Products Chart
         if (document.getElementById('productsChart')) {
             const ctxProducts = document.getElementById('productsChart').getContext('2d');
-            new Chart(ctxProducts, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [{
-                        label: 'Total Products',
-                        data: [2, 1, 4, 3, 5, 2, 3, 1, 3, 0, 2, 2],
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+
+            fetch('/api/products-data')
+                .then(response => response.json())
+                .then(result => {
+                    console.log('API Response:', result);
+                    new Chart(ctxProducts, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'December'],
+                            datasets: [{
+                                label: 'Jumlah Produk',
+                                data: result.data || [], // Use data from API
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
                         }
-                    }
-                }
-            });
+                    });
+                })
+                .catch(error => console.error('Error fetching products data:', error));
         }
 
-        // Admin or Peserta: Events Chart
+        // Events Chart
         if (document.getElementById('eventsChart')) {
-            const ctxEvents = document.getElementById('eventsChart').getContext('2d');
-            new Chart(ctxEvents, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [{
-                        label: 'Total Events',
-                        data: [5, 8, 3, 6, 7, 9, 4, 2, 8, 10, 7, 5],
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+            const ctxProducts = document.getElementById('eventsChart').getContext('2d');
+
+            fetch('/api/events-data')
+                .then(response => response.json())
+                .then(result => {
+                    console.log('API Response:', result);
+                    new Chart(ctxEvents, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'December'],
+                            datasets: [{
+                                label: 'Jumlah Program',
+                                data: result.data || [], // Use data from API
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
                         }
-                    }
-                }
-            });
+                    });
+                })
+                .catch(error => console.error('Error fetching events data:', error));
         }
 
         // Penjual: Products by Category Chart
@@ -352,6 +366,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 @endsection
 </body>
 </html>

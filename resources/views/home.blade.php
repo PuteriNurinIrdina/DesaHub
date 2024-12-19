@@ -178,28 +178,28 @@
                 <div class="slider" id="event-slider">
                     <!-- E1 -->
                     <div class="slider-item">
-                        <img src="https://miro.medium.com/v2/resize:fit:1024/0*VmGG5CvzspNvbZCa.png" alt="Event 1">
-                        <div class="text-slider-item active">Kelas</div>
+                        <img src="https://mypkd.rurallink.gov.my/img/1.png" alt="Event 1">
+                        <div class="text-slider-item active">Latihan Komuniti</div>
                     </div>
                     <!-- E2 -->
                     <div class="slider-item">
-                        <img src="https://i.pinimg.com/originals/f8/27/ee/f827eec376855d74d85bced3998046a6.jpg" alt="Event 2">
-                        <div class="text-slider-item">Kursus</div>
+                        <img src="https://mypkd.rurallink.gov.my/img/7.png" alt="Event 2">
+                        <div class="text-slider-item">ICT</div>
                     </div>
                     <!-- E3 -->
                     <div class="slider-item">
-                        <img src="http://webneel.com/daily/sites/default/files/images/daily/07-2014/5-best-ads-agasalho-hamburguer.jpg" alt="Event 3">
-                        <div class="text-slider-item">Gotong-Royong</div>
+                        <img src="https://mypkd.rurallink.gov.my/img/5.png" alt="Event 3">
+                        <div class="text-slider-item">Kesukarelawan</div>
                     </div>
                     <!-- E4 -->
                     <div class="slider-item">
-                        <img src="https://cdn5.vectorstock.com/i/1000x1000/65/09/cosmetic-products-realistic-advertisement-poster-vector-19836509.jpg" alt="Event 4">
-                        <div class="text-slider-item">Majlis</div>
+                        <img src="https://mypkd.rurallink.gov.my/img/6.png" alt="Event 4">
+                        <div class="text-slider-item">Keusahawanan</div>
                     </div>
                     <!-- E5 -->
                     <div class="slider-item">
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/best-skincare-products-1656081764.jpg?crop=1xw:1xh;center,top&resize=640:*" alt="Event 5">
-                        <div class="text-slider-item">Mesyuarat</div>
+                        <img src="https://mypkd.rurallink.gov.my/img/3.png" alt="Event 5">
+                        <div class="text-slider-item">Perkhidmatan Setempat</div>
                     </div>
                 </div>
             </div>
@@ -209,27 +209,27 @@
                 <div class="slider" id="product-slider">
                     <!-- P1 -->
                     <div class="slider-item">
-                        <img src="http://webneel.com/daily/sites/default/files/images/daily/07-2014/5-best-ads-agasalho-hamburguer.jpg" alt="Product 1">
+                        <img src="https://gratisongkir-storage.com/products/900x900/s8BaxCtmCphS.jpg" alt="Product 1">
                         <div class="text-slider-item">Makanan</div>
                     </div>
                     <!-- P2 -->
                     <div class="slider-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Product 2">
+                        <img src="https://media.suara.com/pictures/970x544/2022/10/05/78764-ilustrasi-perlengkapan-rumah.jpg" alt="Product 2">
                         <div class="text-slider-item">Kelengkapan Rumah</div>
                     </div>
                     <!-- P3 -->
                     <div class="slider-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Product 3">
+                        <img src="https://wallpaperaccess.com/full/2489629.jpg" alt="Product 3">
                         <div class="text-slider-item">Fesyen</div>
                     </div>
                     <!-- P4 -->
                     <div class="slider-item">
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/best-skincare-products-1656081764.jpg?crop=1xw:1xh;center,top&resize=640:*" alt="Product 4">
+                        <img src="https://cdn.libur.com.my/2019/06/untitled-design-3-26_27_612166.jpg" alt="Product 4">
                         <div class="text-slider-item">Penjagaan Diri</div>
                     </div>
                     <!-- P5 -->
                     <div class="slider-item">
-                        <img src="https://via.placeholder.com/300x200" alt="Product 5">
+                        <img src="http://static.republika.co.id/uploads/images/inpicture_slide/mainan-anak-_121108225014-526.jpg" alt="Product 5">
                         <div class="text-slider-item">Mainan</div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\AccController;
 use App\Http\Controllers\GenController;
+use App\Http\Controllers\ChartDataController;
 
 use App\Http\Middleware\CheckAccountStatus;
 use App\Http\Controllers\ProductController;
@@ -47,6 +48,8 @@ Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['aut
     
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');
+
+Route::get('/api/products-data', [ChartDataController::class, 'getProductsData']);
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');

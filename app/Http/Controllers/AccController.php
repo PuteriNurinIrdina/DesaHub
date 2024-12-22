@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\ActivityLog;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -79,13 +80,12 @@ class AccController extends Controller
     // Dashboard page
     public function dashboard(Request $request)
     {
-        // Fetch info
         $user = auth()->user();
 
-        // Initialize query for activity logs
+        $productCount = Product::where('account_id', Auth::id())->count();
+
         $query = ActivityLog::where('account_id', $user->id);
 
-        // If a search query is provided, filter by activity details or activity type
         if ($request->has('search') && !empty($request->search)) {
             $searchTerm = $request->input('search');
             $query->where(function($query) use ($searchTerm) {
@@ -94,10 +94,9 @@ class AccController extends Controller
             });
         }
 
-        // Fetch activity logs for the logged-in user
         $activityLogs = $query->latest()->limit(10)->get();
 
-        return view('account.dashboard', compact('user', 'activityLogs'));
+        return view('account.dashboard', compact('user', 'productCount', 'activityLogs'));
     }
 
     public function default()

@@ -36,4 +36,10 @@ class Account extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'account_id');
+    }
+
 }

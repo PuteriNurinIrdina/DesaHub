@@ -6,28 +6,19 @@
     <title>Posting Produk</title>
     <style>
         body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #f8f9fa;
         }
-        
+
         .container {
             width: 100%;
-            max-width: 600px;
-            background-color: #fff;
+            margin: auto;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background-color: white;
             border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #343a40;
-        }
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        } 
+
         label {
             font-weight: bold;
             color: #495057;
@@ -60,8 +51,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Tambah Iklan</h1>
+@extends('includes.navbar')
+@section('content')
+
+        <div class="container">
+            <h1>Tambah Iklan</h1>
+        <br>
         <div>
             @if($errors->any())
             <ul class="error-list">
@@ -97,9 +92,11 @@
                 <input type="file" name="image" accept="image/*" />
             </div>
             <div>
-                <input type="submit" value="Simpan" />
+                <button type="submit" class="btn btn-submit" style="width: 100%;">Simpan</button>
             </div>
         </form>
     </div>
+
+@endsection
 </body>
 </html>

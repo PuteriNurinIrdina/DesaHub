@@ -7,19 +7,6 @@
     <title>DesaHub Dashboard - Tetapan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        header {
-            background-color: #095c80;
-            height: 70px;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
         .nav-tabs-container {
             background-color: #fff;
             text-align: left;
@@ -27,8 +14,8 @@
 
         .container {
             width: 100%;
-            margin: auto auto;
-            padding: 25px;
+            margin: auto;
+            padding: 20px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -70,10 +57,11 @@
 
 <body>
 @extends('includes.navbar')
-
 @section('content')
-<header><h2 class="settings-header">Tetapan Akaun</h2></header>
-    <div class="container mt-3">
+
+    <div class="container">
+        <h1>Tetapan Akaun</h1>
+    <br>
     @if(session()->has("success"))
                     <div class="alert alert-success">
                         {{ session()->get("success") }}
@@ -92,9 +80,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#tukarKataLaluan" data-bs-toggle="tab">Tukar Kata Laluan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#padamAkaun" data-bs-toggle="tab">Hapus Akaun</a>
                 </li>
             </ul>
         </div>

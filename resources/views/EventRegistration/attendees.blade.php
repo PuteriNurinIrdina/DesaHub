@@ -6,33 +6,14 @@
     <title>Senarai Peserta Hadir</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .header {
-            background-color: #007BFF;
-            color: white;
-            padding: 40px;
-            text-align: center;
-            border-bottom: 6px solid #0056b3;
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 36px;
-            font-weight: 500;
-        }
-
         .container {
-            padding: 50px;
+            width: 100%;
             margin: auto;
-            max-width: 95%;
-        }
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        } 
 
         .total-count {
             font-size: 22px;
@@ -86,7 +67,7 @@
         }
 
         .attendee-list th {
-            background-color: #007BFF;
+            background-color: #095c80;
             color: white;
             font-weight: 600;
             text-transform: uppercase;
@@ -182,11 +163,12 @@
     </script>
 </head>
 <body>
-    <div class="header">
-        <h1>Senarai Peserta Hadir</h1>
-    </div>
+@extends('includes.navbar')
+@section('content')
 
     <div class="container">
+    <h1>Senarai Peserta Hadir</h1>
+    <br>
 
         <div class="total-count">
             Jumlah Peserta: {{ $attendees->count() }}
@@ -245,5 +227,6 @@
             </div>
         @endif
     </div>
+@endsection
 </body>
 </html>

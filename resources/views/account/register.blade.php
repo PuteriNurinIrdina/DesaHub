@@ -15,13 +15,21 @@
             height: 100vh;
         }
 
+        .container-fluid {
+            height: 100vh;
+        }
+
+        .right-column, .left-column {
+            height: 100%;
+        }
+
         .right-column {
-            background: url('https://cdn.wallpapersafari.com/30/85/QZH2ng.jpg') no-repeat center center/cover;
+            background: url('https://cdn.wallpapersafari.com/30/85/QZH2ng.jpg') no-repeat center center;
+            background-size: cover;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            height: 100%;
         }
 
         .right-overlay {
@@ -38,14 +46,13 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            height: 100%;
         }
 
         .header-logo {
             width: 100%;
             max-width: 150px;
-            margin-top: 20px;
-            margin-bottom: 15px;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
 
         .login-card {
@@ -55,7 +62,7 @@
 
         .form-control {
             height: 40px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .title-label {
@@ -63,7 +70,6 @@
             font-weight: bold;
             text-align: center;
             color: #095c80;
-            margin-bottom: 30px;
         }
 
         .btn-primary {
@@ -101,7 +107,7 @@
 
 <div class="container-fluid h-100">
     <div class="row h-100">
-        <div class="col-md-6 col-12 left-column">
+        <div class="col-md-6 left-column">
             <div class="header-logo">
                 <img src="https://raw.githubusercontent.com/serinrayuni/coding-project/main/images/desahub.PNG" 
                      alt="DesaHub Logo" class="img-fluid">
@@ -123,7 +129,6 @@
                 <h2 class="title-label">DAFTAR</h2>
                 <form method="POST" action="{{ route('register.post') }}">
                     @csrf
-
                     <div class="form-group mt-4">
                         <label for="fullname" class="form-label">Nama</label>
                         <input type="text" id="fullname" name="fullname" class="form-control" required>
@@ -176,7 +181,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-12 right-column">
+        <div class="col-md-6 right-column">
             <div class="right-overlay">
                 <h2><b>D</b>esa<b>H</b>ub</h2>
                 <p>Desa Bina Hubungan</p>

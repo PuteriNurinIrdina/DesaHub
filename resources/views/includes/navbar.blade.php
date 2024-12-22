@@ -9,7 +9,18 @@
   <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #fff;
+        background-color: #f9f9f9;
+    }
+
+    h1 {
+        background-color: #095c80; 
+        color: white; 
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        margin: 0;
+        font-size: 24px;
     }
 
     .title {
@@ -25,7 +36,7 @@
         width: 100%;
         height: 75px;
         z-index: 1000;
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         display: flex;
         position: fixed;
@@ -74,7 +85,7 @@
         top: 75px;
         left: 0;
         width: 100%;
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         z-index: 1000;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -83,7 +94,7 @@
     .sidebar {
         height: 100vh;
         width: 15%;
-        background-color: #f9f9f9;
+        background-color: #ffffff;
         position: fixed;
         transition: width 0.3s;
         overflow-y: auto;
@@ -127,7 +138,7 @@
     .header-bar {
         margin-left: 15%;
         height: 80px;
-        background: #f9f9f9;
+        background: #ffffff;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -144,7 +155,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 2px solid #ffffff;
+        border: 2px solid #f9f9f9;
         object-fit: cover;
         margin-left: 20px;
         margin-right: 30px;
@@ -180,6 +191,7 @@
         display: flex; 
         flex-wrap: wrap; 
         justify-content: space-between;
+        gap: 20px;
     }
 
     .footer-section {
@@ -191,23 +203,65 @@
         border-bottom: 2px solid #fff; 
         display: inline-block; 
         padding-bottom: 5px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 700;
     }
 
-    .footer .sm {
-        margin: 0 10px; 
-        color: #fff; 
-        text-decoration: none; 
-        font-size: 20px;
-    }
+    .footer-section p, .footer-section ul, .footer-section li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+.footer-section a {
+    font-size: 14px;
+  color: #ffffff; 
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+  color: #cce6f5;
+}
+
+.footer-bottom {
+  margin-top: 20px; 
+  border-top: 1px solid #ffffff; 
+  padding-top: 10px;
+  font-size: 10px;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-link {
+  font-size: 14px;
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.sm-link:hover {
+  color: #cce6f5;
+}
 
     /* button */
+
     .btn-primary {
         background-color: #095c80;
         border: none;
-        height: auto;
     }
 
-    .btn-primary:hover, .btn-outline-primary:hover {
+    .btn-submit {
+        background-color: #095c80;
+        color: #ffffff;
+    }
+
+    .btn-primary:hover, .btn-submit:hover, .btn-outline-primary:hover {
         background-color: #0094d4;
     }
 
@@ -281,12 +335,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#">Utama</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Utama</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Program</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Produk</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Hubungi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('product.view') }}">Produk</a></li>
                 </ul>
                 <div class="log-reg">
                     <a href="/login" class="btn btn-outline-primary">Log Masuk</a>
@@ -298,6 +351,7 @@
 
 <!-- Main Content -->
 <main class="main-contentguest">
+<br>
     @yield('content')
 </main>
 
@@ -305,25 +359,29 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-section">
-            <h3>About DesaHub</h3>
-            <p>DesaHub is your go-to platform for connecting communities and promoting local events and products.</p>
+            
         </div>
 
         <div class="footer-section">
-            <h3>Contact</h3>
-            <p>Email: <a href="mailto:support@desahub.com" style="color: #fff; text-decoration: none;">s@desahub.com</a><br>Phone: <a href="tel:+123456789" style="color: #fff; text-decoration: none;">+03</a><br>Address:</p>
+        <h3>Hubungi</h3>
+        <ul class="list-unstyled">
+            <li>E-mel: <a href="mailto:support@desahub.com" class="footer-link">support@desahub.com</a></li>
+            <li>Nombor Telefon: <a href="tel:+123456789" class="footer-link">+03-12345678</a></li>
+            <li>Alamat: Jalan Teluk Mahkota,Kampung Sri Gading, Tanjung Sedili, 81910 Kota Tinggi, Johor</li>
+        </ul>
         </div>
 
         <div class="footer-section">
-            <h3>Follow Us</h3>
-            <div>
+            <h3>Ikuti</h3>
+            <div class="social-icons">
                 <a href="#" class="sm"><i class="fab fa-facebook"></i> Facebook</a><br>
-                <a href="#" class="sm"><i class="fab fa-twitter"></i> Twitter</a><br>
                 <a href="#" class="sm"><i class="fab fa-instagram"></i> Instagram</a>
             </div>
         </div>
     </div>
-    <div style="margin-top: 20px; border-top: 1px solid #555; padding-top: 20px; font-size: 14px;">&copy; 2024 DesaHub. Hak Cipta Terpelihara.</div>
+    <div class="footer-bottom">
+    <p>&copy; 2024 DesaHub. All Rights Reserved.</p>
+  </div>
 </footer>
 @endguest
 
@@ -359,7 +417,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
                                 <i class="bi-box-arrow-left"></i>
-                                <button type="submit" class="btn-link"> Log Out</button>
+                                <button type="submit" class="btn-link"> Log Keluar</button>
                             </form>
                         </li>
                     </ul>
@@ -372,8 +430,8 @@
             <div class="normal-section">
                 <li class="section-title">Produk
                     <ul>
-                        <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
-                        <li><a href="{{ route('product.create') }}"><i class="bi-bag-plus"></i> Tambah Produk</a></li>
+                        <li><a href="{{ route('product.index') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
+                        <li><a href="{{ route('product.create') }}"><i class="bi-bag-plus"></i> Tambah Iklan</a></li>
                     </ul>
                 </li>
 
@@ -404,8 +462,8 @@
 
                 <li class="section-title">Produk
                     <ul>
-                        <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
-                        <li><a href="{{ route('product.create') }}"><i class="bi-bag-plus"></i> Tambah Produk</a></li>
+                        <li><a href="{{ route('product.index') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
+                        <li><a href="{{ route('product.create') }}"><i class="bi-bag-plus"></i> Tambah Iklan</a></li>
                     </ul>
                 </li>
 

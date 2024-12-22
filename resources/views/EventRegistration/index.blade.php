@@ -6,24 +6,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pendaftaran Pengunjung</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f8fb;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            color: #0056b3;
-            margin-top: 20px;
-        }
 
         p {
             text-align: center;
             color: #d9534f;
             font-weight: bold;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         .form-container {
@@ -127,7 +123,11 @@
     </style>
 </head>
 <body>
+@extends('includes.navbar')
+@section('content')
+<div class="container">
     <h1>PENDAFTARAN PENGUNJUNG</h1>
+    <br>
     <p>Sila Pastikan Maklumat Pendaftaran Anda Adalah Sahih</p>
 
     <!-- Success Message -->
@@ -224,12 +224,13 @@
     <option value="50 Tahun ke Atas">50 Tahun ke Atas</option>
 </select>
 <div id="age_class-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
-
-<button type="submit">Daftar</button>
+    
+<button type="submit" class="btn btn-submit" style="margin-top:15px;">Daftar</button>
 
 </form>
 
     </div>
+</div>
 
     <!-- JavaScript for AJAX Form Submission -->
     <script>
@@ -297,6 +298,6 @@
 
 
 </script>
-
+@endsection
 </body>
 </html>

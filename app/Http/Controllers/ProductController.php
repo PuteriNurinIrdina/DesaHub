@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Account;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product::all();
+        //$products = Product::all();
+        $accountId = Auth::user()->id;
+        $products = Product::where('account_id', $accountId)->get();
         return view('products.index', ['products' => $products]);
     }
 
@@ -32,16 +39,37 @@ class ProductController extends Controller
             $filePath = $request->file('image')->storeAs('images', $fileName, 'public');
             $data['image'] = $filePath;
         } 
-        Product::create($data);
-        return redirect(route('product.index'))->with('success', 'Iklan berjaya dimuatnaik!');
+
+        $data['account_id'] = Auth::id();
+
+        if (Product::create($data)) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Tambah',
+                'activityDetails' => 'tambah produk baru: ' . $data['name'],
+            ]);
+    
+            return redirect(route('product.index'))->with('success', 'Iklan berjaya dimuatnaik!');
+        }
+    
+        return redirect(route('product.index'))->with('error', 'Iklan tidak berjaya dimuatnaik.');
     }
 
     public function edit(Product $product){
+
+        if ($product->account_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         return view('products.edit', ['product' => $product]);
     }
 
     public function update(Product $product, Request $request)
     {
+        if ($product->account_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         $data = $request->validate([
             'name' => 'required',
             'qty' => 'required|numeric',
@@ -62,23 +90,46 @@ class ProductController extends Controller
             $data['image'] = $product->image;
         }
 
-        $product->update($data);
-        return redirect(route('product.index'))->with('success', 'Iklan berjaya disunting!');
+        if ($product->update($data)) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Kemaskini',
+                'activityDetails' => 'kemaskini maklumat produk: ' . $data['name'],
+            ]);
+    
+            return redirect(route('product.index'))->with('success', 'Iklan berjaya disunting!');
+        }
+    
+        return redirect(route('product.index'))->with('error', 'Iklan tidak berjaya disunting.');
     }
 
     public function destroy(Product $product)
     {
+        if ($product->account_id !== Auth::id()) {
+            abort(403, 'Unauthorized access');
+        }
+
         try {
             if ($product->image) {
                 Storage::disk('public')->delete(str_replace('/storage/', '', $product->image));
             }
-            $product->delete();
 
-            return redirect()->route('product.index')->with('success', 'Iklan berjaya dibuang.');
+            $productName = $product->name;
+
+            if ($product->delete()) {
+                ActivityLog::create([
+                    'account_id' => Auth::id(),
+                    'activityType' => 'Hapus',
+                    'activityDetails' => 'hapuskan produk: ' . $productName,
+                ]);
+
+                return redirect()->route('product.index')->with('success', 'Iklan berjaya dibuang.');
+            }
         } catch (\Exception $e) {
             \Log::error('Error deleting product: ' . $e->getMessage());
-            return redirect()->route('product.index')->with('error', 'Error deleting product.');
         }
+
+        return redirect()->route('product.index')->with('error', 'Iklan tidak berjaya dibuang.');
     }
 
     public function view()

@@ -7,29 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f7f9fc;
             margin: 0;
             padding: 0;
         }
 
-        header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
         .container {
-            width: 85%;
-            margin: 40px auto;
-            padding: 30px;
+            width: 100%;
+            margin: auto;
+            padding: 20px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -66,7 +51,7 @@
         }
 
         table th {
-            background-color: #007bff;
+            background-color: #062e40;
             color: white;
             font-size: 18px;
         }
@@ -84,27 +69,6 @@
             margin-right: 8px;
         }
 
-        .btn-submit {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .btn-submit:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-submit:active {
-            background-color: #004085;
-        }
-
         footer {
             text-align: center;
             padding: 20px;
@@ -119,14 +83,11 @@
 <body>
 
 @extends('includes.navbar')
-
 @section('content')
 
-<header>
-    <h1>Kehadiran Pengunjung</h1>
-</header>
-
 <div class="container">
+<h1>Kehadiran Pengunjung</h1>
+<br>
     @if(session('success'))
         <div class="success-message">
             {{ session('success') }}
@@ -172,7 +133,7 @@
             </tbody>
         </table>
 
-        <button type="submit" class="btn-submit">Simpan</button>
+        <button type="submit" class="btn btn-submit" style="width: 100%;">Simpan</button>
     </form>
 </div>
 

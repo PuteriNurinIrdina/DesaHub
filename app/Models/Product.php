@@ -17,6 +17,12 @@ class Product extends Model
         'link',
         'price',
         'description',
-        'image'
+        'image',
+        'account_id'
     ];
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

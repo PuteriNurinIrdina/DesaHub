@@ -5,16 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product</title>
     <style>
-        body{
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f8f9fa;
-        }
+
         .container {
             width: 100%;
             max-width: 600px;
@@ -23,14 +14,12 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 8px;
         }
-        h1 {
-            text-align: center;
-            color: #343a40;
-        }
+
         label {
             font-weight: bold;
             color: #495057;
         }
+
         input[type="text"], input[type="file"], input[type="url"] {
             width: 100%;
             padding: 10px;
@@ -38,6 +27,7 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
+
         input[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -48,18 +38,22 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         input[type="submit"]:hover{
             background-color: #138496;
         }
+
         .error-list {
             color: #dc3545;
             list-style: none;
             padding: 0;
         }
+
         .current-image {
             margin-bottom: 16px;
             text-align: center;
         }
+
         .current-image img {
             max-width: 100%;
             height: auto;
@@ -68,8 +62,12 @@
     </style>
 </head>
 <body>
+@extends('includes.navbar')
+@section('content')
+
     <div class="container">
-    <h1>Sunting Produk</h1>
+        <h1>Sunting Produk</h1>
+    <br>
     <div>
         @if($errors->any())
         <ul>
@@ -122,10 +120,11 @@
         </div>
     
         <div>
-        <input type="submit" value="Simpan"/>
+        <button type="submit" class="btn btn-submit" style="width: 100%;">Simpan</button>
         </div>
     
     </form>
     </div>
+@endsection
 </body>
 </html>

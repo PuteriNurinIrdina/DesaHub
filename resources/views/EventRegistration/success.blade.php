@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+@extends('includes.navbar')
+@section('content')
     <h1>Pendaftaran Anda Telah Berjaya!</h1>
+@endsection
 </body>
 </html>

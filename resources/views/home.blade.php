@@ -165,7 +165,7 @@
     <section class="hero-section container-xxl py-5">
         <div class="container">
             <div class="text-center mb-4">
-                <h1>Selamat Datang</h1>
+                <h2>Selamat Datang</h2>
                 <p>Bina hubungan bersama komuniti melalui pelbagai program menarik dan produk tempatan</p>
             </div>
 
@@ -322,39 +322,18 @@
                 <h2 class="mb-5">Produk Pilihan</h2>
             </div>
             <div class="row g-4">
-            
-                <div class="col-lg-4 col-md-6">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Handmade Craft">
-                        <div class="card-body">
-                            <h5 class="card-title">Sabun</h5>
-                            <p class="card-text">RM 8.00</p>
-                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
+                @foreach($latestProducts as $product)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card product-card">
+                            <img src="{{ $product->image ?? 'https://via.placeholder.com/300x200' }}" class="card-img-top" alt="{{ $product->name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">RM {{ number_format($product->price, 2) }}</p>
+                                <a href="" class="btn btn-primary btn-sm">Lihat</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Organic Honey">
-                        <div class="card-body">
-                            <h5 class="card-title">Madu Asli 150g</h5>
-                            <p class="card-text">RM 120.00</p>
-                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6">
-                    <div class="card product-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Local Coffee">
-                        <div class="card-body">
-                            <h5 class="card-title">Kopi Kluang</h5>
-                            <p class="card-text">RM 15.00</p>
-                            <a href="#" class="btn btn-primary btn-sm">Lihat</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

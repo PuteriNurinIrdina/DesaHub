@@ -5,15 +5,10 @@
         <meta name= "viewport" content="width=device-width, initial-scale=1.0">
         <title>All Products</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                padding: 20px;
-            }
 
             .container {
                 max-width: 1200px;
-                margin: 0 auto;
+                margin: 40px auto;
                 display: flex;
                 flex-wrap: wrap;
                 gap: 20px;
@@ -66,6 +61,9 @@
     </head>
 
     <body>
+    @extends('includes.navbar')
+    @section('content')
+    
         <h1>All Products</h1>
         <div class="container">
             @foreach($products as $product)
@@ -79,5 +77,6 @@
         </div>
         @endforeach
         </div>
+        @endsection
     </body>
     </html>

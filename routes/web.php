@@ -57,7 +57,7 @@ Route::post('/product', [ProductController::class, 'store'])->name('product.stor
 Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
 Route::put('/product/{product}/update', [ProductController::class, 'update'])->name('product.update');
 Route::delete('/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
-Route::get('/product', [ProductController::class, 'view'])->name('product.view');
+Route::get('/product/view', [ProductController::class, 'view'])->name('product.view');
 
 
 ?>

@@ -8,18 +8,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
     <style>
-        header {
-            background-color: #095c80;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
 
         .container {
             width: 100%;
-            margin: auto auto;
-            padding: 25px;
+            margin: auto;
+            padding: 20px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -69,10 +62,9 @@
 @extends('includes.navbar')
 
 @section('content')
-
-<header><h2>Dashboard</h2></header>
-<br>
 <div class="container">
+<h1>Dashboard</h1>
+<br>
     @if($user->role === 'admin')
         <div class="row">
             <div class="col-md-6">
@@ -87,12 +79,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Produk</h4>
-                        <p>10</p>
+                        <p>{{ $productCount }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-md-6">
                 <div class="chart-container">
                     <h4>Program Bulanan</h4>
@@ -106,11 +98,11 @@
                 </div>
             </div>
         </div>
-
+        <br>
         <div class="log-container">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Log Activiti</h4>
+                    <h4 class="mb-0">Log Aktiviti</h4>
                     <form action="{{ route('dashboard') }}" method="GET" class="d-flex">
                         <input 
                             type="text" 
@@ -157,19 +149,11 @@
 
     @elseif($user->role === 'peserta')
         <div class="row">
-            <div class="col-md-6">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Program Berdaftar</h4>
                         <p>8</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Baki Program Perlu Hadir</h4>
-                        <p>5</p>
                     </div>
                 </div>
             </div>
@@ -185,25 +169,18 @@
         </div>
     @elseif($user->role === 'penjual')
         <div class="row">
-        <div class="col-md-6">
+        <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Produk</h4>
-                        <p>10</p>
+                        <p>{{ $productCount }}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Jumlah Kategori Produk</h4>
-                        <p>2</p>
-                    </div>
-                </div>
-            </div>
+        
         </div>
 
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-md-6">
                 <div class="chart-container">
                     <h4>Produk Bulanan</h4>
@@ -217,7 +194,7 @@
                 </div>
             </div>
         </div>
-        
+        <br>
         <div class="log-container">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">

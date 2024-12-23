@@ -105,21 +105,23 @@
             text-align: center;
         }
         .success-container {
-    display: none;
-    background-color: #4CAF50; 
-    color: white; 
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px; 
-    text-align: center; 
-    font-size: 16px; 
-    width: 100%; 
-    max-width: 600px; 
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
+            display: none;
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px; 
+            text-align: center; 
+            font-size: 16px; 
+            width: 100%; 
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .required {
+            color: red;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -130,12 +132,9 @@
     <br>
     <p>Sila Pastikan Maklumat Pendaftaran Anda Adalah Sahih</p>
 
-    <!-- Success Message -->
-    <!-- Success message container -->
 <div id="success-message" class="success-container" style="display: none;"></div>
 
 
-    <!-- Error Messages -->
     @if ($errors->any())
     <div class="error-container">
         <ul>
@@ -146,25 +145,24 @@
     </div>
     @endif
 
-    <!-- Form Container -->
     <div class="form-container">
     <form id="registration-form" method="post" action="{{ route('register.store') }}">
     @csrf
     @method('post')
 
-    <label for="ic_num">No Kad Pengenalan:</label>
+    <label for="ic_num">No Kad Pengenalan:<span class="required"> *</span></label>
 <input type="text" id="ic_num" name="ic_num" placeholder="cth: 040520141234" required />
 <div id="ic_num-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="name">Nama:</label>
+<label for="name">Nama:<span class="required"> *</span></label>
 <input type="text" id="name" name="name" placeholder="cth: Abu bin Ali" required />
 <div id="name-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="phone_num">No Telefon Bimbit:</label>
+<label for="phone_num">No Telefon Bimbit:<span class="required"> *</span></label>
 <input type="text" id="phone_num" name="phone_num" placeholder="cth: 01123456789" required />
 <div id="phone_num-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="gender">Jantina:</label>
+<label for="gender">Jantina:<span class="required"> *</span></label>
 <select id="gender" name="gender" required>
     <option value="" disabled selected>Pilih Jantina</option>
     <option value="Lelaki">Lelaki</option>
@@ -172,15 +170,15 @@
 </select>
 <div id="gender-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="address">Alamat:</label>
+<label for="address">Alamat:<span class="required"> *</span></label>
 <textarea id="address" name="address" rows="4" required></textarea>
 <div id="address-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="poscode">Poskod:</label>
+<label for="poscode">Poskod:<span class="required"> *</span></label>
 <input type="text" id="poscode" name="poscode" placeholder="cth: 81300" required />
 <div id="poscode-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="state">Negeri:</label>
+<label for="state">Negeri:<span class="required"> *</span></label>
 <select id="state" name="state" required>
     <option value="" disabled selected>Pilih Negeri</option>
     <option value="Johor">Johor</option>
@@ -201,12 +199,12 @@
     <option value="Putrajaya">Wilayah Persekutuan Putrajaya</option>
 </select>
 <div id="state-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
-
+<br><br>
 <label for="email">Emel (jika ada):</label>
 <input type="email" id="email" name="email" placeholder="cth: aliabu@gmail.com" />
 <div id="email-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="house_category">Kategori Isi Rumah:</label>
+<label for="house_category">Kategori Isi Rumah:<span class="required"> *</span></label>
 <select id="house_category" name="house_category" required>
     <option value="" disabled selected>Pilih Kategori Isi Rumah</option>
     <option value="B40">B40</option>
@@ -215,7 +213,7 @@
 </select>
 <div id="house_category-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
 
-<label for="age_class">Kategori Peringkat Umur:</label>
+<label for="age_class">Kategori Peringkat Umur:<span class="required"> *</span></label>
 <select id="age_class" name="age_class" required>
     <option value="" disabled selected>Peringkat Umur</option>
     <option value="Bawah 18 Tahun">Bawah 18 Tahun</option>
@@ -223,7 +221,7 @@
     <option value="31-50 Tahun">31-50 Tahun</option>
     <option value="50 Tahun ke Atas">50 Tahun ke Atas</option>
 </select>
-<div id="age_class-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
+<div id="age_class-error" class="error-container" style="display: none;"></div> 
     
 <button type="submit" class="btn btn-submit" style="margin-top:15px;">Daftar</button>
 
@@ -232,14 +230,13 @@
     </div>
 </div>
 
-    <!-- JavaScript for AJAX Form Submission -->
     <script>
     const form = document.querySelector('#registration-form');
-    const successMessageContainer = document.createElement('div'); // To show success message on page
-    successMessageContainer.classList.add('alert-success'); // Add success styling
+    const successMessageContainer = document.createElement('div'); 
+    successMessageContainer.classList.add('alert-success'); 
 
     form.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent form from redirecting
+    event.preventDefault();
 
     const formData = new FormData(form);
 
@@ -255,41 +252,36 @@
 
         const result = await response.json();
 
-        // Clear previous error and success messages
         const errorContainers = document.querySelectorAll('.error-container');
         errorContainers.forEach(container => container.style.display = 'none');
 
         const successMessageContainer = document.getElementById('success-message');
 
         if (result.status === 'success') {
-            // Display success message
             successMessageContainer.innerText = result.message;
-            successMessageContainer.style.display = 'block'; // Show the success message
+            successMessageContainer.style.display = 'block';
 
-            // Optionally reset the form
             form.reset();
         } else if (result.errors) {
-            // Show validation errors
             for (let field in result.errors) {
                 const errorMessage = result.errors[field];
                 const errorContainer = document.getElementById(`${field}-error`);
                 if (errorContainer) {
                     errorContainer.innerText = errorMessage;
-                    errorContainer.style.display = 'block'; // Display the error message
+                    errorContainer.style.display = 'block'; 
                 }
             }
         } else {
-            // General error message
             const errorMessageContainer = document.createElement('div');
             errorMessageContainer.classList.add('error-container');
-            errorMessageContainer.innerText = 'An error occurred. Please try again.';
+            errorMessageContainer.innerText = 'Ralat berlaku. Sila cuba lagi.';
             document.body.insertBefore(errorMessageContainer, form);
         }
     } catch (error) {
-        console.error('Error submitting the form:', error);
+        console.error('Ralat semasa menghantar pendaftaran:', error);
         const errorMessageContainer = document.createElement('div');
         errorMessageContainer.classList.add('error-container');
-        errorMessageContainer.innerText = 'An unexpected error occurred.';
+        errorMessageContainer.innerText = 'Ralat yang tidak dijangka berlaku.';
         document.body.insertBefore(errorMessageContainer, form);
     }
 });

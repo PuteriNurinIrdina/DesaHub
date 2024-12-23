@@ -135,5 +135,11 @@ class EventController extends Controller
 
             return view('events.detail', compact('event', 'otherEvents'));
         }
+
+        public function showRegisteredEvents() {
+            $user = auth()->user();
+            $events = $user->events;
+            return view('registered', compact('events')); 
+        }
         
 }

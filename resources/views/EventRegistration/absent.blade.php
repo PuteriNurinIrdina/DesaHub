@@ -122,7 +122,7 @@
 @section('content')
 
     <div class="container">
-    <h1>Senarai Ketidakhadiran Peserta</h1>
+    <h1>SENARAI PENDAFTAR TIDAK HADIR</h1>
     <br>
         <div class="total-count">
             Jumlah Pendaftar Tidak Hadir: {{ $nonAttendees->count() }}

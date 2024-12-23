@@ -81,3 +81,5 @@ Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->na
 /* Route::get('/events/deleted', function () {
     return view('event.deleted');
 })->name('event.deleted'); */
+
+Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->name('user.events');

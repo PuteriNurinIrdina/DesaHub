@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\ActivityLog;
 use App\Models\Product;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -58,6 +59,8 @@ class AccController extends Controller
             "password" => "required|string|min:8",
             "role" => "required",
         ], [
+            'fullname.required' => 'Sila isi nama.',
+            'email.email' => 'E-mel mesti mengandungi format yang sah dengan simbol @',
             'email.unique' => 'E-mel telah diambil.',
             'password.min' => 'Kata laluan mesti sekurang-kurangnya 8 karakter.',
             'role.required' => 'Sila pilih peranan.',
@@ -82,6 +85,7 @@ class AccController extends Controller
     {
         $user = auth()->user();
 
+        $eventCount = Event::where('account_id', Auth::id())->count();
         $productCount = Product::where('account_id', Auth::id())->count();
 
         $query = ActivityLog::where('account_id', $user->id);
@@ -96,7 +100,7 @@ class AccController extends Controller
 
         $activityLogs = $query->latest()->limit(10)->get();
 
-        return view('account.dashboard', compact('user', 'productCount', 'activityLogs'));
+        return view('account.dashboard', compact('user', 'eventCount', 'productCount', 'activityLogs'));
     }
 
     public function default()
@@ -201,28 +205,27 @@ class AccController extends Controller
         return redirect()->route('login')->with('success', 'Kata laluan telah berjaya ditetapkan semula.');
     }
 
-
     public function changePassword(Request $request)
-        {
-            $request->validate([
-                'current_password' => 'required',
-                'new_password' => 'required|min:8|confirmed',
-            ]);
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:8|different:current_password',
+            'confirm_password' => 'required|same:new_password',
+        ], [
+            'new_password.different' => 'Kata laluan baru mesti berbeza daripada kata laluan semasa.',
+            'new_password.min' => 'Kata laluan baru mesti mempunyai sekurang-kurangnya 8 karakter.',
+            'confirm_password.required' => 'Sahkan kata laluan perlu diisi.',
+        ]);
 
-            $admin = Auth::guard('web')->user();
+        $user = Auth::user();
 
-            // Verify if the current password matches
-            if (!Hash::check($request->current_password, $admin->password)) {
-                return redirect()->back()->with('error', 'Kata laluan semasa tidak sah.');
-            }
-
-            // Update the password
-            DB::table('account')
-                ->where('id', $admin->id)
-                ->update([
-                    'password' => bcrypt($request->new_password),
-                ]);
-
-            return redirect()->route('dashboard')->with('success', 'Kata laluan telah berjaya diubah.');
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Kata laluan semasa tidak betul.']);
         }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Kata laluan berjaya ditukar.');
+    }
 }

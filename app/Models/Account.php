@@ -42,4 +42,8 @@ class Account extends Authenticatable
         return $this->hasMany(Product::class, 'account_id');
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'account_id');
+    }
 }

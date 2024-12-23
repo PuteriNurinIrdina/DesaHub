@@ -62,8 +62,17 @@ class Event extends Model
         return $types[$this->type] ?? 'Unknown';
     }
 
+<<<<<<< HEAD
     public function registration()
     {
         return $this->hasOne(EventRegistration::class, 'event_id');
     }
 }
+=======
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'account_id');
+    }
+
+}
+>>>>>>> fdc91d213ad1c73852f0f00f6e3ad0e214dbcb4f

@@ -71,7 +71,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Program</h4>
-                        <p>10</p>
+                        <p>{{ $eventCount }}</p>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">No recent activities</td>
+                                    <td colspan="4" class="text-center">Tiada Aktiviti</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -234,7 +234,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">No recent activities</td>
+                                    <td colspan="4" class="text-center">Tiada Aktiviti/td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -262,8 +262,8 @@
                             datasets: [{
                                 label: 'Jumlah Produk',
                                 data: result.data || [], // Use data from API
-                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
+                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
+                                borderColor: 'rgba(173, 216, 230, 1)',
                                 borderWidth: 1
                             }]
                         },
@@ -282,21 +282,28 @@
 
         // Events Chart
         if (document.getElementById('eventsChart')) {
-            const ctxProducts = document.getElementById('eventsChart').getContext('2d');
+            const ctxEvents = document.getElementById('eventsChart').getContext('2d');
+
+            const defaultData = {
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            };
 
             fetch('/api/events-data')
                 .then(response => response.json())
                 .then(result => {
                     console.log('API Response:', result);
+
+                    const chartData = result && result.data ? result.data : defaultData.data;
+
                     new Chart(ctxEvents, {
                         type: 'bar',
                         data: {
-                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'December'],
+                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
                             datasets: [{
                                 label: 'Jumlah Program',
-                                data: result.data || [], // Use data from API
-                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
+                                data: chartData,
+                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
+                                borderColor: 'rgba(173, 216, 230, 1)',
                                 borderWidth: 1
                             }]
                         },
@@ -310,33 +317,95 @@
                         }
                     });
                 })
-                .catch(error => console.error('Error fetching events data:', error));
+                .catch(error => {
+                    console.error('Error fetching events data:', error);
+
+                    new Chart(ctxEvents, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+                            datasets: [{
+                                label: 'Jumlah Program',
+                                data: defaultData.data, // Default zeros
+                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
+                                borderColor: 'rgba(173, 216, 230, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
         }
 
-        // Penjual: Products by Category Chart
+        // Category Chart
         if (document.getElementById('categoryChart')) {
             const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-            new Chart(ctxCategory, {
-                type: 'bar',
-                data: {
-                    labels: ['Electronics', 'Fashion', 'Home Appliances', 'Toys', 'Books'],  // Example categories
-                    datasets: [{
-                        label: 'Total Products by Category',
-                        data: [5, 3, 2, 0, 1],  // Example data: Replace with actual data from the backend
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+
+            const defaultData = {
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            };
+
+            fetch('/api/events-data')
+                .then(response => response.json())
+                .then(result => {
+                    console.log('API Response:', result);
+
+                    const chartData = result && result.data ? result.data : defaultData.data;
+
+                    new Chart(ctxCategory, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Makanan', 'Kelengkapan Rumah', 'Fesyen', 'Penjagaan Diri', 'Mainan'],
+                            datasets: [{
+                                label: 'Jumlah Produk',
+                                data: chartData,
+                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
+                                borderColor: 'rgba(173, 216, 230, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
                         }
-                    }
-                }
-            });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching events data:', error);
+
+                    new Chart(ctxCategory, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Makanan', 'Kelengkapan Rumah', 'Fesyen', 'Penjagaan Diri', 'Mainan'],
+                            datasets: [{
+                                label: 'Jumlah Produk',
+                                data: defaultData.data, // Default zeros
+                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
+                                borderColor: 'rgba(173, 216, 230, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
         }
     });
 </script>

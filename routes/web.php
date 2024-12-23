@@ -44,6 +44,8 @@ Route::post('/register', [AccController::class, 'registerPost'])->name("register
 Route::get('/resetpassword', [AccController::class, 'resetpassword'])->name("resetpassword");
 Route::post('/resetpassword', [AccController::class, 'resetpasswordPost'])->name("resetpassword.post");
 
+Route::post('/change-password', [AccController::class, 'changePassword'])->name('changePassword');
+
 Route::get('/dashboard', [AccController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 Route::get('/editAcc', [AccController::class, 'editAcc'])->middleware(['auth'])->name('editAcc');
 Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['auth'])->name('editAcc.post');
@@ -51,6 +53,7 @@ Route::post('/editAcc', [AccController::class, 'editAccPost'])->middleware(['aut
 Route::post('/logout', [AccController::class, 'logout'])->name('logout');
 Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc');
 
+Route::get('/api/events-data', [ChartDataController::class, 'getEventsData']);
 Route::get('/api/products-data', [ChartDataController::class, 'getProductsData']);
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');

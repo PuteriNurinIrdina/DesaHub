@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "content-hash": "641be8603529b7dcf24ce5178817e62a",
+   // "content-hash": "589cc0f65c3aaa7d4e9024d545bc1974",
     "packages": [
         {
             "name": "brick/math",
@@ -5614,6 +5615,7 @@
     ],
     "packages-dev": [
         {
+<<<<<<< HEAD
             "name": "brianium/paratest",
             "version": "v7.6.0",
             "source": {
@@ -14397,6 +14399,8 @@
     ],
     "packages-dev": [
         {
+=======
+>>>>>>> 08502b5 (Event Module)
             "name": "fakerphp/faker",
             "version": "v1.23.1",
             "source": {

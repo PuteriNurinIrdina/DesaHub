@@ -160,7 +160,6 @@
         </ul>
     </div>
     @endif
-    <p>Register for {{ $event->name }}</p>
     <div class="form-container">
     <form id="registration-form" method="post" action="{{ route('register.store') }}">
     @csrf

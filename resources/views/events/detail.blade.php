@@ -129,16 +129,16 @@
                 <p>{{ $event->desc }}</p>
 
                 <div class="event-buttons">
+                <div class="event-buttons">
                     <!-- If the user is logged in, allow them to join or register for the event -->
-                    <a href="" style="text-decoration: none;">
+                    <a href="{{ route('event.registration', $event->id) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
                     </a>
                     <br><br><br>
                     <a href="{{ route('events.view', ['event' => $event]) }}">
-                    Back
+                        Back
                     </a>
                 </div>
-                
                 <hr>
                 <div class="event-others">
                     <h4>Program Lain Yang Anda Mungkin Suka</h4>

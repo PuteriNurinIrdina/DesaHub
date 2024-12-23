@@ -43,4 +43,11 @@ class RegisterEvent extends Model
     {
         return $this->belongsTo(EventModule::class, 'event_id');
     }
+
+    public function index($eventId)
+    {
+        $event = Event::find($eventId); // Find the event by ID
+        return view('EventRegistration.index', compact('event')); // Pass the event data to the view
+    }
+
 }

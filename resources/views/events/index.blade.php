@@ -64,7 +64,7 @@
         .event-box a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #095c80;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -147,7 +147,7 @@
         .event-btn {
         display: block;
         padding: 20px 30px;
-        background-color: green;
+        background-color: #095c80;
         color: white;
         text-decoration: none;
         border-radius: 10px;
@@ -160,10 +160,11 @@
         background-color:rgb(62, 151, 132);
 
     }
+    
     </style>
 </head>
 <body>
-
+@extends('includes.navbar')
     <h1>Program</h1>
 
     <!-- Success Message -->
@@ -198,11 +199,12 @@
                 <p><strong>Bandar:</strong> {{ $event->city_name ?? 'N/A' }}</p>
                 <div class="action-buttons">
                     <!-- Edit Button -->
-                    <a href="{{ route('event.edit', ['event' => $event]) }}">Sunting</a>
-
-                    <!-- Delete Button -->
-                    <button class="delete-btn" onclick="openModal({{ $event->id }})" data-id="{{ $event->id }}">Buang</button>
+                    <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>
+                    <a href="{{ route('event.edit', ['event' => $event]) }}">Kemas Kini</a>
+                     
                 </div>
+                <!-- Delete Button -->
+                <button class="delete-btn" onclick="openModal({{ $event->id }})" data-id="{{ $event->id }}">Buang</button>
             </div>
         <!-- Modal for Delete Confirmation -->
         <div id="myModal{{ $event->id }}" class="modal">

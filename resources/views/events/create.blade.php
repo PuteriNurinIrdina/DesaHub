@@ -38,18 +38,19 @@
         .form-container button {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #095c80;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         .form-container button:hover {
-            background-color: #45a049;
+            background-color: #095c80;
         }
     </style>
 </head>
 <body>
+@extends('includes.navbar')
     <div class="form-container">
         <h2>Cipta Program</h2>
         <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">

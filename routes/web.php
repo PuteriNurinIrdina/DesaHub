@@ -29,9 +29,9 @@ Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name
 Route::get('/withdraw', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.form');
 Route::post('/withdraw', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
 Route::post('/withdraw/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm');
-Route::get('/peserta', [RegistrationController::class, 'attendees']);
+Route::get('/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
 Route::get('/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
-Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants']);
+Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
 
 Route::get('/home', [GenController::class, 'home'])->name('home');
 

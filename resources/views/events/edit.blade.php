@@ -54,7 +54,7 @@
             margin-bottom: 20px;
         }
         .submit-btn {
-            background-color: #4CAF50;
+            background-color: #095c80;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -63,24 +63,42 @@
             cursor: pointer;
         }
         .submit-btn:hover {
-            background-color: #45a049;
+            background-color:rgb(47, 103, 128);
         }
         .cancel-btn {
             text-align: center;
             margin-top: 20px;
         }
         .cancel-btn a {
-            color: #4CAF50;
+            color: #095c80;
             text-decoration: none;
             font-size: 1rem;
         }
         .cancel-btn a:hover {
             text-decoration: underline;
         }
+        .admin-navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .admin-navigation a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #095c80;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .admin-navigation a:hover {
+            background-color: rgb(47, 103, 128);
+        }
     </style>
 </head>
 <body>
-
+    @extends('includes.navbar')
     <div class="container">
         <h1>Kemas Kini Program</h1>
 
@@ -169,6 +187,14 @@
             <a href="{{ route('events.index') }}">Batal</a>
         </div>
     </div>
+    
+    <div class="admin-navigation">
+        <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>
+        <a href="{{ route('list.peserta', ['event' => $event]) }}">Peserta</a>
+        <a href="{{ route('non.attendees', ['event' => $event]) }}">Pendaftar Tidak Hadir</a>
+        <a href="{{ route('attendance.page', ['event' => $event]) }}">Tanda Kehadiran</a>
+    </div>
+
     <script>
         // When the state dropdown changes, fetch the cities for the selected state
         document.getElementById('state').addEventListener('change', function() {

@@ -15,7 +15,7 @@
         }
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
             gap: 20px;
             margin: 20px;
  
@@ -48,7 +48,11 @@
             color:rgb(18, 92, 117) ;
         }
         h1 {
-            color: #Add8e6 ;
+            color: #095c80;
+            text-align: center;
+        }
+        h3 {
+            color: white ;
             text-align: center;
         }
         
@@ -61,15 +65,16 @@
             flex-wrap: wrap; /* Allow wrapping on smaller screens */
             justify-content: space-between; /* Distribute space between filters */
             flex-direction: column;
-            align-items: center;
+            text-align: center;
             /* justify-content: center; */
             gap: 30px; /* Adds spacing between the filters */
             margin-bottom: 20px;
             /* text-align: center; */
             padding: 15px;
-            background-color: #Add8e6 ;
-            height: 150px;
+            background-color: #095c80 ;
+            height: 200px;
             position: fixed;
+            
         } 
         } 
        
@@ -107,13 +112,10 @@
         .event-buttons button {
             margin-right: 10px;
         }
-        .view-all-button {
-            margin-bottom: 20px;
-            align-items: center;
-        }
+        
         
         .content {
-            padding-top: 170px;
+            padding-top: 250px;
             width: 100%;
             margin: 0 auto;
         }
@@ -178,7 +180,7 @@
             <button type="submit">Cari</button>
         
         <!-- Back to View All -->
-        
+            <br>
             <a href="{{ route('events.view') }}" >
                 <button type="button">Buang Penapis</button>
             </a>

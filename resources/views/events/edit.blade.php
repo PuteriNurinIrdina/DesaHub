@@ -56,8 +56,9 @@
         .submit-btn {
             background-color: #095c80;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 30px;
             border: none;
+            text-align: center;
             border-radius: 5px;
             font-size: 1.1rem;
             cursor: pointer;
@@ -83,7 +84,8 @@
         }
         .admin-navigation a {
             display: inline-block;
-            margin: 10px;
+            margin: 60px;
+            width: 220px;
             padding: 10px 20px;
             background-color: #095c80;
             color: white;
@@ -99,6 +101,7 @@
 </head>
 <body>
     @extends('includes.navbar')
+    @section('content')
     <div class="container">
         <h1>Kemas Kini Program</h1>
 

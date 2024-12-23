@@ -52,7 +52,7 @@
 <body>
 @extends('includes.navbar')
     <div class="form-container">
-        <h2>Cipta Program</h2>
+        <h1>Cipta Program</h1>
         <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')

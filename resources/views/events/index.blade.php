@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+    <title>Events Page</title>
     
     <style>
         body {
@@ -23,7 +23,7 @@
 
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
             gap: 20px;
             margin: 20px;
         }
@@ -73,7 +73,7 @@
         }
 
         .event-box a:hover {
-            background-color: #45a049;
+            background-color:rgba(9, 92, 128, 0.77);
         }
 
         .event-box .action-buttons {
@@ -157,7 +157,7 @@
     }
 
     .event-btn:hover {
-        background-color:rgb(62, 151, 132);
+        background-color:rgba(9, 92, 128, 0.9);
 
     }
     
@@ -165,7 +165,9 @@
 </head>
 <body>
 @extends('includes.navbar')
-    <h1>Program</h1>
+
+
+    <h1><strong>Senarai Program</strong></h1>
 
     <!-- Success Message -->
     @if(session()->has('success'))
@@ -231,7 +233,7 @@
         }
 
         // Close the modal
-        function closeModal() {
+        function closeModal(eventId) {
             document.getElementById("myModal" + eventId).style.display = "none";
         }
 
@@ -244,7 +246,7 @@
         }
     </script>
     <a href="{{ route('events.create') }}" class="event-btn">Tambah Program</a>
-    <a href="{{ route('events.view') }}" class="event-btn">Lihat Program</a>
+    <a href="{{ route('events.view') }}" class="event-btn">Lihat Paparan Program</a>
 
     <script>
             setTimeout(function() {

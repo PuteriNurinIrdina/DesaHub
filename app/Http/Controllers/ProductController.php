@@ -30,6 +30,7 @@ class ProductController extends Controller
             'qty' => 'required|numeric',
             'link' => 'nullable|url',
             'price' => 'required|decimal:0,2',
+            'category' => 'required|string',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
@@ -75,6 +76,7 @@ class ProductController extends Controller
             'qty' => 'required|numeric',
             'link' => 'nullable|url',
             'price' => 'required|numeric',
+            'category' => 'required|string',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -132,10 +134,29 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('error', 'Iklan tidak berjaya dibuang.');
     }
 
-    public function view()
+    public function view(Request $request)
     {
-        $products = Product::all();
-        return view('products.products', ['products' => $products]);
+       $query = Product::query();
+
+       if ($request->has('seller_id')){
+        $query->where('account_id', $request->seller_id);
+       }
+
+       if ($request->has('category') && $request->category != '') {
+        $query->where('category', $request->category);
+       }
+
+       if ($request->has('sort') && $request->sort == 'price_asc') {
+        $query->orderBy('price', 'asc');
+        } elseif ($request->has('sort') && $request->sort == 'price_desc') {
+        $query->orderBy('price', 'desc');
+        }
+
+       $products = $query->with('account')->get();
+
+       return view('products.products', [
+        'products' => $products,
+       ]);
     }
 }
 

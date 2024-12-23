@@ -15,7 +15,7 @@
         }
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
             gap: 20px;
             margin: 20px;
         }
@@ -47,7 +47,15 @@
             color:rgb(18, 92, 117);
         }
         h1 {
+<<<<<<< HEAD
             color: #Add8e6;
+=======
+            color: #095c80;
+            text-align: center;
+        }
+        h3 {
+            color: white ;
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
             text-align: center;
         }
 
@@ -60,15 +68,30 @@
             flex-wrap: wrap; /* Allow wrapping on smaller screens */
             justify-content: space-between; /* Distribute space between filters */
             flex-direction: column;
+<<<<<<< HEAD
             align-items: center;
+=======
+            text-align: center;
+            /* justify-content: center; */
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
             gap: 30px; /* Adds spacing between the filters */
             margin-bottom: 20px;
             padding: 15px;
+<<<<<<< HEAD
             background-color: #Add8e6;
             height: 150px;
             position: fixed;
         }
 
+=======
+            background-color: #095c80 ;
+            height: 200px;
+            position: fixed;
+            
+        } 
+        } 
+       
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
         .event-list {
             margin-bottom: 20px;
             text-align: center;
@@ -102,13 +125,18 @@
         .event-buttons button {
             margin-right: 10px;
         }
+<<<<<<< HEAD
         .view-all-button {
             margin-bottom: 20px;
             align-items: center;
         }
 
+=======
+        
+        
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
         .content {
-            padding-top: 170px;
+            padding-top: 250px;
             width: 100%;
             margin: 0 auto;
         }
@@ -167,8 +195,15 @@
             </select>
 
             <button type="submit">Cari</button>
+<<<<<<< HEAD
 
             <a href="{{ route('events.view') }}">
+=======
+        
+        <!-- Back to View All -->
+            <br>
+            <a href="{{ route('events.view') }}" >
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
                 <button type="button">Buang Penapis</button>
             </a>
         </form>
@@ -183,6 +218,7 @@
         @else
         <div class="event-container">
             @foreach($events as $event)
+<<<<<<< HEAD
             <div class="event-box">
                 <img src="{{ $event->poster }}" alt="Event Poster">
                 <h2>{{ $event->name }}</h2>
@@ -203,6 +239,24 @@
                     </a>
                 </div>
             </div>
+=======
+                        <div class="event-box">
+                            <img src="{{ $event->poster }}" alt="Event Poster">
+                            <h2>{{ $event->name }}</h2>
+                            <p>Tarikh: {{ $event->date }}</p>
+                            <p>Kategori: {{ $event->type }}</p>
+                            <p>Negeri: {{ $event->state_name }}</p>
+                            <div class="event-buttons">
+                            <a href="{{ route('register.index') }}" style="text-decoration: none;">
+                                <button type="button">Daftar</button>
+                            </a>
+                                <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
+                                <button type="button">Lihat Butiran</button>
+                            </a>
+                            </div>
+                        </div>
+               
+>>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
             @endforeach
         </div>
         @endif

@@ -44,102 +44,60 @@
             }
         }
         h2 {
-            color:rgb(18, 92, 117);
+            color: rgb(18, 92, 117);
         }
         h1 {
-<<<<<<< HEAD
-            color: #Add8e6;
-=======
             color: #095c80;
             text-align: center;
         }
         h3 {
-            color: white ;
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
+            color: white;
             text-align: center;
         }
-
+        
         .no-event {
             text-align: center;
         }
 
         .filter-form {
             width: 100%;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: space-between; /* Distribute space between filters */
-            flex-direction: column;
-<<<<<<< HEAD
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
-=======
-            text-align: center;
-            /* justify-content: center; */
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
-            gap: 30px; /* Adds spacing between the filters */
-            margin-bottom: 20px;
+            gap: 20px;
             padding: 15px;
-<<<<<<< HEAD
-            background-color: #Add8e6;
-            height: 150px;
+            background-color: #095c80;
             position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            height: auto;
         }
 
-=======
-            background-color: #095c80 ;
-            height: 200px;
-            position: fixed;
-            
-        } 
-        } 
-       
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
+        .filter-form label {
+            margin-right: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .filter-form select, .filter-form button {
+            padding: 8px;
+            max-width: 200px;
+            margin-top: 10px;
+        }
+
         .event-list {
             margin-bottom: 20px;
             text-align: center;
         }
-        .filter-form label {
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        .filter-form select {
-            padding: 8px;
-            max-width: 200px; /* Limit the width of the select box */
-            width: 100%; /* Makes the select box responsive */
-            margin-right: 25px;
-            margin-top: 10px;
-        }
-        .filter-form button {
-            padding: 10px 15px;
-            margin: 15px; /* Space between the button and the selects */
-        }
 
-        .event-card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .event-card h3 {
-            margin: 0 0 10px;
-        }
-        .event-buttons button {
-            margin-right: 10px;
-        }
-<<<<<<< HEAD
-        .view-all-button {
-            margin-bottom: 20px;
-            align-items: center;
-        }
-
-=======
-        
-        
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
         .content {
             padding-top: 250px;
             width: 100%;
             margin: 0 auto;
         }
+
         .event img {
             max-width: 100%;
             height: auto;
@@ -195,18 +153,10 @@
             </select>
 
             <button type="submit">Cari</button>
-<<<<<<< HEAD
-
-            <a href="{{ route('events.view') }}">
-=======
-        
-        <!-- Back to View All -->
-            <br>
-            <a href="{{ route('events.view') }}" >
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
-                <button type="button">Buang Penapis</button>
-            </a>
         </form>
+        <a href="{{ route('events.view') }}">
+            <button type="button">Buang Penapis</button>
+        </a>
     </div>
 
     <div class="content">
@@ -218,7 +168,6 @@
         @else
         <div class="event-container">
             @foreach($events as $event)
-<<<<<<< HEAD
             <div class="event-box">
                 <img src="{{ $event->poster }}" alt="Event Poster">
                 <h2>{{ $event->name }}</h2>
@@ -239,24 +188,6 @@
                     </a>
                 </div>
             </div>
-=======
-                        <div class="event-box">
-                            <img src="{{ $event->poster }}" alt="Event Poster">
-                            <h2>{{ $event->name }}</h2>
-                            <p>Tarikh: {{ $event->date }}</p>
-                            <p>Kategori: {{ $event->type }}</p>
-                            <p>Negeri: {{ $event->state_name }}</p>
-                            <div class="event-buttons">
-                            <a href="{{ route('register.index') }}" style="text-decoration: none;">
-                                <button type="button">Daftar</button>
-                            </a>
-                                <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
-                                <button type="button">Lihat Butiran</button>
-                            </a>
-                            </div>
-                        </div>
-               
->>>>>>> c3303983eb8e7c0abd9f8cc8f77fa29a06236c23
             @endforeach
         </div>
         @endif

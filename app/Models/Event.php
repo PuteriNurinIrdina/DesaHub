@@ -66,9 +66,8 @@ class Event extends Model
     {
         return $this->hasOne(EventRegistration::class, 'event_id');
     }
-}
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
-
+}

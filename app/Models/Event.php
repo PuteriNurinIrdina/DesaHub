@@ -62,4 +62,8 @@ class Event extends Model
         return $types[$this->type] ?? 'Unknown';
     }
 
+    public function registration()
+    {
+        return $this->hasOne(EventRegistration::class, 'event_id');
+    }
 }

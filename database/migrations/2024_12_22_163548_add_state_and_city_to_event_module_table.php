@@ -9,30 +9,32 @@ return new class extends Migration
     public function up()
     {
         Schema::table('event_module', function (Blueprint $table) {
-            // Add state_id and city_id columns
-            $table->unsignedMediumInteger('state_id')->nullable();
-            $table->unsignedMediumInteger('city_id')->nullable();
-
-            // Add state_name and city_name columns to store the names directly
-            $table->string('state_name')->nullable();
-            $table->string('city_name')->nullable();
-
-            // Optional: Add foreign key constraints
-            $table->foreign('state_id')->references('id')->on('states')->onDelete('set null');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
+            // Check if columns exist before adding them
+            if (!Schema::hasColumn('event_module', 'day_of_week')) {
+                $table->string('day_of_week')->nullable();
+            }
+            if (!Schema::hasColumn('event_module', 'month')) {
+                $table->string('month')->nullable();
+            }
+            if (!Schema::hasColumn('event_module', 'year')) {
+                $table->string('year')->nullable();
+            }
         });
     }
 
     public function down()
     {
         Schema::table('event_module', function (Blueprint $table) {
-            // Drop the columns and foreign keys if rolling back
-            $table->dropForeign(['state_id']);
-            $table->dropForeign(['city_id']);
-            $table->dropColumn('state_id');
-            $table->dropColumn('city_id');
-            $table->dropColumn('state_name');
-            $table->dropColumn('city_name');
+            // Drop columns if they exist
+            if (Schema::hasColumn('event_module', 'day_of_week')) {
+                $table->dropColumn('day_of_week');
+            }
+            if (Schema::hasColumn('event_module', 'month')) {
+                $table->dropColumn('month');
+            }
+            if (Schema::hasColumn('event_module', 'year')) {
+                $table->dropColumn('year');
+            }
         });
     }
 };

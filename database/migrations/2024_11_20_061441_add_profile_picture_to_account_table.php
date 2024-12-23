@@ -9,12 +9,15 @@ class AddProfilePictureToAccountTable extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('account', function (Blueprint $table) {
-            $table->string('profile_picture')->nullable()->after('ig'); // Add column after 'ig'
-        });
-    }
+    public function up()
+{
+    Schema::table('account', function (Blueprint $table) {
+        if (!Schema::hasColumn('account', 'profile_picture')) {
+            $table->string('profile_picture')->nullable()->after('ig');
+        }
+    });
+}
+
 
     /**
      * Reverse the migrations.

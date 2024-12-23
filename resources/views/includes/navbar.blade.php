@@ -338,7 +338,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Utama</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('events.view') }}">Program</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('product.view') }}">Produk</a></li>
                 </ul>
                 <div class="log-reg">
@@ -405,7 +405,7 @@
             <div class="normal-section">
                 <li class="section-title">Cari
                     <ul>
-                        <li><a href="#"><i class="bi-calendar2-event"></i> Program</a></li>
+                        <li><a href="{{ route('events.view') }}"><i class="bi-calendar2-event"></i> Program</a></li>
                         <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Produk</a></li>
                     </ul>
                 </li>
@@ -454,8 +454,8 @@
             <div class="normal-section">
                 <li class="section-title">Program
                     <ul>
-                        <li><a href="#"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
-                        <li><a href="#"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
+                        <li><a href="{{ route('events.index') }}"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
+                        <li><a href="{{ route('events.create') }}"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
                         <li><a href="#"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
                     </ul>
                 </li>
@@ -524,8 +524,5 @@
         window.addEventListener('resize', adjustContentPadding);
     });
 </script>
-
-
-
 </body>
 </html>

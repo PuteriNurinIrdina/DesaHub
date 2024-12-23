@@ -51,7 +51,7 @@
         }
 
         table th {
-            background-color: #062e40;
+            background-color: #095c80;
             color: white;
             font-size: 18px;
         }

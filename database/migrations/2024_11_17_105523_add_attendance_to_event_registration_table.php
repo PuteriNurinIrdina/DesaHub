@@ -9,12 +9,15 @@ class AddAttendanceToEventRegistrationTable extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('_event_registration', function (Blueprint $table) {
+    public function up()
+{
+    Schema::table('_event_registration', function (Blueprint $table) {
+        if (!Schema::hasColumn('_event_registration', 'attendance')) {
             $table->boolean('attendance')->default(false);
-        });
-    }
+        }
+    });
+}
+
 
     /**
      * Reverse the migrations.

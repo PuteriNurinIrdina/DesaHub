@@ -14,6 +14,20 @@
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         } 
+        .back-link {
+            color: #095c80;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 5px;  
+        }
 
         .total-count {
             font-size: 22px;
@@ -161,13 +175,16 @@
             }
         }
     </script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
 @extends('includes.navbar')
 @section('content')
 
     <div class="container">
-    <h1>SENARAI PESERTA HADIR</h1>
+    <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+    <h1>Senarai Peserta Hadir</h1>
     <br>
 
         <div class="total-count">

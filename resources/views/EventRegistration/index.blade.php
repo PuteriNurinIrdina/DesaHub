@@ -12,6 +12,20 @@
             color: #d9534f;
             font-weight: bold;
         }
+        .back-link {
+            color: #095c80;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 5px;  
+        }
 
         .container {
             width: 100%;
@@ -123,11 +137,13 @@
             font-size: 18px;
         }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 @extends('includes.navbar')
 @section('content')
 <div class="container">
+<b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
     <h1>PENDAFTARAN PENGUNJUNG</h1>
     <br>
     <p>Sila Pastikan Maklumat Pendaftaran Anda Adalah Sahih</p>

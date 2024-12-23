@@ -50,6 +50,13 @@ class RegistrationController extends Controller
             ]);
         } 
     
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ]);
+        }
+        
         return response()->json([
             'status' => 'success',
             'message' => 'Pendaftaran berjaya!'

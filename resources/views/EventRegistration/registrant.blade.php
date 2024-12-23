@@ -15,6 +15,21 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         } 
 
+        .back-link {
+            color: #095c80;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 5px;  
+        }
+
         .table-title {
             font-size: 28px;
             font-weight: 500;
@@ -48,14 +63,14 @@
         .attendee-list th {
             background-color: #095c80;
             color: white;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-weight: normal;  
             font-size: 18px;
         }
 
         .attendee-list td {
             font-size: 18px;
             color: #555;
+            font-weight: normal; 
         }
 
         .attendee-list tr:nth-child(even) {
@@ -131,13 +146,16 @@
             }
         }
     </script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
 @extends('includes.navbar')
 @section('content')
 
     <div class="container">
-    <h1>SENARAI PENDAFTAR</h1>
+    <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+    <h1>Senarai Pendaftar</h1>
     <br>
         <div class="total-count">
             Jumlah Pendaftar: {{ $registrants->count() }}

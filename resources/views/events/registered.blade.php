@@ -14,7 +14,20 @@
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         } 
+        .back-link {
+            color: #095c80;
+            text-decoration: none;
+            font-size: 16px;
+        }
 
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 5px;  
+        }
         .total-count {
             font-size: 22px;
             font-weight: 500;
@@ -160,6 +173,8 @@
                 }
             }
         }
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     </script>
 </head>
 <body>
@@ -167,7 +182,8 @@
 @section('content')
 
     <div class="container">
-    <h1>SENARAI PROGRAM BERDAFTAR</h1>
+    <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+    <h1>Senarai Program Berdaftar</h1>
     <br>
 
         <div class="total-count">
@@ -185,7 +201,7 @@
 
         @if ($events->isEmpty())
             <div class="no-data-message">
-                Tiada Acara Didaftarkan.
+                Tiada Program Didaftarkan.
             </div>
         @else
             <div class="event-list-wrapper">

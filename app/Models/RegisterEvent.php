@@ -38,4 +38,9 @@ class RegisterEvent extends Model
     {
         return $value == 1 ? 'Hadir' : 'Tidak Hadir';
     }
+
+    public function event()
+    {
+        return $this->belongsTo(EventModule::class, 'event_id');
+    }
 }

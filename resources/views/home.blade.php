@@ -282,8 +282,8 @@
                     <div class="card event-card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Community Gathering">
                         <div class="card-body">
-                            <h5 class="card-title">Community Gathering</h5>
-                            <p class="card-text">Join for a community event full of activities.</p>
+                            <h5 class="card-title">Kelas Asas Microsoft Excel</h5>
+                            <p class="card-text">Tingkatkan kemahiran IT anda!</p>
                             <a href="#" class="btn btn-primary btn-sm">Sertai</a>
                         </div>
                     </div>
@@ -293,8 +293,8 @@
                     <div class="card event-card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Workshop">
                         <div class="card-body">
-                            <h5 class="card-title">Workshop: Skills for Success</h5>
-                            <p class="card-text">Enhance your skills with our interactive workshop.</p>
+                            <h5 class="card-title">Program Kesukarelawan</h5>
+                            <p class="card-text">Sumbangkan tenaga dan masa ke arah kebaikkan</p>
                             <a href="#" class="btn btn-primary btn-sm">Sertai</a>
                         </div>
                     </div>
@@ -304,8 +304,8 @@
                     <div class="card event-card">
                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Charity Run">
                         <div class="card-body">
-                            <h5 class="card-title">Charity Run</h5>
-                            <p class="card-text">Participate in our charity run.</p>
+                            <h5 class="card-title">Karnival Keusahawanan</h5>
+                            <p class="card-text">Jual dan beli barang tempatan!</p>
                             <a href="#" class="btn btn-primary btn-sm">Sertai</a>
                         </div>
                     </div>

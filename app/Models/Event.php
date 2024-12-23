@@ -62,4 +62,9 @@ class Event extends Model
         return $types[$this->type] ?? 'Unknown';
     }
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'account_id');
+    }
+
 }

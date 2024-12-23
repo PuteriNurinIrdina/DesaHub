@@ -73,6 +73,16 @@
                         {{ session()->get("error") }}
                     </div>
                 @endif
+
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
         <div class="nav-tabs-container">
             <ul class="nav nav-tabs mt-4" id="settingsTabs">
                 <li class="nav-item">
@@ -122,7 +132,7 @@
             <!-- Tukar Kata Laluan Section -->
             <div class="tab-pane fade" id="tukarKataLaluan">
                 <h3>Tukar Kata Laluan</h3>
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('changePassword') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="currentPassword" class="form-label">Kata Laluan Sekarang</label>

@@ -202,7 +202,7 @@
                             <p>Kategori: {{ $event->type }}</p>
                             <p>Negeri: {{ $event->state_name }}</p>
                             <div class="event-buttons">
-                            <a href="{{ route('event.registration', $event->id) }}" style="text-decoration: none;">
+                            <a href="{{ route('register.index') }}" style="text-decoration: none;">
                                 <button type="button">Daftar</button>
                             </a>
                                 <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">

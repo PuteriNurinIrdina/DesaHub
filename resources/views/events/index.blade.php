@@ -144,7 +144,7 @@
             cursor: pointer;
         }
 
-        .create-event-btn {
+        .event-btn {
         display: block;
         padding: 20px 30px;
         background-color: green;
@@ -156,8 +156,9 @@
         margin: 20px auto; /* Center the button horizontally */
     }
 
-    .create-event-btn:hover {
-        background-color: #45a049;
+    .event-btn:hover {
+        background-color:rgb(62, 151, 132);
+
     }
     </style>
 </head>
@@ -167,10 +168,12 @@
 
     <!-- Success Message -->
     @if(session()->has('success'))
-        <div class="success-message">
-            {{ session('success') }}
-        </div>
+    <div class="success-message">
+        {{ session('success') }}
+    </div>
     @endif
+        
+
 
     <!-- Event Listings -->
     <div class="event-container">
@@ -238,7 +241,21 @@
 
         }
     </script>
-    <a href="{{ route('events.create') }}" class="create-event-btn">Tambah Program</a>
+    <a href="{{ route('events.create') }}" class="event-btn">Tambah Program</a>
+    <a href="{{ route('events.view') }}" class="event-btn">Lihat Program</a>
+
+    <script>
+            setTimeout(function() {
+                const successMessage = document.querySelector('.success-message');
+                if (successMessage) {
+                    successMessage.style.transition = 'opacity 0.5s ease'; // Smooth transition
+                    successMessage.style.opacity = 0; // Fade out
+                    setTimeout(function() {
+                        successMessage.style.display = 'none'; // Hide after fade
+                    }, 500); // Match this duration with the opacity transition
+                }
+            }, 3000); // Fade out after 3 seconds
+        </script>
 </body>
 </html>
 

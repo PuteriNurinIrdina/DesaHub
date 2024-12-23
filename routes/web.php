@@ -24,7 +24,7 @@ Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('regis
 Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
 Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');
 Route::get('/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
-Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+//Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::get('/withdraw', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.form');
 Route::post('/withdraw', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');

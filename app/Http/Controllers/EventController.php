@@ -141,5 +141,15 @@ class EventController extends Controller
             $events = $user->events;
             return view('registered', compact('events')); 
         }
+
+        public function showEvent($id)
+{
+    // Retrieve the event by its ID
+    $event = Event::find($id);
+    
+    // Pass the event to the view
+    return view('event.show', compact('event'));
+}
+
         
 }

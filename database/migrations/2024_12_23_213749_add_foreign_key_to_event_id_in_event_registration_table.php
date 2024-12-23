@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEventIdToEventRegistrationTable extends Migration
+class AddForeignKeyToEventIdInEventRegistrationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AddEventIdToEventRegistrationTable extends Migration
     public function up()
     {
         Schema::table('_event_registration', function (Blueprint $table) {
-            // Adding the event_id column and making it nullable
-            $table->unsignedBigInteger('event_id')->nullable()->after('id'); 
-
-            // Foreign key constraint for event_id referencing event_module table
+            // Add foreign key to the existing event_id column
             $table->foreign('event_id')->references('id')->on('event_module')->onDelete('cascade');
         });
     }
@@ -30,9 +27,8 @@ class AddEventIdToEventRegistrationTable extends Migration
     public function down()
     {
         Schema::table('_event_registration', function (Blueprint $table) {
-            // Dropping the foreign key and column when rolling back migration
+            // Drop the foreign key
             $table->dropForeign(['event_id']);
-            $table->dropColumn('event_id');
         });
     }
 }

@@ -24,7 +24,7 @@ Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('regis
 Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
 Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');
 Route::get('/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
-Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+//Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::get('/withdraw', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.form');
 Route::post('/withdraw', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
@@ -87,4 +87,13 @@ Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->na
 
 Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->name('user.events');
 Route::get('/register/{event}', [RegistrationController::class, 'index'])->name('event.registration');
+Route::get('/event/{event_id}/registrants', [RegistrationController::class, 'index'])->name('EventRegistration.index');
+Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
+Route::get('/peserta-list', [RegistrationController::class, 'showAllRegistrants'])->name('list.peserta');
+
+Route::get('/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('EventRegistration.index');
+Route::get('/register/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
+Route::post('/register', [RegistrationController::class, 'store'])->name('registration.store');
+Route::get('/register-event/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
+Route::get('/withdraw/{event_id}', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.registration');
 

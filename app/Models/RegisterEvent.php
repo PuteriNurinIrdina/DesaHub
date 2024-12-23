@@ -12,6 +12,7 @@ class RegisterEvent extends Model
     protected $table = '_event_registration';
     
     protected $fillable = [
+        'event_id',
         'ic_num',
         'name',
         'phone_num',
@@ -40,9 +41,10 @@ class RegisterEvent extends Model
     }
 
     public function event()
-    {
-        return $this->belongsTo(EventModule::class, 'event_id');
-    }
+{
+    return $this->belongsTo(Event::class);
+}
+
 
     public function index($eventId)
     {

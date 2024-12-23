@@ -160,12 +160,12 @@
         </ul>
     </div>
     @endif
-
+    <p>Register for {{ $event->name }}</p>
     <div class="form-container">
     <form id="registration-form" method="post" action="{{ route('register.store') }}">
     @csrf
     @method('post')
-
+    <input type="hidden" name="event_id" value="{{ $event->id }}">
     <label for="ic_num">No Kad Pengenalan:<span class="required"> *</span></label>
 <input type="text" id="ic_num" name="ic_num" placeholder="cth: 040520141234" required />
 <div id="ic_num-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
@@ -281,7 +281,7 @@
         } else if (result.errors) {
             for (let field in result.errors) {
                 const errorMessage = result.errors[field];
-                const errorContainer = document.getElementById(`${field}-error`);
+                const errorContainer = document.getElementById("${field}-error");
                 if (errorContainer) {
                     errorContainer.innerText = errorMessage;
                     errorContainer.style.display = 'block'; 

@@ -35,7 +35,7 @@
 
         h1 {
             text-align: center;
-            color: #007BFF;
+            color: #095c80;
             margin-bottom: 20px;
         }
 
@@ -67,7 +67,7 @@
         }
 
         .event-buttons button {
-            background-color: #007BFF;
+            background-color: #095c80;
             color: white;
             font-size: 1rem;
             padding: 10px 20px;
@@ -136,7 +136,7 @@
                     </a>
                     <br><br><br>
                     <a href="{{ route('events.view', ['event' => $event]) }}">
-                        Back
+                        Kembali
                     </a>
                 </div>
                 <hr>

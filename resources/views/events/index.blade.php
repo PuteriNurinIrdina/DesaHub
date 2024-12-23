@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+    <title>Events Page</title>
     
     <style>
         body {
@@ -23,7 +23,7 @@
 
         .event-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
             gap: 20px;
             margin: 20px;
         }
@@ -64,7 +64,7 @@
         .event-box a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #095c80;
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -73,7 +73,7 @@
         }
 
         .event-box a:hover {
-            background-color: #45a049;
+            background-color:rgba(9, 92, 128, 0.77);
         }
 
         .event-box .action-buttons {
@@ -144,10 +144,10 @@
             cursor: pointer;
         }
 
-        .create-event-btn {
+        .event-btn {
         display: block;
         padding: 20px 30px;
-        background-color: green;
+        background-color: #095c80;
         color: white;
         text-decoration: none;
         border-radius: 10px;
@@ -156,21 +156,27 @@
         margin: 20px auto; /* Center the button horizontally */
     }
 
-    .create-event-btn:hover {
-        background-color: #45a049;
+    .event-btn:hover {
+        background-color:rgba(9, 92, 128, 0.9);
+
     }
+    
     </style>
 </head>
 <body>
+@extends('includes.navbar')
 
-    <h1>Program</h1>
+
+    <h1><strong>Senarai Program</strong></h1>
 
     <!-- Success Message -->
     @if(session()->has('success'))
-        <div class="success-message">
-            {{ session('success') }}
-        </div>
+    <div class="success-message">
+        {{ session('success') }}
+    </div>
     @endif
+        
+
 
     <!-- Event Listings -->
     <div class="event-container">
@@ -195,11 +201,12 @@
                 <p><strong>Bandar:</strong> {{ $event->city_name ?? 'N/A' }}</p>
                 <div class="action-buttons">
                     <!-- Edit Button -->
-                    <a href="{{ route('event.edit', ['event' => $event]) }}">Sunting</a>
-
-                    <!-- Delete Button -->
-                    <button class="delete-btn" onclick="openModal({{ $event->id }})" data-id="{{ $event->id }}">Buang</button>
+                    <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>
+                    <a href="{{ route('event.edit', ['event' => $event]) }}">Kemas Kini</a>
+                     
                 </div>
+                <!-- Delete Button -->
+                <button class="delete-btn" onclick="openModal({{ $event->id }})" data-id="{{ $event->id }}">Buang</button>
             </div>
         <!-- Modal for Delete Confirmation -->
         <div id="myModal{{ $event->id }}" class="modal">
@@ -226,7 +233,7 @@
         }
 
         // Close the modal
-        function closeModal() {
+        function closeModal(eventId) {
             document.getElementById("myModal" + eventId).style.display = "none";
         }
 
@@ -238,7 +245,21 @@
 
         }
     </script>
-    <a href="{{ route('events.create') }}" class="create-event-btn">Tambah Program</a>
+    <a href="{{ route('events.create') }}" class="event-btn">Tambah Program</a>
+    <a href="{{ route('events.view') }}" class="event-btn">Lihat Paparan Program</a>
+
+    <script>
+            setTimeout(function() {
+                const successMessage = document.querySelector('.success-message');
+                if (successMessage) {
+                    successMessage.style.transition = 'opacity 0.5s ease'; // Smooth transition
+                    successMessage.style.opacity = 0; // Fade out
+                    setTimeout(function() {
+                        successMessage.style.display = 'none'; // Hide after fade
+                    }, 500); // Match this duration with the opacity transition
+                }
+            }, 3000); // Fade out after 3 seconds
+        </script>
 </body>
 </html>
 

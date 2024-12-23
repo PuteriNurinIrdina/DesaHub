@@ -131,7 +131,7 @@
                 <div class="event-buttons">
                 <div class="event-buttons">
                     <!-- If the user is logged in, allow them to join or register for the event -->
-                    <a href="{{ route('event.registration', $event->id) }}" style="text-decoration: none;">
+                    <a href="{{ route('EventRegistration.index', $event->id) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
                     </a>
                     <br><br><br>

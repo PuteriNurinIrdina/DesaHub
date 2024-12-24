@@ -12,7 +12,7 @@ class ChartDataController extends Controller
     public function getEventsData()
     {
         $accountId = Auth::id();
-        $products = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+        $events = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->where('account_id', $accountId)
             ->groupBy('month')
             ->orderBy('month')

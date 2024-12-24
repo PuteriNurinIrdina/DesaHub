@@ -7,18 +7,13 @@
     <title>Events Page</title>
     
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-            margin: 20px 0;
+        .container {
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         .event-container {
@@ -165,9 +160,9 @@
 </head>
 <body>
 @extends('includes.navbar')
-
-
-    <h1><strong>Senarai Program</strong></h1>
+@section('content')
+<div class="container">
+    <h1>Senarai Program</h1>
 
     <!-- Success Message -->
     @if(session()->has('success'))
@@ -222,6 +217,7 @@
             </div>
         @endforeach
     </div>
+</div>
 
 
     <script>
@@ -260,6 +256,7 @@
                 }
             }, 3000); // Fade out after 3 seconds
         </script>
+    @endsection
 </body>
 </html>
 

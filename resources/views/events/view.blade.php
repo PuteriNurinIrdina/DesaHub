@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
+
         .event-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
@@ -46,10 +39,6 @@
         h2 {
             color: rgb(18, 92, 117);
         }
-        h1 {
-            color: #095c80;
-            text-align: center;
-        }
         h3 {
             color: white;
             text-align: center;
@@ -57,6 +46,15 @@
         
         .no-event {
             text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         .filter-form {
@@ -68,11 +66,11 @@
             gap: 20px;
             padding: 15px;
             background-color: #095c80;
-            position: fixed;
             top: 0;
             left: 0;
             z-index: 10;
             height: auto;
+            color: #fff;
         }
 
         .filter-form label {
@@ -106,8 +104,11 @@
 </head>
 
 <body>
+@extends('includes.navbar')
+@section('content')
+<div class="container">
+<h1>Program</h1>
     <div class="filter-form">
-        <h3>Tapis Program</h3>
         <form method="GET" action="{{ route('events.view') }}">
             <label for="day">Hari:</label>
             <select name="day">
@@ -158,9 +159,7 @@
             <button type="button">Buang Penapis</button>
         </a>
     </div>
-
-    <div class="content">
-        <h1>Program</h1>
+    <div>
         @if($events->isEmpty())
         <div class="no-event">
             <p>Tiada Program Dijumpai</p>
@@ -192,5 +191,7 @@
         </div>
         @endif
     </div>
+    </div>
+@endsection
 </body>
 </html>

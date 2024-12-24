@@ -6,18 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Event</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-        }
         .form-container {
-            width: 50%;
-            margin: 20px auto;
+            width: 100%;
+            margin: auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
             border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
         .form-container h2 {
             text-align: center;
@@ -51,8 +46,11 @@
 </head>
 <body>
 @extends('includes.navbar')
+@section('content')
+
     <div class="form-container">
         <h1>Cipta Program</h1>
+        <br>
         <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
@@ -126,6 +124,7 @@
         </script>
 
     </div>
+    @endsection
 </body>
 </html>
 

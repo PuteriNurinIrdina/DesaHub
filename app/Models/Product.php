@@ -16,6 +16,7 @@ class Product extends Model
         'qty',
         'link',
         'price',
+        'category',
         'description',
         'image',
         'account_id'

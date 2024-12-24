@@ -5,19 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Deleted</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-            margin: 50px 0;
-        }
 
         .message-container {
             background-color: #d4edda;
@@ -44,13 +31,15 @@
     </style>
 </head>
 <body>
+@extends('includes.navbar')
+@section('content')
 
     <h1>Event Deleted</h1>
-
+    <br>
     <div class="message-container">
         <p>The event has been successfully deleted.</p>
         <a href="{{ route('events.index') }}">Go back to Event List</a>
     </div>
-
+@endsection
 </body>
 </html>

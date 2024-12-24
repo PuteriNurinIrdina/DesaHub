@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senarai Acara Didaftarkan</title>
+    <title>Senarai Acara Yang Didaftar</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        .container {
+        .container {    
             width: 100%;
             margin: auto;
             padding: 20px;
@@ -14,6 +14,7 @@
             border-radius: 8px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         } 
+
         .back-link {
             color: #095c80;
             text-decoration: none;
@@ -28,13 +29,6 @@
         .back-link i {
             margin-right: 5px;  
         }
-        .total-count {
-            font-size: 22px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #333;
-        }
 
         .table-title {
             font-size: 28px;
@@ -42,19 +36,6 @@
             color: #007BFF;
             margin-bottom: 30px;
             text-align: center;
-        }
-
-        .search-box {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .search-box input {
-            width: 50%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
         }
 
         .event-list-wrapper {
@@ -82,14 +63,14 @@
         .event-list th {
             background-color: #095c80;
             color: white;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-weight: normal;  
             font-size: 18px;
         }
 
         .event-list td {
             font-size: 18px;
             color: #555;
+            font-weight: normal; 
         }
 
         .event-list tr:nth-child(even) {
@@ -110,20 +91,27 @@
             border-radius: 10px;
         }
 
-        @media (max-width: 1200px) {
-            .header h1 {
-                font-size: 32px;
-            }
+        .total-count {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
 
-            .table-title {
-                font-size: 26px;
-            }
+        .search-box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-            .event-list th,
-            .event-list td {
-                font-size: 16px;
-                padding: 16px;
-            }
+        .search-box input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {
@@ -141,26 +129,10 @@
                 padding: 14px;
             }
         }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .table-title {
-                font-size: 20px;
-            }
-
-            .event-list th,
-            .event-list td {
-                font-size: 12px;
-                padding: 12px;
-            }
-        }
     </style>
     <script>
         function filterTable() {
-            const input = document.getElementById("eventFilter");
+            const input = document.getElementById("nameFilter");
             const filter = input.value.toUpperCase();
             const table = document.getElementById("eventTable");
             const tr = table.getElementsByTagName("tr");
@@ -173,27 +145,26 @@
                 }
             }
         }
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 </head>
 <body>
 @extends('includes.navbar')
 @section('content')
 
     <div class="container">
-    <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
-    <h1>Senarai Program Berdaftar</h1>
+    <b><a href="{{ url()->previous() }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+    <h1>Senarai Acara Yang Didaftar</h1>
     <br>
-
         <div class="total-count">
-            Jumlah Acara Didaftarkan: {{ $events->count() }}
+            Jumlah Acara: {{ $events->count() }}
         </div>
 
         <div class="search-box">
             <input 
                 type="text" 
-                id="eventFilter" 
+                id="nameFilter" 
                 onkeyup="filterTable()" 
                 placeholder="Cari nama acara..." 
             />
@@ -201,24 +172,24 @@
 
         @if ($events->isEmpty())
             <div class="no-data-message">
-                Tiada Program Didaftarkan.
+                Tiada Acara Yang Didaftar.
             </div>
         @else
             <div class="event-list-wrapper">
                 <table class="event-list" id="eventTable">
                     <thead>
                         <tr>
-                            <th>No</th> 
+                            <th>No</th>
                             <th>Nama Acara</th>
                             <th>Tarikh</th>
-                            <th>Lokasi</th>
+                            <th>Tempat</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($events as $index => $event)
                             <tr>
-                                <td>{{ $index + 1 }}</td> 
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $event->name }}</td>
                                 <td>{{ $event->date }}</td>
                                 <td>{{ $event->location }}</td>

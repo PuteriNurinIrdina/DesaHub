@@ -5,24 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Event</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2 {
+        h2 {
             text-align: center;
             color: #333;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
+            width: 100%;
+            margin: auto;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
             border-radius: 8px;
-            margin-top: 50px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
         .form-group {
             margin-bottom: 15px;
@@ -104,11 +97,11 @@
     </style>
 </head>
 <body>
-    @extends('includes.navbar')
-    @section('content')
+@extends('includes.navbar')
+@section('content')
     <div class="container">
         <h1>Kemas Kini Program</h1>
-
+        <br>
         @if($errors->any())
             <div class="error-messages">
                 <ul>
@@ -118,7 +111,6 @@
                 </ul>
             </div>
         @endif
-
         <form method="post" action="{{ route('event.update', ['event' => $event]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
@@ -233,7 +225,7 @@
                 });
         });
     </script>
-
+@endsection
 </body>
 </html>
 <!-- <!DOCTYPE html>

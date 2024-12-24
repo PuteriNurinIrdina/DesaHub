@@ -23,7 +23,7 @@
             font-weight: bold;
             color: #495057;
         }
-        input[type="text"], input[type="file"], input[type="url"] {
+        input[type="text"], input[type="file"], input[type="url"], select {
             width: 100%;
             padding: 10px;
             margin: 8px 0 16px;
@@ -83,6 +83,22 @@
                 <label for="price">Harga</label>
                 <input type="text" name="price" placeholder="Harga (RM)"/>
             </div>
+
+            <div>
+                <label for="category">Kategori Produk</label>
+                <select name="category" id="category">
+                    <option value="runcit">Barangan Runcit</option>
+                    <option value="kesihatan">Kesihatan & Kecantikan</option>
+                    <option value="rumah">Kelengkapan Rumah</option>
+                    <option value="bayi">Bayi, Kanak-kanak & Mainan</option>
+                    <option value="fesyen_wanita">Fesyen Wanita</option>
+                    <option value="fesyen_lelaki">Fesyen Lelaki</option>
+                    <option value="Automotif">Automotif</option>
+                    <option value="haiwan">Haiwan Peliharaan</option>
+                    <option value="lainlain">Lain-lain</option>
+                </select>
+            </div>
+
             <div>
                 <label for="link">URL Produk</label>
                 <input type="url" name="link" placeholder="URL produk"/>

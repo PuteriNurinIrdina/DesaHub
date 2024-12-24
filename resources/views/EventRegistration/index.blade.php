@@ -160,12 +160,11 @@
         </ul>
     </div>
     @endif
-
     <div class="form-container">
     <form id="registration-form" method="post" action="{{ route('register.store') }}">
     @csrf
     @method('post')
-
+    <input type="hidden" name="event_id" value="{{ $event->id }}">
     <label for="ic_num">No Kad Pengenalan:<span class="required"> *</span></label>
 <input type="text" id="ic_num" name="ic_num" placeholder="cth: 040520141234" required />
 <div id="ic_num-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
@@ -248,11 +247,20 @@
 
     <script>
     const form = document.querySelector('#registration-form');
-    const successMessageContainer = document.createElement('div'); 
-    successMessageContainer.classList.add('alert-success'); 
+const successMessageContainer = document.getElementById('success-message');
 
-    form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Clear any previous messages
+    successMessageContainer.style.display = 'none';
+    successMessageContainer.innerText = '';
+
+    const errorContainers = document.querySelectorAll('.error-container');
+    errorContainers.forEach(container => {
+        container.style.display = 'none';
+        container.innerText = ''; // Clear previous error messages
+    });
 
     const formData = new FormData(form);
 
@@ -266,41 +274,38 @@
             },
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
 
-        const errorContainers = document.querySelectorAll('.error-container');
-        errorContainers.forEach(container => container.style.display = 'none');
-
-        const successMessageContainer = document.getElementById('success-message');
-
         if (result.status === 'success') {
-            successMessageContainer.innerText = result.message;
+            successMessageContainer.innerText = result.message || 'Pendaftaran berjaya!';
             successMessageContainer.style.display = 'block';
-
-            form.reset();
+            form.reset(); // Clear the form
         } else if (result.errors) {
-            for (let field in result.errors) {
-                const errorMessage = result.errors[field];
+            // Display field-specific errors
+            for (const [field, errorMessage] of Object.entries(result.errors)) {
                 const errorContainer = document.getElementById(`${field}-error`);
                 if (errorContainer) {
                     errorContainer.innerText = errorMessage;
-                    errorContainer.style.display = 'block'; 
+                    errorContainer.style.display = 'block';
                 }
             }
         } else {
-            const errorMessageContainer = document.createElement('div');
-            errorMessageContainer.classList.add('error-container');
-            errorMessageContainer.innerText = 'Ralat berlaku. Sila cuba lagi.';
-            document.body.insertBefore(errorMessageContainer, form);
+            throw new Error('Unexpected response from the server.');
         }
     } catch (error) {
-        console.error('Ralat semasa menghantar pendaftaran:', error);
+        console.error('Error during form submission:', error);
+
         const errorMessageContainer = document.createElement('div');
         errorMessageContainer.classList.add('error-container');
-        errorMessageContainer.innerText = 'Ralat yang tidak dijangka berlaku.';
-        document.body.insertBefore(errorMessageContainer, form);
+        errorMessageContainer.innerText = 'Ralat yang tidak dijangka berlaku. Sila cuba lagi.';
+        form.insertAdjacentElement('beforebegin', errorMessageContainer); // Display the error
     }
 });
+
 
 
 

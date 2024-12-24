@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penanda Kehadiran</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
         }
+
+        .back-link {
+            color: #095c80;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        * {
+    font-weight: normal;
+}
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .back-link i {
+            margin-right: 5px;  
+        }
+
 
         .container {
             width: 100%;
@@ -78,6 +99,20 @@
             font-size: 14px;
         }
 
+        .attendee-list th {
+            background-color: #095c80;
+            color: white;
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+
+        .attendee-list td {
+            font-weight: normal;
+            font-size: 18px;
+            color: #555;
+        }
+
     </style>
 </head>
 <body>
@@ -86,6 +121,8 @@
 @section('content')
 
 <div class="container">
+<b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+
 <h1>Kehadiran Pengunjung</h1>
 <br>
     @if(session('success'))

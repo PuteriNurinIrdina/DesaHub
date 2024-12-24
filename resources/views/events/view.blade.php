@@ -201,7 +201,7 @@
                             <img src="{{ $event->poster }}" alt="Event Poster">
                             <h2>{{ $event->name }}</h2>
                             <p>Tarikh: {{ $event->date }}</p>
-                            <p>Kategori: {{ $event->type }}</p>
+                            <p>Kategori: {{ $event->type_label }}</p>
                             <p>Negeri: {{ $event->state_name }}</p>
                             <div class="event-buttons">
                             <a href="{{ route('register.index') }}" style="text-decoration: none;">

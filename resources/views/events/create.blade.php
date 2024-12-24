@@ -47,22 +47,28 @@
         .form-container button:hover {
             background-color: #095c80;
         }
+        .text-danger {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 @extends('includes.navbar')
     <div class="form-container">
+        
         <h1>Cipta Program</h1>
         <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
-            <label for="name">Nama:</label>
+            <label for="name">Nama:<span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" placeholder="Nama Program" required>
+            
 
-            <label for="date">Tarikh:</label>
+            <label for="date">Tarikh:<span class="text-danger">*</span></label>
             <input type="date" id="date" name="date" required>
 
-            <label for="state">Negeri:</label>
+            <label for="state">Negeri:<span class="text-danger">*</span></label>
             <select id="state" name="state_id" required>
                 <option value="">-- Pilih Negeri --</option>
                 @foreach($states as $state)
@@ -70,13 +76,13 @@
                 @endforeach
             </select>
 
-            <label for="city">Bandar:</label>
+            <label for="city">Bandar:<span class="text-danger">*</span></label>
             <select id="city" name="city_id" required>
                 <option value="">-- Pilih Negeri Dahulu --</option>
             </select>
 
-            <label for="type">Kategori:</label>
-            <select id="type" name="type">
+            <label for="type">Kategori:<span class="text-danger">*</span></label>
+            <select id="type" name="type" required>
             <option value="">-- Kategori Program --</option>
             <option value="type1">ICT</option>
             <option value="type2">Keusahawanan</option>
@@ -89,10 +95,10 @@
             </select>
                 
             <label for="desc">Penerangan:</label>
-            <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" required>
+            <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" required >
 
-            <label for="poster">Poster:</label>
-            <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg">
+            <label for="poster">Poster:<span class="text-danger">*</span></label>
+            <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg" required>
 
             <button type="submit">Simpan</button>
         </form>
@@ -121,8 +127,10 @@
                         console.error('Error fetching cities:', error);
                         alert('Unable to load cities. Please try again later.');
                     });
-            });
-
+            
+            
+                });
+    
         </script>
 
     </div>
@@ -130,68 +138,3 @@
 </html>
 
 
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Create an Event Posting</h1>
-    <h2>Enter event details</h2>
-   <div>
-        @if($errors->any())
-        <ul>
-            @foreach($errors->all() as $error) 
-                <li>{{$error}}</li>
-            @endforeach
-        </ul>
-        @endif
-    </div>
-
-    <form method="post" action="{{route('events.store')}}" enctype="multipart/form-data">
-        @csrf
-        @method('post')
-        <div>
-            <label>Name:</label>
-            <input type="text" id="name" name="name" placeholder="event name"/>
-        </div>
-        <br>
-        <div>
-        <label>Date:</label>
-        <input type="date" id="date" name="date" placeholder="event date"/>
-        </div>
-        <br>
-        <div>
-        <label>Event Type:</label>
-        <select id="type" name="type">
-        <option value="sports">Sports</option>
-        <option value="workshop">Workshop</option>
-        <option value="sem_webinar">Seminar/Webinar</option>
-        <option value="religious">Religious Activity</option>
-        <option value="fundraiser">Fundraiser</option>
-        <option value="festival">Festival</option>
-        <option value="educational">Educational</option>
-        <option value="others">Others</option>
-        </select>
-        <br>
-        <br>
-        <div>
-        <label>Description:</label>
-        <input type="text" id="desc" name="desc" placeholder="describe the event"/>
-        </div>
-        <br>
-        <div>
-            <label>Event Poster:</label>
-            <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg">
-        </div>
-
-        <br>
-        <div>
-            <button type="submit">Save Event Informatiom</button>
-        </div>
-    </form> 
-    
-</body>
-</html>-->

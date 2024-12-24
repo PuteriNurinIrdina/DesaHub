@@ -89,7 +89,7 @@ class EventController extends Controller
             'date' => 'required|date',
             'type' => 'required',
             'desc' => 'required|string',
-            'poster' => 'nullable|image|mimes:jpeg,png,jpg',
+            'poster' => 'nullableimage|mimes:jpeg,png,jpg',
             'state_id' => 'required|exists:states,id',
             'city_id' => 'required|exists:cities,id',
         ]);

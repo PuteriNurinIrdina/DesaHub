@@ -97,6 +97,10 @@
         .admin-navigation a:hover {
             background-color: rgb(47, 103, 128);
         }
+        .text-danger {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -120,17 +124,17 @@
             @method('put')
             
             <div class="form-group">
-                <label for="name">Nama:</label>
+                <label for="name">Nama:<span class="text-danger">*</span></label>
                 <input type="text" id="name" name="name" placeholder="Nama Program" value="{{ $event->name }}" />
             </div>
 
             <div class="form-group">
-                <label for="date">Tarikh:</label>
+                <label for="date">Tarikh:<span class="text-danger">*</span></label>
                 <input type="date" id="date" name="date" placeholder="Tarikh Program" value="{{ $event->date }}" />
             </div>
 
             <div class="form-group">
-                <label for="state">Negeri:</label>
+                <label for="state">Negeri:<span class="text-danger">*</span></label>
                 <select id="state" name="state_id" required>
                     @foreach($states as $state)
                         <option value="{{ $state->id }}" {{ $event->state_id == $state->state_id ? 'selected' : '' }}>
@@ -141,7 +145,7 @@
             </div>
 
             <div class="form-group">
-                <label for="city">Bandar:</label>
+                <label for="city">Bandar:<span class="text-danger">*</span></label>
                 <select id="city" name="city_id" required>
                     @foreach($cities as $city)
                         <option value="{{ $city->id }}" {{ $event->city_id == $city->city_id ? 'selected' : '' }}>
@@ -152,7 +156,7 @@
             </div>
 
             <div class="form-group">
-                <label for="type">Kategori:</label>
+                <label for="type">Kategori:<span class="text-danger">*</span></label>
                 <select id="type" name="type">
                 <!--<option value="sports" {{ request('type') == 'sports' ? 'selected' : '' }}>Sports</option>-->
                     <option value="type1" {{ $event->type == 'type1' ? 'selected' : '' }}>ICT</option>
@@ -172,7 +176,7 @@
             </div>
 
             <div class="form-group">
-                <label for="poster">Poster:</label>
+                <label for="poster">Poster:<span class="text-danger">*</span></label>
                 <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg" />
                 @if($event->poster)
                     <p>Current Poster: <img src="{{ $event->poster }}" width="100" /></p>

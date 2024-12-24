@@ -73,6 +73,9 @@
                 <label for="name">Nama</label>
                 <input type="text" name="name" placeholder="Nama Produk"/>
             </div>
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
             <div>
                 <label for="qty">Kuantiti</label>
                 <input type="text" name="qty" placeholder="Kuantiti Produk" />
@@ -96,6 +99,7 @@
             </div>
         </form>
     </div>
+
 
 @endsection
 </body>

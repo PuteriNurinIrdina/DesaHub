@@ -97,3 +97,4 @@ Route::post('/register', [RegistrationController::class, 'store'])->name('regist
 Route::get('/register-event/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
 Route::get('/withdraw/{event_id}', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.registration');
 
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');

@@ -34,12 +34,7 @@ class RegistrationController extends Controller
         return view('EventRegistration.index', compact('event', 'event_id'));
     }
 
-<<<<<<< HEAD
     public function store(Request $request, $event_id)
-=======
-
-    public function store(Request $request)
->>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     {
         \Log::info($request->all());
         // Validate input data including event_id
@@ -90,11 +85,7 @@ class RegistrationController extends Controller
         }
 
         // Redirect to the success page after registration
-<<<<<<< HEAD
         return redirect()->route('event.register');
-=======
-        return redirect()->route('events.view')->with('success', 'Berjaya!');
->>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     }
 
 
@@ -134,12 +125,7 @@ class RegistrationController extends Controller
 
     public function showRegistrationForm($event_id)
     {
-<<<<<<< HEAD
-        $event = Event::findOrFail($event_id);
-        return view('EventRegistration.index', compact('event'));  
-=======
-        $event = Event::findOrFail($eventId);  // It's safer to use findOrFail in case the event doesn't exist
+        $event = Event::findOrFail($event_id);  // It's safer to use findOrFail in case the event doesn't exist
         return view('EventRegistration.index', compact('event'));  // Pass the event to the view
->>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     }
 }

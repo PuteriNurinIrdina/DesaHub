@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
-Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
-Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');
+//Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
+//Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
+Route::get('/event/{event_id}/register',[RegistrationController::class, 'success'])->name('registration.success');
 Route::get('/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
 //Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
@@ -86,15 +86,15 @@ Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->na
 })->name('event.deleted'); */
 
 Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->name('user.events');
-Route::get('/register/{event}', [RegistrationController::class, 'index'])->name('event.registration');
-Route::get('/event/{event_id}/registrants', [RegistrationController::class, 'index'])->name('EventRegistration.index');
+//Route::get('/register/{event}', [RegistrationController::class, 'index'])->name('event.registration');
+//Route::get('/event/{event_id}/registrants', [RegistrationController::class, 'index'])->name('EventRegistration.index');
 Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
 Route::get('/peserta-list', [RegistrationController::class, 'showAllRegistrants'])->name('list.peserta');
 
-Route::get('/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('EventRegistration.index');
-Route::get('/register/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
-Route::post('/register', [RegistrationController::class, 'store'])->name('registration.store');
-Route::get('/register-event/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
+Route::get('/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('event.register');
+//Route::get('/register/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
+Route::post('/event/{event_id}/register', [RegistrationController::class, 'store'])->name('register.store');
+//Route::get('/register-event/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
 Route::get('/withdraw/{event_id}', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.registration');
 
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+//Route::post('/register', [RegisterController::class, 'store'])->name('register.store');

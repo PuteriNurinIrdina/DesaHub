@@ -167,24 +167,6 @@
         @else
         <div class="event-container">
             @foreach($events as $event)
-<<<<<<< HEAD
-                        <div class="event-box">
-                            <img src="{{ $event->poster }}" alt="Event Poster">
-                            <h2>{{ $event->name }}</h2>
-                            <p>Tarikh: {{ $event->date }}</p>
-                            <p>Kategori: {{ $event->type_label }}</p>
-                            <p>Negeri: {{ $event->state_name }}</p>
-                            <div class="event-buttons">
-                            <a href="{{ route('register.index') }}" style="text-decoration: none;">
-                                <button type="button">Daftar</button>
-                            </a>
-                                <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
-                                <button type="button">Lihat Butiran</button>
-                            </a>
-                            </div>
-                        </div>
-               
-=======
             <div class="event-box">
                 <img src="{{ $event->poster }}" alt="Event Poster">
                 <h2>{{ $event->name }}</h2>
@@ -192,7 +174,7 @@
                 <p>Kategori: {{ $event->type }}</p>
                 <p>Negeri: {{ $event->state_name }}</p>
                 <div class="event-buttons">
-                    <a href="{{ route('EventRegistration.index', ['event_id' => $event->id]) }}" style="text-decoration: none;">
+                    <a href="{{ route('event.register', ['event_id' => $event->id]) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
                     </a>
 
@@ -205,7 +187,6 @@
                     </a>
                 </div>
             </div>
->>>>>>> aa6f2a830e92cb40050275a0e6d2ed42f58206d1
             @endforeach
         </div>
         @endif

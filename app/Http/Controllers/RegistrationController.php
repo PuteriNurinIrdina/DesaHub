@@ -13,7 +13,7 @@ class RegistrationController extends Controller
         return view('events.index', compact('events'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $event_id)
     {
         // Validate input data including event_id
         $data = $request->validate([
@@ -27,7 +27,6 @@ class RegistrationController extends Controller
             'email' => 'nullable|email',
             'house_category' => 'required|string',
             'age_class' => 'required|string',
-            'event_id' => 'required|exists:events,id',  // Ensure event_id exists in the database
         ], [
             'ic_num.required' => 'Sila Isi No Kad Pengenalan Anda.',
             'ic_num.digits' => "No Kad Pengenalan Mestilah Mengandungi 12 Digit Sahaja (tanpa '-')",
@@ -49,9 +48,11 @@ class RegistrationController extends Controller
 
         // Optional: Convert name to uppercase (if needed for consistency)
         $data['name'] = strtoupper($data['name']);
+        $data['event_id'] = $event_id;
 
         // Store the registration data in the database
-        RegisterEvent::create($data);
+        RegisterEvent::create(array_merge($data, ['event_id' => $event_id]));
+
 
         // If the request is AJAX, return a JSON response
         if ($request->ajax()) {
@@ -62,7 +63,7 @@ class RegistrationController extends Controller
         }
 
         // Redirect to the success page after registration
-        return redirect()->route('registration.success');
+        return redirect()->route('event.register');
     }
 
 
@@ -100,14 +101,9 @@ class RegistrationController extends Controller
         return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); 
     }
 
-    // Show registration form with event details
-    public function showRegistrationForm($eventId)
+    public function showRegistrationForm($event_id)
     {
-        $event = Event::findOrFail($eventId);  // It's safer to use findOrFail in case the event doesn't exist
-        return view('EventRegistration.index', compact('event'));  // Pass the event to the view
-    }
-
-    public function create() {
-        return view('EventRegistration.create');
+        $event = Event::findOrFail($event_id);
+        return view('EventRegistration.index', compact('event'));  
     }
 }

@@ -8,13 +8,36 @@ use App\Models\Event;
 
 class RegistrationController extends Controller
 {
-    public function index() {
-        $events = Event::all(); 
-        return view('events.index', compact('events'));
+    /*public function index(Request $request) {
+        //$events = Event::all(); 
+        $events_id = $request->query('event_id');
+
+        return view('event-registration.index', compact('event_id'));
+    }*/
+
+    public function index(Request $request)
+    {
+        // Retrieve event_id from query parameters
+        $event_id = $request->query('event_id');
+
+        if (!$event_id) {
+            return redirect()->route('events.view')->with('error', 'Event ID is required.');
+        }
+
+        // Example: Retrieve event details using event_id
+        $event = Event::find($event_id);
+        if (!$event) {
+            return redirect()->route('events.view')->with('error', 'Event not found.');
+        }
+
+        // Pass event_id to the view
+        return view('EventRegistration.index', compact('event', 'event_id'));
     }
+
 
     public function store(Request $request)
     {
+        \Log::info($request->all());
         // Validate input data including event_id
         $data = $request->validate([
             'ic_num' => 'required|digits:12',
@@ -62,7 +85,7 @@ class RegistrationController extends Controller
         }
 
         // Redirect to the success page after registration
-        return redirect()->route('registration.success');
+        return redirect()->route('events.view')->with('success', 'Berjaya!');
     }
 
 
@@ -105,9 +128,5 @@ class RegistrationController extends Controller
     {
         $event = Event::findOrFail($eventId);  // It's safer to use findOrFail in case the event doesn't exist
         return view('EventRegistration.index', compact('event'));  // Pass the event to the view
-    }
-
-    public function create() {
-        return view('EventRegistration.create');
     }
 }

@@ -181,7 +181,6 @@
     .footer {
         background-color: #095c80; 
         color: #fff; 
-        padding: 40px 20px; 
         text-align: center;
     }
 
@@ -443,7 +442,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
                                 <i class="bi-box-arrow-left"></i>
-                                <button type="submit" class="btn-link"> Log Out</button>
+                                <button type="submit" class="btn-link"> Log Keluar</button>
                             </form>
                         </li>
                     </ul>
@@ -475,7 +474,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
                                 <i class="bi-box-arrow-left"></i>
-                                <button type="submit" class="btn-link"> Log Out</button>
+                                <button type="submit" class="btn-link"> Log Keluar</button>
                             </form>
                         </li>
                     </ul>

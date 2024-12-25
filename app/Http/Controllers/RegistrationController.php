@@ -8,13 +8,40 @@ use App\Models\Event;
 
 class RegistrationController extends Controller
 {
-    public function index() {
-        $events = Event::all(); 
-        return view('events.index', compact('events'));
+    /*public function index(Request $request) {
+        //$events = Event::all(); 
+        $events_id = $request->query('event_id');
+
+        return view('event-registration.index', compact('event_id'));
+    }*/
+
+    public function index(Request $request)
+    {
+        // Retrieve event_id from query parameters
+        $event_id = $request->query('event_id');
+
+        if (!$event_id) {
+            return redirect()->route('events.view')->with('error', 'Event ID is required.');
+        }
+
+        // Example: Retrieve event details using event_id
+        $event = Event::find($event_id);
+        if (!$event) {
+            return redirect()->route('events.view')->with('error', 'Event not found.');
+        }
+
+        // Pass event_id to the view
+        return view('EventRegistration.index', compact('event', 'event_id'));
     }
 
+<<<<<<< HEAD
     public function store(Request $request, $event_id)
+=======
+
+    public function store(Request $request)
+>>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     {
+        \Log::info($request->all());
         // Validate input data including event_id
         $data = $request->validate([
             'ic_num' => 'required|digits:12',
@@ -63,7 +90,11 @@ class RegistrationController extends Controller
         }
 
         // Redirect to the success page after registration
+<<<<<<< HEAD
         return redirect()->route('event.register');
+=======
+        return redirect()->route('events.view')->with('success', 'Berjaya!');
+>>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     }
 
 
@@ -103,7 +134,12 @@ class RegistrationController extends Controller
 
     public function showRegistrationForm($event_id)
     {
+<<<<<<< HEAD
         $event = Event::findOrFail($event_id);
         return view('EventRegistration.index', compact('event'));  
+=======
+        $event = Event::findOrFail($eventId);  // It's safer to use findOrFail in case the event doesn't exist
+        return view('EventRegistration.index', compact('event'));  // Pass the event to the view
+>>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
     }
 }

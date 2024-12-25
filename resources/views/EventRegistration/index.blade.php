@@ -12,20 +12,6 @@
             color: #d9534f;
             font-weight: bold;
         }
-        .back-link {
-            color: #095c80;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
-
-        .back-link i {
-            margin-right: 5px;  
-        }
 
         .container {
             width: 100%;
@@ -119,38 +105,38 @@
             text-align: center;
         }
         .success-container {
-            display: none;
-            background-color: #4CAF50; 
-            color: white; 
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px; 
-            text-align: center; 
-            font-size: 16px; 
-            width: 100%; 
-            max-width: 600px; 
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .required {
-            color: red;
-            font-size: 18px;
-        }
+    display: none;
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px; 
+    text-align: center; 
+    font-size: 16px; 
+    width: 100%; 
+    max-width: 600px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
     </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 @extends('includes.navbar')
 @section('content')
+
 <div class="container">
-<b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
     <h1>PENDAFTARAN PENGUNJUNG</h1>
     <br>
     <p>Sila Pastikan Maklumat Pendaftaran Anda Adalah Sahih</p>
 
+    <!-- Success Message -->
+    <!-- Success message container -->
 <div id="success-message" class="success-container" style="display: none;"></div>
 
 
+    <!-- Error Messages -->
     @if ($errors->any())
     <div class="error-container">
         <ul>
@@ -160,24 +146,26 @@
         </ul>
     </div>
     @endif
+
+    <!-- Form Container -->
     <div class="form-container">
     <form id="registration-form" method="post" action="{{ route('register.store', ['event_id' => $event->id]) }}">
     @csrf
     @method('post')
     <input type="hidden" name="event_id" value="{{ $event->id }}">
-    <label for="ic_num">No Kad Pengenalan:<span class="required"> *</span></label>
+    <label for="ic_num">No Kad Pengenalan:</label>
 <input type="text" id="ic_num" name="ic_num" placeholder="cth: 040520141234" required />
 <div id="ic_num-error" class="error-container" style="display: none;"></div> 
 
-<label for="name">Nama:<span class="required"> *</span></label>
+<label for="name">Nama:</label>
 <input type="text" id="name" name="name" placeholder="cth: Abu bin Ali" required />
 <div id="name-error" class="error-container" style="display: none;"></div> 
 
-<label for="phone_num">No Telefon Bimbit:<span class="required"> *</span></label>
+<label for="phone_num">No Telefon Bimbit:</label>
 <input type="text" id="phone_num" name="phone_num" placeholder="cth: 01123456789" required />
 <div id="phone_num-error" class="error-container" style="display: none;"></div> 
 
-<label for="gender">Jantina:<span class="required"> *</span></label>
+<label for="gender">Jantina:</label>
 <select id="gender" name="gender" required>
     <option value="" disabled selected>Pilih Jantina</option>
     <option value="Lelaki">Lelaki</option>
@@ -185,15 +173,15 @@
 </select>
 <div id="gender-error" class="error-container" style="display: none;"></div> 
 
-<label for="address">Alamat:<span class="required"> *</span></label>
+<label for="address">Alamat:</label>
 <textarea id="address" name="address" rows="4" required></textarea>
 <div id="address-error" class="error-container" style="display: none;"></div> 
 
-<label for="poscode">Poskod:<span class="required"> *</span></label>
+<label for="poscode">Poskod:</label>
 <input type="text" id="poscode" name="poscode" placeholder="cth: 81300" required />
 <div id="poscode-error" class="error-container" style="display: none;"></div>
 
-<label for="state">Negeri:<span class="required"> *</span></label>
+<label for="state">Negeri:</label>
 <select id="state" name="state" required>
     <option value="" disabled selected>Pilih Negeri</option>
     <option value="Johor">Johor</option>
@@ -213,13 +201,18 @@
     <option value="Labuan">Wilayah Persekutuan Labuan</option>
     <option value="Putrajaya">Wilayah Persekutuan Putrajaya</option>
 </select>
+<<<<<<< HEAD
 <div id="state-error" class="error-container" style="display: none;"></div> 
 <br><br>
+=======
+<div id="state-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
+
+>>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
 <label for="email">Emel (jika ada):</label>
 <input type="email" id="email" name="email" placeholder="cth: aliabu@gmail.com" />
 <div id="email-error" class="error-container" style="display: none;"></div> 
 
-<label for="house_category">Kategori Isi Rumah:<span class="required"> *</span></label>
+<label for="house_category">Kategori Isi Rumah:</label>
 <select id="house_category" name="house_category" required>
     <option value="" disabled selected>Pilih Kategori Isi Rumah</option>
     <option value="B40">B40</option>
@@ -228,7 +221,7 @@
 </select>
 <div id="house_category-error" class="error-container" style="display: none;"></div> 
 
-<label for="age_class">Kategori Peringkat Umur:<span class="required"> *</span></label>
+<label for="age_class">Kategori Peringkat Umur:</label>
 <select id="age_class" name="age_class" required>
     <option value="" disabled selected>Peringkat Umur</option>
     <option value="Bawah 18 Tahun">Bawah 18 Tahun</option>
@@ -236,7 +229,7 @@
     <option value="31-50 Tahun">31-50 Tahun</option>
     <option value="50 Tahun ke Atas">50 Tahun ke Atas</option>
 </select>
-<div id="age_class-error" class="error-container" style="display: none;"></div> 
+<div id="age_class-error" class="error-container" style="display: none;"></div> <!-- Error Message -->
     
 <button type="submit" class="btn btn-submit" style="margin-top:15px;">Daftar</button>
 
@@ -245,10 +238,13 @@
     </div>
 </div>
 
+    <!-- JavaScript for AJAX Form Submission -->
     <script>
     const form = document.querySelector('#registration-form');
-const successMessageContainer = document.getElementById('success-message');
+    const successMessageContainer = document.createElement('div'); // To show success message on page
+    successMessageContainer.classList.add('alert-success'); // Add success styling
 
+<<<<<<< HEAD
 form.addEventListener('submit', async (event) => {
     event.preventDefault(); 
 
@@ -260,6 +256,10 @@ form.addEventListener('submit', async (event) => {
         container.style.display = 'none';
         container.innerText = '';
     });
+=======
+    form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent form from redirecting
+>>>>>>> db03aeba7ccd957ee6d80118541f657dd9ae4c6d
 
     const formData = new FormData(form);
 
@@ -273,38 +273,46 @@ form.addEventListener('submit', async (event) => {
             },
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const result = await response.json();
 
+        // Clear previous error and success messages
+        const errorContainers = document.querySelectorAll('.error-container');
+        errorContainers.forEach(container => container.style.display = 'none');
+
+        const successMessageContainer = document.getElementById('success-message');
+
         if (result.status === 'success') {
-            successMessageContainer.innerText = result.message || 'Pendaftaran berjaya!';
-            successMessageContainer.style.display = 'block';
-            form.reset(); // Clear the form
+            // Display success message
+            successMessageContainer.innerText = result.message;
+            successMessageContainer.style.display = 'block'; // Show the success message
+
+            // Optionally reset the form
+            form.reset();
         } else if (result.errors) {
-            // Display field-specific errors
-            for (const [field, errorMessage] of Object.entries(result.errors)) {
+            // Show validation errors
+            for (let field in result.errors) {
+                const errorMessage = result.errors[field];
                 const errorContainer = document.getElementById(`${field}-error`);
                 if (errorContainer) {
                     errorContainer.innerText = errorMessage;
-                    errorContainer.style.display = 'block';
+                    errorContainer.style.display = 'block'; // Display the error message
                 }
             }
         } else {
-            throw new Error('Unexpected response from the server.');
+            // General error message
+            const errorMessageContainer = document.createElement('div');
+            errorMessageContainer.classList.add('error-container');
+            errorMessageContainer.innerText = 'An error occurred. Please try again.';
+            document.body.insertBefore(errorMessageContainer, form);
         }
     } catch (error) {
-        console.error('Error during form submission:', error);
-
+        console.error('Error submitting the form:', error);
         const errorMessageContainer = document.createElement('div');
         errorMessageContainer.classList.add('error-container');
-        errorMessageContainer.innerText = 'Ralat yang tidak dijangka berlaku. Sila cuba lagi.';
-        form.insertAdjacentElement('beforebegin', errorMessageContainer); // Display the error
+        errorMessageContainer.innerText = 'An unexpected error occurred.';
+        document.body.insertBefore(errorMessageContainer, form);
     }
 });
-
 
 
 

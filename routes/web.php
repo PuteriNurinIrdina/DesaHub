@@ -58,6 +58,7 @@ Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc'
 
 Route::get('/api/events-data', [ChartDataController::class, 'getEventsData']);
 Route::get('/api/products-data', [ChartDataController::class, 'getProductsData']);
+Route::get('/api/category-data', [ChartDataController::class, 'getCategoryData'])->name('category.data');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');

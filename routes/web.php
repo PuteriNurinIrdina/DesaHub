@@ -26,15 +26,15 @@ Route::get('/event/{event_id}/register',[RegistrationController::class, 'success
 /*Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
 Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
 Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');*/
-Route::get('/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
+Route::get('/event/{event_id}/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
 //Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
-Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+Route::post('/event/{event_id}/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::get('/withdraw', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.form');
 Route::post('/withdraw', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
 Route::post('/withdraw/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm');
-Route::get('/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
-Route::get('/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
-Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
+//Route::get('/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
+Route::get('/event/{event_id}/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
+//Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
 
 Route::get('/home', [GenController::class, 'home'])->name('home');
 
@@ -91,8 +91,8 @@ Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->na
 Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->name('user.events');
 //Route::get('/register/{event}', [RegistrationController::class, 'index'])->name('event.registration');
 //Route::get('/event/{event_id}/registrants', [RegistrationController::class, 'index'])->name('EventRegistration.index');
-Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
-Route::get('/peserta-list', [RegistrationController::class, 'showAllRegistrants'])->name('list.peserta');
+Route::get('/event/{event_id}/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
+Route::get('/event/{event_id}/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
 
 Route::get('/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('event.register');
 //Route::get('/register/{eventId}', [RegistrationController::class, 'showRegistrationForm']);

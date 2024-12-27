@@ -144,7 +144,7 @@
 @section('content')
 <div class="container">
 <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
-    <h1>PENDAFTARAN PENGUNJUNG</h1>
+    <h1>Pendaftaran Program ke {{$event_name}}</h1>
     <br>
     <p>Sila Pastikan Maklumat Pendaftaran Anda Adalah Sahih</p>
 

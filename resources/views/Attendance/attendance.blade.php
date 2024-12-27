@@ -12,15 +12,12 @@
             margin: 0;
             padding: 0;
         }
-
         .back-link {
             color: #095c80;
             text-decoration: none;
             font-size: 16px;
+            font-weight: bold;
         }
-        * {
-    font-weight: normal;
-}
 
         .back-link:hover {
             text-decoration: underline;
@@ -99,6 +96,7 @@
             font-size: 14px;
         }
 
+
         .attendee-list th {
             background-color: #095c80;
             color: white;
@@ -108,9 +106,10 @@
         }
 
         .attendee-list td {
-            font-weight: normal;
             font-size: 18px;
+            text-transform: uppercase;
             color: #555;
+            font-weight: normal; 
         }
 
     </style>
@@ -121,9 +120,9 @@
 @section('content')
 
 <div class="container">
-<b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
+<a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a>
 
-<h1>Kehadiran Pengunjung</h1>
+<h1>Kehadiran Pengunjung ke {{$event_name}}</h1>
 <br>
     @if(session('success'))
         <div class="success-message">
@@ -137,13 +136,13 @@
         </div>
     @endif
 
-    <form action="{{ route('attendance.mark') }}" method="POST">
+    <form action="{{ route('attendance.mark', ['event_id'=>$event_id]) }}" method="POST">
         @csrf
-        <table>
+        <table class = "attendee-list">
             <thead>
                 <tr>
                     <th>Nama</th>
-                    <th>Nombor Telefon</th>
+                    <th>No Telefon</th>
                     <th>Jantina</th>
                     <th>Kehadiran</th>
                 </tr>

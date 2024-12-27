@@ -188,10 +188,10 @@
     </div>
     
     <div class="admin-navigation">
-        <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>
-        <a href="{{ route('list.peserta', ['event' => $event]) }}">Peserta</a>
-        <a href="{{ route('non.attendees', ['event' => $event]) }}">Pendaftar Tidak Hadir</a>
-        <a href="{{ route('attendance.page', ['event' => $event]) }}">Tanda Kehadiran</a>
+        <a href="{{ route('list.pendaftar', ['event_id' => $event->id]) }}">Lihat Senarai Pendaftar</a>
+        <a href="{{ route('list.peserta', ['event_id' => $event->id]) }}">Lihat Kehadiran</a>
+        <a href="{{ route('non.attendees', ['event_id' => $event->id]) }}">Lihat Ketidakhadiran</a>
+        <a href="{{ route('attendance.page', ['event_id' => $event->id]) }}">Tanda Kehadiran</a>
     </div>
 
     <script>

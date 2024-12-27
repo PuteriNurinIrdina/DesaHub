@@ -67,8 +67,9 @@
 
         .attendee-list td {
             font-size: 18px;
+            text-transform: uppercase;
             color: #555;
-            font-weight: normal;
+            font-weight: normal; 
         }
 
 
@@ -88,6 +89,7 @@
             background-color: #f7f9fc;
             border: 1px solid #d0d7de;
             border-radius: 10px;
+            font-weight: normal;
         }
 
         .total-count {
@@ -139,7 +141,7 @@
 
     <div class="container">
     <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
-    <h1>Senarai Pendaftar Tidak Hadir</h1>
+    <h1>Senarai Ketidakhadiran Peserta ke {{$event_name}}</h1>
     <br>
         <div class="total-count">
             Jumlah Pendaftar Tidak Hadir: {{ $nonAttendees->count() }}

@@ -92,7 +92,7 @@
             <option value="type8">Lain-Lain</option>
             </select>
                 
-            <label for="desc">Penerangan:</label>
+            <label for="desc">Penerangan:<span class="text-danger">*</span></label>
             <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" required >
 
             <label for="poster">Poster:<span class="text-danger">*</span></label>

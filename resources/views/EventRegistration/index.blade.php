@@ -161,6 +161,7 @@
     </div>
     @endif
     <div class="form-container">
+    <!--<form method="post" action="{{ route('event.update', ['event' => $event]) }}" enctype="multipart/form-data">-->
     <form id="registration-form" method="post" action="{{ route('register.store') }}">
     @csrf
     @method('post')

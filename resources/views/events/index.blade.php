@@ -192,8 +192,8 @@
                 <!-- <p><strong>Penerangan:</strong> {{ $event->desc }}</p> -->
 
                 <!-- Display State and City -->
-                <p><strong>Negeri:</strong> {{ $event->state_name ?? 'N/A' }}</p>
-                <p><strong>Bandar:</strong> {{ $event->city_name ?? 'N/A' }}</p>
+                <p><strong>Negeri:</strong> {{ $event->state_name }}</p>
+                <p><strong>Bandar:</strong> {{ $event->city_name }}</p>
                 <div class="action-buttons">
                     <!-- Edit Button -->
                     <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>

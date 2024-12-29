@@ -163,7 +163,7 @@
             </div>
 
             <div class="form-group">
-                <label for="desc">Penerangan:</label>
+                <label for="desc">Penerangan:<span class="text-danger">*</span></label>
                 <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" value="{{ $event->desc }}" />
             </div>
 

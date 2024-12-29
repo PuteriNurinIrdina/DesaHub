@@ -11,7 +11,8 @@ use App\Models\City;
 class EventController extends Controller
 {
     public function index(){
-        $events = Event::with(['state', 'city'])->get(); 
+        //$events = EventModule::where('account_id', auth()->id())->get();
+        //$events = Event::with(['state', 'city'])->get(); 
         return view('events.index', compact('events'));
     }
 

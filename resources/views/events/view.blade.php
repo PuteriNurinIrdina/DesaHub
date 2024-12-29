@@ -167,8 +167,7 @@
         @else
         <div class="event-container">
             @foreach($events as $event)
-<<<<<<< HEAD
-                        <div class="event-box">
+                     <!--   <div class="event-box">
                             <img src="{{ $event->poster }}" alt="Event Poster">
                             <h2>{{ $event->name }}</h2>
                             <p>Tarikh: {{ $event->date }}</p>
@@ -182,9 +181,8 @@
                                 <button type="button">Lihat Butiran</button>
                             </a>
                             </div>
-                        </div>
+                        </div> -->
                
-=======
             <div class="event-box">
                 <img src="{{ $event->poster }}" alt="Event Poster">
                 <h2>{{ $event->name }}</h2>
@@ -205,7 +203,6 @@
                     </a>
                 </div>
             </div>
->>>>>>> aa6f2a830e92cb40050275a0e6d2ed42f58206d1
             @endforeach
         </div>
         @endif

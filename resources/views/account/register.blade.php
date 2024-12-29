@@ -101,6 +101,11 @@
             margin-top: -10px;
             margin-bottom: 15px;
         }
+
+        .required {
+            color: red;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -130,7 +135,7 @@
                 <form method="POST" action="{{ route('register.post') }}">
                     @csrf
                     <div class="form-group mt-4">
-                        <label for="fullname" class="form-label">Nama</label>
+                        <label for="fullname" class="form-label">Nama<span class="required">*</span></label>
                         <input type="text" id="fullname" name="fullname" class="form-control" required>
                         @if($errors->has('fullname'))
                             <span class="text-danger">{{ $errors->first('fullname') }}</span>
@@ -138,7 +143,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="form-label">E-mel</label>
+                        <label for="email" class="form-label">E-mel<span class="required">*</span></label>
                         <div class="field-description">Pilih alamat E-mel yang masih aktif dan boleh diakses.</div>
                         <input type="email" id="email" name="email" class="form-control" placeholder="contoh@email.com" required>
                         @if($errors->has('email'))
@@ -147,7 +152,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="form-label">Kata Laluan</label>
+                        <label for="password" class="form-label">Kata Laluan<span class="required">*</span></label>
                         <div class="field-description">Pilih Kata Laluan yang mengandungi sekurang-kurangnya 8 karakter.</div>
                         <input type="password" id="password" name="password" class="form-control" required>
                         @if($errors->has('password'))
@@ -156,7 +161,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="role" class="form-label">Peranan</label>
+                        <label for="role" class="form-label">Peranan<span class="required">*</span></label>
                         <div class="field-description">Pilih peranan anda semasa mendaftar.</div>
                         <select id="role" name="role" class="form-control" required>
                             <option value="" disabled selected>Pilih peranan...</option>

@@ -46,4 +46,10 @@ class Account extends Authenticatable
     {
         return $this->hasMany(Event::class, 'account_id');
     }
+
+    public function registerEvents()
+    {
+        return $this->hasMany(RegisterEvent::class, 'account_id');
+    }
+
 }

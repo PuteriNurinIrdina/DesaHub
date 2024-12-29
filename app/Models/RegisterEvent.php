@@ -41,10 +41,14 @@ class RegisterEvent extends Model
     }
 
     public function event()
-{
-    return $this->belongsTo(Event::class);
-}
+    {
+        return $this->belongsTo(Event::class);
+    }
 
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 
     public function index($eventId)
     {

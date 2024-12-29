@@ -8,14 +8,26 @@ use App\Models\Event;
 
 class RegistrationController extends Controller
 {
-    public function index() {
-        $events = Event::all(); 
-        return view('events.index', compact('events'));
+
+    public function index(Request $request)
+    {
+        $event_id = $request->query('event_id');
+
+        if (!$event_id) {
+            return redirect()->route('events.view')->with('error', 'Event ID is required.');
+        }
+
+        $event = Event::find($event_id);
+        if (!$event) {
+            return redirect()->route('events.view')->with('error', 'Event not found.');
+        }
+
+        return view('EventRegistration.index', compact('event', 'event_id'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $event_id)
     {
-        // Validate input data including event_id
+        \Log::info($request->all());
         $data = $request->validate([
             'ic_num' => 'required|digits:12',
             'name' => 'required|string|max:255',
@@ -27,7 +39,6 @@ class RegistrationController extends Controller
             'email' => 'nullable|email',
             'house_category' => 'required|string',
             'age_class' => 'required|string',
-            'event_id' => 'required|exists:events,id',  // Ensure event_id exists in the database
         ], [
             'ic_num.required' => 'Sila Isi No Kad Pengenalan Anda.',
             'ic_num.digits' => "No Kad Pengenalan Mestilah Mengandungi 12 Digit Sahaja (tanpa '-')",
@@ -47,13 +58,12 @@ class RegistrationController extends Controller
             'event_id.exists' => 'Event yang Dipilih Tidak Sah. Sila Pilih Event Yang Betul.',
         ]);
 
-        // Optional: Convert name to uppercase (if needed for consistency)
         $data['name'] = strtoupper($data['name']);
+        $data['event_id'] = $event_id;
 
-        // Store the registration data in the database
-        RegisterEvent::create($data);
+        RegisterEvent::create(array_merge($data, ['event_id' => $event_id]));
 
-        // If the request is AJAX, return a JSON response
+
         if ($request->ajax()) {
             return response()->json([
                 'status' => 'success',
@@ -61,53 +71,53 @@ class RegistrationController extends Controller
             ]);
         }
 
-        // Redirect to the success page after registration
-        return redirect()->route('registration.success');
+        return redirect()->route('event.register');
+    }
+    public function attendees($event_id) {
+        $event = Event::find($event_id);
+        $event_name = $event ? $event->name : '';
+        $attendees = RegisterEvent::where('attendance', 1)->where('event_id', $event_id)->get();
+        return view('EventRegistration.attendees', compact('attendees', 'event_name'));
     }
 
-
-
-    public function attendees() {
-        $attendees = RegisterEvent::where('attendance', 1)->get();
-        return view('EventRegistration.attendees', compact('attendees'));
-    }
-
-    public function absent(Request $request) {
-        $query = RegisterEvent::where('attendance', 0);
+    public function absent(Request $request, $event_id) {
+        $event = Event::find($event_id);
+        $event_name = $event ? $event->name : '';
+        $query = RegisterEvent::where('attendance', 0)->where('event_id', $event_id);
 
         if ($request->has('name') && !empty($request->name)) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
         $nonAttendees = $query->get();
-        return view('EventRegistration.absent', compact('nonAttendees'));
+        return view('EventRegistration.absent', compact('nonAttendees', 'event_name'));
     }
 
-    public function showAllRegistrants() {
-        $registrants = RegisterEvent::all(); 
-        return view('EventRegistration.registrant', compact('registrants'));
+    public function showAllRegistrants($event_id) {
+        $event = Event::find($event_id);
+        $event_name = $event ? $event->name : '';
+        $registrants = RegisterEvent::where('event_id', $event_id)->get(); 
+        return view('EventRegistration.registrant', compact ('registrants', 'event_id', 'event_name'));
     }
 
-    public function showRegistrants(Request $request) {
+    public function showRegistrants(Request $request, $event_id) {
         $searchQuery = $request->input('searchQuery', '');
-        $registrants = RegisterEvent::where('name', 'like', '%' . $searchQuery . '%')->get();
+        $registrants = RegisterEvent::where('event_id', $event_id)->where('name', 'like', '%' . $searchQuery . '%')->get();
         return view('EventRegistration.registrant', compact('registrants', 'searchQuery'));
     }
     
     public function showAttendees(Request $request) {
         $searchQuery = $request->input('searchQuery', ''); 
-        $attendees = RegisterEvent::where('name', 'LIKE', "%{$searchQuery}%")->get(); 
+        $attendees = RegisterEvent::where('event_id', $event_id)
+        ->where('name', 'like', '%' . $searchQuery . '%')->get();
         return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); 
     }
 
-    // Show registration form with event details
-    public function showRegistrationForm($eventId)
+    public function showRegistrationForm($event_id)
     {
-        $event = Event::findOrFail($eventId);  // It's safer to use findOrFail in case the event doesn't exist
-        return view('EventRegistration.index', compact('event'));  // Pass the event to the view
-    }
-
-    public function create() {
-        return view('EventRegistration.create');
+        $event = Event::find($event_id);
+        $event_name = $event ? $event->name : '';
+        $event = Event::findOrFail($event_id); 
+        return view('EventRegistration.index', compact('event', 'event_name'));  
     }
 }

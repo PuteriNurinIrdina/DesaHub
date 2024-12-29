@@ -196,7 +196,7 @@
                 <p><strong>Bandar:</strong> {{ $event->city_name }}</p>
                 <div class="action-buttons">
                     <!-- Edit Button -->
-                    <a href="{{ route('list.pendaftar', ['event' => $event]) }}">Pendaftar</a>
+                    <a href="{{ route('list.pendaftar', ['event_id' => $event->id]) }}">Pendaftar</a>
                     <a href="{{ route('event.edit', ['event' => $event]) }}">Kemas Kini</a>
                      
                 </div>

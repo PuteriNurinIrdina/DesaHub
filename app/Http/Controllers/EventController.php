@@ -12,7 +12,7 @@ class EventController extends Controller
 {
     public function index(){
         //$events = EventModule::where('account_id', auth()->id())->get();
-        //$events = Event::with(['state', 'city'])->get(); 
+        $events = Event::with(['state', 'city'])->get(); 
         return view('events.index', compact('events'));
     }
 

@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class RegisterEvent extends Model
+{
+    use HasFactory;
+    
+    protected $table = '_event_registration';
+    
+    protected $fillable = [
+        'event_id',
+        'account_id',
+        'ic_num',
+        'name',
+        'phone_num',
+        'gender',
+        'address',
+        'poscode',
+        'email',
+        'state',
+        'house_category',
+        'age_class',
+        'attendance',
+    ];
+
+    public function setAttendanceAttribute($value)
+    {
+        if ($value == 'Hadir') {
+            $this->attributes['attendance'] = 1;
+        } else {
+            $this->attributes['attendance'] = 0;
+        }
+    }
+
+    public function getAttendanceAttribute($value)
+    {
+        return $value == 1 ? 'Hadir' : 'Tidak Hadir';
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function index($eventId)
+    {
+        $event = Event::find($eventId); // Find the event by ID
+        return view('EventRegistration.index', compact('event')); // Pass the event data to the view
+    }
+
+}

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\State;
 use App\Models\City;
 use App\Models\RegisterEvent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {

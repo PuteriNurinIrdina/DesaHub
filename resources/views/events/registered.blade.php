@@ -56,6 +56,7 @@
         .event-list th,
         .event-list td {
             text-align: left;
+            text-transform: uppercase;
             padding: 18px;
             border: 1px solid #e0e0e0;
         }
@@ -129,23 +130,22 @@
                 padding: 14px;
             }
         }
-    </style>
-    <script>
-        function filterTable() {
-            const input = document.getElementById("nameFilter");
-            const filter = input.value.toUpperCase();
-            const table = document.getElementById("eventTable");
-            const tr = table.getElementsByTagName("tr");
-
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName("td")[1]; 
-                if (td) {
-                    const txtValue = td.textContent || td.innerText;
-                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-                }
-            }
+        button {
+            background-color: #095c80;
+            color: white;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px !important;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-    </script>
+        button:disabled {
+            background-color: #b0b0b0; 
+            cursor: not-allowed;
+            color: #fff;
+        }
+    </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 </head>
@@ -155,19 +155,10 @@
 
     <div class="container">
     <b><a href="{{ url()->previous() }}" class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
-    <h1>Senarai Acara Yang Didaftar</h1>
+    <h1>Senarai Acara Telah Anda Daftar</h1>
     <br>
         <div class="total-count">
             Jumlah Acara: {{ $events->count() }}
-        </div>
-
-        <div class="search-box">
-            <input 
-                type="text" 
-                id="nameFilter" 
-                onkeyup="filterTable()" 
-                placeholder="Cari nama acara..." 
-            />
         </div>
 
         @if ($events->isEmpty())
@@ -180,21 +171,39 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Nama Peserta</th>
+                            <th>No IC Peserta</th>
                             <th>Nama Acara</th>
                             <th>Tarikh</th>
-                            <th>Tempat</th>
+                            <th>Lokasi</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $counter = 0;
+                        @endphp
                         @foreach ($events as $index => $event)
+                        @foreach ($event->participant_names as $index => $name)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
+                                <td>{{ ++$counter }}</td>
+                                <td>{{ $name }}</td>
+                                <td>{{ $event->participant_ics[$index] }}</td>
                                 <td>{{ $event->name }}</td>
                                 <td>{{ $event->date }}</td>
-                                <td>{{ $event->location }}</td>
+                                <td>{{ $event->state_name }}, {{ $event->city_name }}</td>
                                 <td>{{ $event->status }}</td>
+                                <td>
+                                    @if($event->status !== 'Tamat')
+                                        <a href="{{ route('withdraw.process', ['event_id' => $event->id, 'ic_num' => $event->participant_ics[$index]]) }}" style="text-decoration: none;">
+                                        <button type="button">Tarik Diri</button>
+                                    @else 
+                                    <button type="button" disabled>Tarik Diri</button>
+                                    @endif
+                                </a></td>
                             </tr>
+                        @endforeach
                         @endforeach
                     </tbody>
                 </table>

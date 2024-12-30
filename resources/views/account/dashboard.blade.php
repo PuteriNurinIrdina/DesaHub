@@ -167,20 +167,23 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Program Berdaftar</h4>
-                        <p>8</p>
+                        <p>{{ $totalRegisteredEvents }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Jumlah Program Perlu Hadir</h4>
+                        <p>{{ $totalUpcomingEvents }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4>Program Berdaftar</h4>
-                <ul class="list-group">
-                    
-                </ul>
-            </div>
-        </div>
     @elseif($user->role === 'penjual')
         <div class="row">
         <div class="col">

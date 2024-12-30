@@ -406,6 +406,11 @@
                     <ul>
                         <li><a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
                         <li><a href="{{ route('user.events',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Produk
+                    <ul>
                         <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
                     </ul>
                 </li>
@@ -456,7 +461,6 @@
                     <ul>
                         <li><a href="{{ route('events.index') }}"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
                         <li><a href="{{ route('events.create') }}"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
-                        <li><a href="#"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
                     </ul>
                 </li>
 

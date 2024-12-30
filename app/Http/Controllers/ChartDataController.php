@@ -9,39 +9,91 @@ use App\Models\Product;
 
 class ChartDataController extends Controller
 {
-    public function getEventsData()
+    public function getEventsData(Request $request)
     {
-        $accountId = Auth::id();
-        $products = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-            ->where('account_id', $accountId)
+        $year = $request->input('year', date('Y')); // Default to current year if not specified
+
+        $events = DB::table('event_module')
+            ->select('month', DB::raw('COUNT(*) as count'))
+            ->where('year', $year)
             ->groupBy('month')
-            ->orderBy('month')
+            ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
             ->get();
-  
+
         $data = array_fill(0, 12, 0);
 
-        foreach ($results as $row) {
-            $data[$row->month - 1] = $row->total; // Months are 1-indexed
+        $monthMap = [
+            'January' => 0, 'February' => 1, 'March' => 2, 'April' => 3,
+            'May' => 4, 'June' => 5, 'July' => 6, 'August' => 7,
+            'September' => 8, 'October' => 9, 'November' => 10, 'December' => 11,
+        ];
+
+        foreach ($events as $event) {
+            $monthIndex = $monthMap[$event->month] ?? null;
+            if ($monthIndex !== null) {
+                $data[$monthIndex] = $event->count;
+            }
         }
 
         return response()->json(['data' => $data]);
     }
 
-    public function getProductsData()
+    public function getProductsData(Request $request)
     {
         $accountId = Auth::id();
+        $year = $request->input('year', date('Y'));
+
         $products = Product::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->where('account_id', $accountId)
+            ->whereYear('created_at', $year)
             ->groupBy('month')
             ->orderBy('month')
             ->get();
-        
+
         $data = array_fill(0, 12, 0);
 
         foreach ($products as $product) {
-            $data[$product->month - 1] = $product->count; // Map to zero-based index
+            $data[$product->month - 1] = $product->count;
         }
-    
+
         return response()->json(['data' => $data]);
+    }
+
+    public function getCategoryData(Request $request)
+    {
+        $accountId = Auth::id();
+
+        $year = $request->get('year');
+
+        $categories = DB::table('product')
+            ->select('category', DB::raw('COUNT(*) as total'))
+            ->where('account_id', $accountId)
+            ->when($year, function ($query) use ($year) {
+                return $query->whereYear('created_at', $year);
+            })
+            ->groupBy('category')
+            ->get();
+
+        $categoryData = [
+            "Barangan Runcit" => 0,
+            "Kesihatan & Kecantikan" => 0,
+            "Kelengkapan Rumah" => 0,
+            "Bayi, Kanak-kanak & Mainan" => 0,
+            "Fesyen" => 0,
+            "Automatif" => 0,
+            "Haiwan" => 0,
+            "Lain-lain" => 0,
+        ];
+
+        foreach ($categories as $category) {
+            if (isset($categoryData[$category->category])) {
+                $categoryData[$category->category] = $category->total;
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => array_values($categoryData),
+        ]);
     }
 }

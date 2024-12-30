@@ -65,6 +65,20 @@
 <div class="container">
 <h1>Dashboard</h1>
 <br>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="yearFilter" class="form-label"><strong>Tahun</strong></label>
+            <select id="yearFilter" name="year">
+            <option value="" {{ empty(request('year')) ? 'selected' : '' }}>Pilih Tahun</option>
+            @foreach ($availableYears as $year)
+                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                    {{ $year }}
+                </option>
+            @endforeach
+        </select>
+        </div>
+    </div>
+
     @if($user->role === 'admin')
         <div class="row">
             <div class="col-md-6">
@@ -153,20 +167,23 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Jumlah Program Berdaftar</h4>
-                        <p>8</p>
+                        <p>{{ $totalRegisteredEvents }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Jumlah Program Perlu Hadir</h4>
+                        <p>{{ $totalUpcomingEvents }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mt-4">
-            <div class="card-body">
-                <h4>Program Berdaftar</h4>
-                <ul class="list-group">
-                    
-                </ul>
-            </div>
-        </div>
     @elseif($user->role === 'penjual')
         <div class="row">
         <div class="col">
@@ -247,23 +264,38 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Products Chart
-        if (document.getElementById('productsChart')) {
-            const ctxProducts = document.getElementById('productsChart').getContext('2d');
+        const yearFilter = document.getElementById('yearFilter');
+        const currentYear = new Date().getFullYear();
+        const selectedYear = new URLSearchParams(window.location.search).get('year') || currentYear;
+        yearFilter.value = selectedYear;
 
-            fetch('/api/products-data')
+        yearFilter.addEventListener('change', function () {
+            const year = this.value;
+            const urlParams = new URLSearchParams(window.location.search);
+            if (year) {
+                urlParams.set('year', year);
+            } else {
+                urlParams.delete('year');
+            }
+            window.location.search = urlParams.toString();
+        });
+
+        function fetchChartData(apiUrl, chartId, labels, labelName, backgroundColor, borderColor) {
+            const ctx = document.getElementById(chartId).getContext('2d');
+
+            fetch(`${apiUrl}?year=${yearFilter.value}`)
                 .then(response => response.json())
                 .then(result => {
-                    console.log('API Response:', result);
-                    new Chart(ctxProducts, {
+                    const chartData = result.data || Array(labels.length).fill(0); // Default to zero if no data
+                    new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'December'],
+                            labels: labels,
                             datasets: [{
-                                label: 'Jumlah Produk',
-                                data: result.data || [], // Use data from API
-                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
-                                borderColor: 'rgba(173, 216, 230, 1)',
+                                label: labelName,
+                                data: chartData,
+                                backgroundColor: backgroundColor,
+                                borderColor: borderColor,
                                 borderWidth: 1
                             }]
                         },
@@ -277,135 +309,43 @@
                         }
                     });
                 })
-                .catch(error => console.error('Error fetching products data:', error));
+                .catch(error => console.error(`Error fetching data for ${chartId}:`, error));
+        }
+
+        // Products Chart
+        if (document.getElementById('productsChart')) {
+            fetchChartData(
+                '/api/products-data',
+                'productsChart',
+                ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+                'Jumlah Produk',
+                'rgba(173, 216, 230, 0.6)',
+                'rgba(173, 216, 230, 1)'
+            );
         }
 
         // Events Chart
         if (document.getElementById('eventsChart')) {
-            const ctxEvents = document.getElementById('eventsChart').getContext('2d');
-
-            const defaultData = {
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            };
-
-            fetch('/api/events-data')
-                .then(response => response.json())
-                .then(result => {
-                    console.log('API Response:', result);
-
-                    const chartData = result && result.data ? result.data : defaultData.data;
-
-                    new Chart(ctxEvents, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
-                            datasets: [{
-                                label: 'Jumlah Program',
-                                data: chartData,
-                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
-                                borderColor: 'rgba(173, 216, 230, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching events data:', error);
-
-                    new Chart(ctxEvents, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
-                            datasets: [{
-                                label: 'Jumlah Program',
-                                data: defaultData.data, // Default zeros
-                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
-                                borderColor: 'rgba(173, 216, 230, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                });
+            fetchChartData(
+                '/api/events-data',
+                'eventsChart',
+                ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
+                'Jumlah Program',
+                'rgba(173, 216, 230, 0.6)',
+                'rgba(173, 216, 230, 1)'
+            );
         }
 
         // Category Chart
         if (document.getElementById('categoryChart')) {
-            const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-
-            const defaultData = {
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            };
-
-            fetch('/api/events-data')
-                .then(response => response.json())
-                .then(result => {
-                    console.log('API Response:', result);
-
-                    const chartData = result && result.data ? result.data : defaultData.data;
-
-                    new Chart(ctxCategory, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Makanan', 'Kelengkapan Rumah', 'Fesyen', 'Penjagaan Diri', 'Mainan'],
-                            datasets: [{
-                                label: 'Jumlah Produk',
-                                data: chartData,
-                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
-                                borderColor: 'rgba(173, 216, 230, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching events data:', error);
-
-                    new Chart(ctxCategory, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Makanan', 'Kelengkapan Rumah', 'Fesyen', 'Penjagaan Diri', 'Mainan'],
-                            datasets: [{
-                                label: 'Jumlah Produk',
-                                data: defaultData.data, // Default zeros
-                                backgroundColor: 'rgba(173, 216, 230, 0.6)',
-                                borderColor: 'rgba(173, 216, 230, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                });
+            fetchChartData(
+                '/api/category-data',
+                'categoryChart',
+                ['Barangan Runcit', 'Kesihatan & Kecantikan', 'Kelengkapan Rumah', 'Bayi, Kanak-kanak & Mainan', 'Fesyen', 'Automatif', 'Haiwan', 'Lain-lain'],
+                'Jumlah Produk',
+                'rgba(173, 216, 230, 0.6)',
+                'rgba(173, 216, 230, 1)'
+            );
         }
     });
 </script>

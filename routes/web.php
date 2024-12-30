@@ -20,18 +20,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
+//Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
+//Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
+//Route::get('/event/{event_id}/register',[RegistrationController::class, 'success'])->name('registration.success');
+/*Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
 Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
-Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');
-Route::get('/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
-Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
-Route::post('/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
-Route::get('/withdraw', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.form');
-Route::post('/withdraw', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
-Route::post('/withdraw/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm');
-Route::get('/peserta', [RegistrationController::class, 'attendees']);
-Route::get('/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
-Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants']);
+Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');*/
+Route::get('/event/{event_id}/kehadiran', [AttendanceController::class, 'showAttendancePage'])->name('attendance.page');
+//Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+Route::post('/event/{event_id}/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
+Route::get('{event_id}/withdraw/{ic_num}', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
+Route::post('{event_id}/withdraw/{ic_num}/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm');
+Route::get('withdraw/success', [WithdrawalController::class, 'withdrawalSuccess'])->name('withdraw.success');
+//Route::get('/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
+Route::get('/event/{event_id}/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
+//Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
 
 Route::get('/home', [GenController::class, 'home'])->name('home');
 
@@ -55,6 +58,7 @@ Route::post('/deleteAcc', [AccController::class, 'deleteAcc'])->name('deleteAcc'
 
 Route::get('/api/events-data', [ChartDataController::class, 'getEventsData']);
 Route::get('/api/products-data', [ChartDataController::class, 'getProductsData']);
+Route::get('/api/category-data', [ChartDataController::class, 'getCategoryData'])->name('category.data');
 
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
@@ -74,17 +78,14 @@ Route::put('/events/{event}', [EventController::class, 'update'])->name('event.u
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('event.destroy');
 
 Route::get('/states-and-cities', [EventController::class, 'getStatesAndCities']);
-// Route to fetch cities based on selected state
 Route::get('/get-cities/{stateId}', [EventController::class, 'getCities']);
 
 
-Route::get('/events/view', [ViewEventController::class, 'view'])->name('events.view');
+Route::get('/{account_id}/events/view', [ViewEventController::class, 'view'])->name('events.view');
 Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->name('events.detail');
+Route::get('/{account_id}/program-saya', [EventController::class, 'showRegisteredEvents'])->name('user.events');
+Route::get('/event/{event_id}/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
+Route::get('/event/{event_id}/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
 
-/* Route::get('/events/deleted', function () {
-    return view('event.deleted');
-})->name('event.deleted'); */
-
-Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->name('user.events');
-Route::get('/register/{event}', [RegistrationController::class, 'index'])->name('event.registration');
-
+Route::get('/{account_id}/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('event.register');
+Route::post('/event/{account_id}/{event_id}/register', [RegistrationController::class, 'store'])->name('register.store');

@@ -7,35 +7,32 @@ use App\Models\RegisterEvent;
 
 class WithdrawalController extends Controller
 {
-    public function showWithdrawForm()
+    public function processWithdraw($event_id, $ic_num)
     {
-        return view('Withdrawal.withdraw'); 
-    }
-
-    public function processWithdraw(Request $request)
-    {
-        $request->validate([
-            'ic_num' => 'required|string|max:12',
-        ]);
-
-        $participant = RegisterEvent::where('ic_num', $request->ic_num)->first();
+        $participant = RegisterEvent::where('ic_num', $ic_num)->where('event_id', $event_id)->first();
 
         if ($participant) {
             return view('Withdrawal.confirm', compact('participant'));
         } else {
-            return redirect()->route('withdraw.form')->with('error', 'No kad pengenalan tidak dijumpai.');
+            return redirect()->route('withdraw.confirm', ['event_id' => $event_id, 'ic_num' => $ic_num])
+                ->with('error', 'Peserta tidak dijumpai.');
         }
     }
 
-    public function confirmWithdrawal(Request $request)
-    {
-        $participant = RegisterEvent::find($request->participant_id);
+    public function confirmWithdrawal(Request $request, $event_id, $ic_num) {
+    \Log::debug('Confirm Withdrawal Request:', $request->all());  
+    $participant = RegisterEvent::where('ic_num', $ic_num)
+                            ->where('event_id', $event_id)
+                            ->first();
+    if ($participant) {
+        $participant->delete();
+        return view('Withdrawal.success');
 
-        if ($participant) {
-            $participant->delete();
-            return redirect()->route('withdraw.form')->with('success', 'Pendaftaran berjaya dibatalkan.');
-        } else {
-            return redirect()->route('withdraw.form')->with('error', 'No kad pengenalan tidak dijumpai.');
-        }
+    } else {
+        return redirect()->route('withdraw.confirm', ['event_id' => $event_id, 'ic_num' => $ic_num])->with('error', 'Peserta tidak dijumpai atau tidak sepadan dengan acara.');
+    }
+    }
+    public function withdrawalSuccess() {
+        return view('Withdrawal.success');
     }
 }

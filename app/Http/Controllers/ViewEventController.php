@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ViewEventController extends Controller
 {
        // Display all events or filter them based on user input
-       public function view(Request $request)
+       public function view(Request $request, $account_id)
        {
+            $account_id = Auth::user()->id;
            $query = Event::query();
-   
            // Apply filters only if they are provided
            if ($request->filled('date')) {
                $query->where('date', $request->date);
@@ -42,7 +43,7 @@ class ViewEventController extends Controller
            $years = Event::select('year')->distinct()->pluck('year');
    
            // Return the view with events
-           return view('events.view', compact('events', 'days', 'months', 'years'), ['events' => $events]);
+           return view('events.view', compact('events', 'account_id', 'days', 'months', 'years'), ['events' => $events]);
        }
     
     // Show the details of a specific event

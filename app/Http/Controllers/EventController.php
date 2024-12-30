@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\State;
 use App\Models\City;
+use App\Models\RegisterEvent;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
     public function index(){
+        //$events = EventModule::where('account_id', auth()->id())->get();
         $events = Event::with(['state', 'city'])->get(); 
         return view('events.index', compact('events'));
     }
@@ -35,9 +41,9 @@ class EventController extends Controller
             'state_id' => 'required|exists:states,id', // Validate that the state exists in the states table
             'city_id' => 'required|exists:cities,id',// Validate that the city exists in the cities table
         ]);
-
         $state = State::find($request->state_id);
         $city = City::find($request->city_id);
+
 
         // Add state_name and city_name to the data array
         $data['state_name'] = $state ? $state->name : null;
@@ -52,7 +58,20 @@ class EventController extends Controller
 
         // Create the event record
         $newEvent = Event::create($data);
-        return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Ditambah!');
+
+        $data['account_id'] = Auth::id();
+
+        if ($newEvent) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Tambah',
+                'activityDetails' => 'tambah program baru: ' . $data['name'],
+            ]);
+    
+            return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Ditambah!');
+        }
+    
+        return redirect(route('events.index'))->with('error', 'Program Tidak Berjaya Ditambah.');
     }
 
         public function getStatesAndCities()
@@ -89,7 +108,7 @@ class EventController extends Controller
             'date' => 'required|date',
             'type' => 'required',
             'desc' => 'required|string',
-            'poster' => 'nullable|image|mimes:jpeg,png,jpg',
+            'poster' => 'nullableimage|mimes:jpeg,png,jpg',
             'state_id' => 'required|exists:states,id',
             'city_id' => 'required|exists:cities,id',
         ]);
@@ -105,8 +124,17 @@ class EventController extends Controller
         }
 
         // Update the event record
-        $event->update($data);
-        return redirect(route('events.index'))->with('success', 'Maklumat Program Telah Berjaya Dikemaskini!');
+        if ($event->update($data)) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Kemaskini',
+                'activityDetails' => 'kemaskini maklumat program: ' . $data['name'],
+            ]);
+    
+            return redirect(route('events.index'))->with('success', 'Maklumat Program Telah Berjaya Dikemaskini!');
+        }
+    
+        return redirect(route('events.index'))->with('error', 'Maklumat Program Tidak Berjaya Dikemaskini.');
     }
 
     public function destroy(Event $event){
@@ -120,11 +148,15 @@ class EventController extends Controller
             Storage::delete('public/' . $posterPath);
         }  
 
-        // Delete the event record from the database
-        $event->delete();
+        if ($event->delete()) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Hapus',
+                'activityDetails' => 'hapuskan program: ' . $event->name,
+            ]);
 
-        // Redirect to the deleted event confirmation page
-        return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Dipadam!');
+            return redirect()->route('events.index')->with('success', 'Program Telah Berjaya Dihapuskan!');
+        }
 
         }
 
@@ -136,10 +168,33 @@ class EventController extends Controller
             return view('events.detail', compact('event', 'otherEvents'));
         }
 
-        public function showRegisteredEvents() {
-            $user = auth()->user();
-            $events = $user->events;
-            return view('registered', compact('events')); 
+        public function showRegisteredEvents($account_id) {
+            $registrations = RegisterEvent::where('account_id', $account_id)
+            ->with('event') 
+            ->get();
+
+            $events = $registrations->groupBy('event_id')->map(function ($registrationsForEvent) {
+                $event = $registrationsForEvent->first()->event; 
+                $event->location = $event->city . ', ' . $event->state;
+                $eventDate = Carbon::parse($event->date);
+                $event->status = $eventDate->isPast() ? 'Tamat' : 'Akan Datang';
+                $event->participant_names = $registrationsForEvent->pluck('name')->toArray();
+                $event->participant_ics = $registrationsForEvent->pluck('ic_num')->toArray();
+        
+                return $event;
+            });
+        
+        return view('events.registered', compact('events'));
+    }
+
+        public function showEvent($id)
+        {
+            // Retrieve the event by its ID
+            $event = Event::find($id);
+            
+            // Pass the event to the view
+            return view('event.show', compact('event'));
         }
+
         
 }

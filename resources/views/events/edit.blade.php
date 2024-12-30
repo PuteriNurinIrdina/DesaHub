@@ -5,24 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Event</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2 {
+        h2 {
             text-align: center;
             color: #333;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
+            width: 100%;
+            margin: auto;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
             border-radius: 8px;
-            margin-top: 50px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
         .form-group {
             margin-bottom: 15px;
@@ -54,36 +47,61 @@
             margin-bottom: 20px;
         }
         .submit-btn {
-            background-color: #4CAF50;
+            background-color: #095c80;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 30px;
             border: none;
+            text-align: center;
             border-radius: 5px;
             font-size: 1.1rem;
             cursor: pointer;
         }
         .submit-btn:hover {
-            background-color: #45a049;
+            background-color:rgb(47, 103, 128);
         }
         .cancel-btn {
             text-align: center;
             margin-top: 20px;
         }
         .cancel-btn a {
-            color: #4CAF50;
+            color: #095c80;
             text-decoration: none;
             font-size: 1rem;
         }
         .cancel-btn a:hover {
             text-decoration: underline;
         }
+        .admin-navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .admin-navigation a {
+            display: inline-block;
+            margin: 60px;
+            width: 220px;
+            padding: 10px 20px;
+            background-color: #095c80;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .admin-navigation a:hover {
+            background-color: rgb(47, 103, 128);
+        }
+        .text-danger {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-
+@extends('includes.navbar')
+@section('content')
     <div class="container">
         <h1>Kemas Kini Program</h1>
-
+        <br>
         @if($errors->any())
             <div class="error-messages">
                 <ul>
@@ -93,23 +111,22 @@
                 </ul>
             </div>
         @endif
-
         <form method="post" action="{{ route('event.update', ['event' => $event]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
             
             <div class="form-group">
-                <label for="name">Nama:</label>
+                <label for="name">Nama:<span class="text-danger">*</span></label>
                 <input type="text" id="name" name="name" placeholder="Nama Program" value="{{ $event->name }}" />
             </div>
 
             <div class="form-group">
-                <label for="date">Tarikh:</label>
+                <label for="date">Tarikh:<span class="text-danger">*</span></label>
                 <input type="date" id="date" name="date" placeholder="Tarikh Program" value="{{ $event->date }}" />
             </div>
 
             <div class="form-group">
-                <label for="state">Negeri:</label>
+                <label for="state">Negeri:<span class="text-danger">*</span></label>
                 <select id="state" name="state_id" required>
                     @foreach($states as $state)
                         <option value="{{ $state->id }}" {{ $event->state_id == $state->state_id ? 'selected' : '' }}>
@@ -120,7 +137,7 @@
             </div>
 
             <div class="form-group">
-                <label for="city">Bandar:</label>
+                <label for="city">Bandar:<span class="text-danger">*</span></label>
                 <select id="city" name="city_id" required>
                     @foreach($cities as $city)
                         <option value="{{ $city->id }}" {{ $event->city_id == $city->city_id ? 'selected' : '' }}>
@@ -131,7 +148,7 @@
             </div>
 
             <div class="form-group">
-                <label for="type">Kategori:</label>
+                <label for="type">Kategori:<span class="text-danger">*</span></label>
                 <select id="type" name="type">
                 <!--<option value="sports" {{ request('type') == 'sports' ? 'selected' : '' }}>Sports</option>-->
                     <option value="type1" {{ $event->type == 'type1' ? 'selected' : '' }}>ICT</option>
@@ -146,12 +163,12 @@
             </div>
 
             <div class="form-group">
-                <label for="desc">Penerangan:</label>
+                <label for="desc">Penerangan:<span class="text-danger">*</span></label>
                 <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" value="{{ $event->desc }}" />
             </div>
 
             <div class="form-group">
-                <label for="poster">Poster:</label>
+                <label for="poster">Poster:<span class="text-danger">*</span></label>
                 <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg" />
                 @if($event->poster)
                     <p>Current Poster: <img src="{{ $event->poster }}" width="100" /></p>
@@ -169,6 +186,14 @@
             <a href="{{ route('events.index') }}">Batal</a>
         </div>
     </div>
+    
+    <div class="admin-navigation">
+        <a href="{{ route('list.pendaftar', ['event_id' => $event->id]) }}">Lihat Senarai Pendaftar</a>
+        <a href="{{ route('list.peserta', ['event_id' => $event->id]) }}">Lihat Kehadiran</a>
+        <a href="{{ route('non.attendees', ['event_id' => $event->id]) }}">Lihat Ketidakhadiran</a>
+        <a href="{{ route('attendance.page', ['event_id' => $event->id]) }}">Tanda Kehadiran</a>
+    </div>
+
     <script>
         // When the state dropdown changes, fetch the cities for the selected state
         document.getElementById('state').addEventListener('change', function() {
@@ -200,7 +225,7 @@
                 });
         });
     </script>
-
+@endsection
 </body>
 </html>
 <!-- <!DOCTYPE html>

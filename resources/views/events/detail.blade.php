@@ -6,7 +6,7 @@
     <title>Event Detail</title>
     
     <style>
-        /* Reset some default browser styling */
+        /* Reset some default browser styling
         body, h1, h2, p, ul {
             margin: 0;
             padding: 0;
@@ -22,21 +22,15 @@
             
             height: 100vh;
             margin: 0;
-        }
+        }*/
 
         .container {
-            background-color: #fff;
-            width: 80%;
-            max-width: 900px;
+            width: 100%;
+            margin: auto;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #007BFF;
-            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         .event-detail {
@@ -67,7 +61,7 @@
         }
 
         .event-buttons button {
-            background-color: #007BFF;
+            background-color: #095c80;
             color: white;
             font-size: 1rem;
             padding: 10px 20px;
@@ -113,9 +107,11 @@
 </head>
 
 <body>
+@extends('includes.navbar')
+@section('content')
     <div class="container">
         <h1>Event Details</h1>
-        
+        <br>
         @if($event)
             <div class="event-detail">
                 <img src="{{ $event->poster }}" alt="Event Poster">
@@ -131,12 +127,12 @@
                 <div class="event-buttons">
                 <div class="event-buttons">
                     <!-- If the user is logged in, allow them to join or register for the event -->
-                    <a href="{{ route('event.registration', $event->id) }}" style="text-decoration: none;">
+                    <a href="{{ route('event.register', ['event_id' => $event->id]) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
                     </a>
                     <br><br><br>
                     <a href="{{ route('events.view', ['event' => $event]) }}">
-                        Back
+                        Kembali
                     </a>
                 </div>
                 <hr>
@@ -156,5 +152,6 @@
             <p>Event not found.</p>
         @endif
     </div>
+@endsection
 </body>
 </html>

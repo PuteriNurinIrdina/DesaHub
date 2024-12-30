@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 class AccController extends Controller
 {
@@ -85,8 +87,56 @@ class AccController extends Controller
     {
         $user = auth()->user();
 
-        $eventCount = Event::where('account_id', Auth::id())->count();
-        $productCount = Product::where('account_id', Auth::id())->count();
+        $currentYear = date('Y');
+        $upcomingYears = range($currentYear, $currentYear + 5);
+        $availableYears = collect($upcomingYears)
+            ->merge(
+                DB::table('product')
+                    ->selectRaw('YEAR(created_at) as year')
+                    ->where('account_id', $user->id)
+                    ->union(
+                        DB::table('event_module')
+                            ->selectRaw('year')
+                    )
+                    ->distinct()
+                    ->pluck('year')
+            )
+            ->filter(fn($y) => $y >= $currentYear)
+            ->unique()
+            ->sort();
+
+        $year = $request->get('year');
+
+        $productCount = DB::table('product')
+            ->where('account_id', $user->id)
+            ->when($year, fn($query) => $query->whereYear('created_at', $year))
+            ->count();
+
+        $eventCount = DB::table('event_module')
+            ->when($year, fn($query) => $query->where('year', $year))
+            ->count();
+
+        $totalRegisteredEvents = DB::table('_event_registration')
+            ->where('account_id', $user->id) // Match the participant's account ID
+            ->when($year, fn($query) => $query->whereYear('created_at', $year))
+            ->count();
+
+        $totalUpcomingEvents = DB::table('_event_registration')
+            ->join('event_module', '_event_registration.event_id', '=', 'event_module.id')
+            ->where('_event_registration.account_id', $user->id) // Filter by participant's account ID
+            ->where(function ($query) {
+                $query->where('event_module.year', '>', date('Y'))
+                      ->orWhere(function ($query) {
+                          $query->where('event_module.year', '=', date('Y'))
+                                ->where('event_module.month', '>', date('m'))
+                                ->orWhere(function ($query) {
+                                    $query->where('event_module.month', '=', date('m'))
+                                          ->where('event_module.day_of_week', '>=', date('d'));
+                                });
+                      });
+            })
+            ->when($year, fn($query) => $query->where('event_module.year', $year))
+            ->count();        
 
         $query = ActivityLog::where('account_id', $user->id);
 
@@ -100,12 +150,8 @@ class AccController extends Controller
 
         $activityLogs = $query->latest()->limit(10)->get();
 
-        return view('account.dashboard', compact('user', 'eventCount', 'productCount', 'activityLogs'));
-    }
-
-    public function default()
-    {
-        return view('account.default');
+        return view('account.dashboard', compact('user', 'eventCount', 'productCount', 'activityLogs', 'availableYears', 
+        'totalRegisteredEvents', 'totalUpcomingEvents'));
     }
 
     // Edit account page
@@ -161,17 +207,6 @@ class AccController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'Anda telah berjaya log keluar.');
-    }
-
-    // Delete Account
-    public function deleteAcc() {
-        $account = Auth::user();
-
-        $account ->delete();
-
-        Auth::logout();
-
-        return redirect()->route('login')->with('success', 'Akaun anda telah berjaya dihapuskan.');
     }
 
     // Password reset page

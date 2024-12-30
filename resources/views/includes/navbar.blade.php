@@ -181,7 +181,6 @@
     .footer {
         background-color: #095c80; 
         color: #fff; 
-        padding: 40px 20px; 
         text-align: center;
     }
 
@@ -338,7 +337,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Utama</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('events.view') }}">Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('events.view',['account_id' => Auth::user()->id]) }}">Program</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('product.view') }}">Produk</a></li>
                 </ul>
                 <div class="log-reg">
@@ -403,10 +402,16 @@
             <!-- Normal User Sidebar -->
             @if(Auth::user()->role === 'peserta')
             <div class="normal-section">
-                <li class="section-title">Cari
+                <li class="section-title">Program
                     <ul>
-                        <li><a href="{{ route('events.view') }}"><i class="bi-calendar2-event"></i> Program</a></li>
-                        <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Produk</a></li>
+                        <li><a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
+                        <li><a href="{{ route('user.events',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Produk
+                    <ul>
+                        <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
                     </ul>
                 </li>
 
@@ -442,7 +447,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
                                 <i class="bi-box-arrow-left"></i>
-                                <button type="submit" class="btn-link"> Log Out</button>
+                                <button type="submit" class="btn-link"> Log Keluar</button>
                             </form>
                         </li>
                     </ul>
@@ -456,7 +461,6 @@
                     <ul>
                         <li><a href="{{ route('events.index') }}"><i class="bi-calendar2-event"></i> Lihat Program</a></li>
                         <li><a href="{{ route('events.create') }}"><i class="bi-calendar2-plus"></i> Tambah Program</a></li>
-                        <li><a href="#"><i class="bi bi-card-checklist"></i></i> Urus Peserta</a></li>
                     </ul>
                 </li>
 
@@ -474,7 +478,7 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                                 @csrf
                                 <i class="bi-box-arrow-left"></i>
-                                <button type="submit" class="btn-link"> Log Out</button>
+                                <button type="submit" class="btn-link"> Log Keluar</button>
                             </form>
                         </li>
                     </ul>

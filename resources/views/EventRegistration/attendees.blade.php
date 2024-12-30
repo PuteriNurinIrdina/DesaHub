@@ -28,7 +28,6 @@
         .back-link i {
             margin-right: 5px;  
         }
-
         .total-count {
             font-size: 22px;
             font-weight: 500;
@@ -83,14 +82,16 @@
         .attendee-list th {
             background-color: #095c80;
             color: white;
-            font-weight: 600;
+            font-weight: normal;  
             text-transform: uppercase;
             font-size: 18px;
         }
 
         .attendee-list td {
             font-size: 18px;
+            text-transform: uppercase;
             color: #555;
+            font-weight: normal; 
         }
 
         .attendee-list tr:nth-child(even) {
@@ -109,6 +110,7 @@
             background-color: #f7f9fc;
             border: 1px solid #d0d7de;
             border-radius: 10px;
+            font-weight: normal;
         }
 
         @media (max-width: 1200px) {
@@ -184,7 +186,7 @@
 
     <div class="container">
     <b><a href="{{ url()->previous() }}"  class="back-link"><i class="fas fa-arrow-left"></i> Kembali</a><b>
-    <h1>Senarai Peserta Hadir</h1>
+    <h1>Senarai Kehadiran Peserta ke {{$event_name}}</h1>
     <br>
 
         <div class="total-count">

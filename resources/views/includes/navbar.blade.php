@@ -405,7 +405,7 @@
                 <li class="section-title">Cari
                     <ul>
                         <li><a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
-                        <li><a href="{{ route('user.events') }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
+                        <li><a href="{{ route('user.events',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
                         <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
                     </ul>
                 </li>

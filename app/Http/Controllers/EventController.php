@@ -7,6 +7,8 @@ use App\Models\Event;
 use Illuminate\Support\Facades\Storage; 
 use App\Models\State;
 use App\Models\City;
+use App\Models\RegisterEvent;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -136,12 +138,23 @@ class EventController extends Controller
             return view('events.detail', compact('event', 'otherEvents'));
         }
 
-        public function showRegisteredEvents()
-    {
-        // Assuming you have an authenticated user and a relationship between User and Event
-        $events = auth()->user()->events;  // Retrieve events the user has registered for
+        public function showRegisteredEvents($account_id) {
+            $registrations = RegisterEvent::where('account_id', $account_id)
+            ->with('event') 
+            ->get();
 
-        return view('events.registered', compact('events'));  // Pass events to the view
+            $events = $registrations->groupBy('event_id')->map(function ($registrationsForEvent) {
+                $event = $registrationsForEvent->first()->event; 
+                $event->location = $event->city . ', ' . $event->state;
+                $eventDate = Carbon::parse($event->date);
+                $event->status = $eventDate->isPast() ? 'Tamat' : 'Akan Datang';
+                $event->participant_names = $registrationsForEvent->pluck('name')->toArray();
+                $event->participant_ics = $registrationsForEvent->pluck('ic_num')->toArray();
+        
+                return $event;
+            });
+        
+        return view('events.registered', compact('events'));
     }
 
         public function showEvent($id)

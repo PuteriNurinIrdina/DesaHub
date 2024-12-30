@@ -180,11 +180,7 @@
 
                     <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
                         <button type="button">Lihat Butiran</button>
-                    </a>
-
-                    <a href="{{ route('withdraw.registration', ['event_id' => $event->id]) }}" style="text-decoration: none;">
-                        <button type="button">Penarikan Pendaftaran</button>
-                    </a>
+                    </a>                    
                 </div>
             </div>
             @endforeach

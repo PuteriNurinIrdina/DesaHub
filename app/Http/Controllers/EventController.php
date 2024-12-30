@@ -35,9 +35,9 @@ class EventController extends Controller
             'state_id' => 'required|exists:states,id', // Validate that the state exists in the states table
             'city_id' => 'required|exists:cities,id',// Validate that the city exists in the cities table
         ]);
-
         $state = State::find($request->state_id);
         $city = City::find($request->city_id);
+
 
         // Add state_name and city_name to the data array
         $data['state_name'] = $state ? $state->name : null;
@@ -145,13 +145,13 @@ class EventController extends Controller
     }
 
         public function showEvent($id)
-{
-    // Retrieve the event by its ID
-    $event = Event::find($id);
-    
-    // Pass the event to the view
-    return view('event.show', compact('event'));
-}
+        {
+            // Retrieve the event by its ID
+            $event = Event::find($id);
+            
+            // Pass the event to the view
+            return view('event.show', compact('event'));
+        }
 
         
 }

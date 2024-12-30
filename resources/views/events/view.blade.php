@@ -109,7 +109,7 @@
 <div class="container">
 <h1>Program</h1>
     <div class="filter-form">
-        <form method="GET" action="{{ route('events.view') }}">
+        <form method="GET" action="{{ route('events.view', ['account_id' => Auth::user()->id] ) }}">
             <label for="day">Hari:</label>
             <select name="day">
                 <option value="">-- Pilih Hari --</option>
@@ -155,7 +155,7 @@
 
             <button type="submit">Cari</button>
         </form>
-        <a href="{{ route('events.view') }}">
+        <a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}">
             <button type="button">Buang Penapis</button>
         </a>
     </div>
@@ -174,7 +174,7 @@
                 <p>Kategori: {{ $event->type }}</p>
                 <p>Negeri: {{ $event->state_name }}</p>
                 <div class="event-buttons">
-                    <a href="{{ route('event.register', ['event_id' => $event->id]) }}" style="text-decoration: none;">
+                    <a href="{{ route('event.register', ['account_id' => Auth::user()->id,'event_id' => $event->id]) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
                     </a>
 

@@ -13,6 +13,7 @@ class RegisterEvent extends Model
     
     protected $fillable = [
         'event_id',
+        'account_id',
         'ic_num',
         'name',
         'phone_num',

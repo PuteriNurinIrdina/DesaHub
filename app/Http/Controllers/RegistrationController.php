@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RegisterEvent;
 use App\Models\Event;
+use App\Models\Account;
+use App\Models\User;
 
 class RegistrationController extends Controller
 {
@@ -12,7 +14,7 @@ class RegistrationController extends Controller
     public function index(Request $request)
     {
         $event_id = $request->query('event_id');
-
+        $user = Account::findOrFail(auth()->id());
         if (!$event_id) {
             return redirect()->route('events.view')->with('error', 'Event ID is required.');
         }
@@ -25,9 +27,12 @@ class RegistrationController extends Controller
         return view('EventRegistration.index', compact('event', 'event_id'));
     }
 
-    public function store(Request $request, $event_id)
+    public function store(Request $request, $account_id, $event_id)
     {
         \Log::info($request->all());
+        $user = Account::findOrFail($account_id);
+        if (!$user)
+            return redirect()->route('login')->with('error', 'Anda mesti log masuk dahulu.');
         $data = $request->validate([
             'ic_num' => 'required|digits:12',
             'name' => 'required|string|max:255',
@@ -60,8 +65,9 @@ class RegistrationController extends Controller
 
         $data['name'] = strtoupper($data['name']);
         $data['event_id'] = $event_id;
+        $data['account_id'] = $user->id;
 
-        RegisterEvent::create(array_merge($data, ['event_id' => $event_id]));
+        RegisterEvent::create($data);
 
 
         if ($request->ajax()) {
@@ -113,11 +119,18 @@ class RegistrationController extends Controller
         return view('EventRegistration.attendees', compact('attendees', 'searchQuery')); 
     }
 
-    public function showRegistrationForm($event_id)
+    public function showRegistrationForm($account_id, $event_id)
     {
+        $account_id = Account::find($account_id);
         $event = Event::find($event_id);
+        if (!$account_id) {
+            dd("Account not found for ID: $account_id");
+        }
+    
+        if (!$event) {
+            dd("Event not found for ID: $event_id");
+        }
         $event_name = $event ? $event->name : '';
-        $event = Event::findOrFail($event_id); 
-        return view('EventRegistration.index', compact('event', 'event_name'));  
+        return view('EventRegistration.index', compact('account_id', 'event', 'event_name'));  
     }
 }

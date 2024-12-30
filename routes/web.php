@@ -30,7 +30,8 @@ Route::get('/event/{event_id}/kehadiran', [AttendanceController::class, 'showAtt
 //Route::post('/kehadiran/pengesahan', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::post('/event/{event_id}/kehadiran', [AttendanceController::class, 'markAttendance'])->name('attendance.mark');
 Route::get('{event_id}/withdraw/{ic_num}', [WithdrawalController::class, 'processWithdraw'])->name('withdraw.process');
-Route::post('{event_id}/withdraw/{ic_num}/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm'); 
+Route::post('{event_id}/withdraw/{ic_num}/confirm', [WithdrawalController::class, 'confirmWithdrawal'])->name('withdraw.confirm');
+Route::get('withdraw/success', [WithdrawalController::class, 'withdrawalSuccess'])->name('withdraw.success');
 //Route::get('/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
 Route::get('/event/{event_id}/tidakhadir', [RegistrationController::class, 'absent'])->name('non.attendees');
 //Route::get('/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');

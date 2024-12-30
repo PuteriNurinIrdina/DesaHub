@@ -14,7 +14,8 @@ class WithdrawalController extends Controller
         if ($participant) {
             return view('Withdrawal.confirm', compact('participant'));
         } else {
-            return back()->with('error', 'Peserta tidak dijumpai.');
+            return redirect()->route('withdraw.confirm', ['event_id' => $event_id, 'ic_num' => $ic_num])
+                ->with('error', 'Peserta tidak dijumpai.');
         }
     }
 
@@ -25,10 +26,13 @@ class WithdrawalController extends Controller
                             ->first();
     if ($participant) {
         $participant->delete();
-        return redirect()->route('withdraw.confirm', ['event_id' => $event_id, 'ic_num' => $ic_num])
-                         ->with('success', 'Pendaftaran berjaya dibatalkan.');
+        return view('Withdrawal.success');
+
     } else {
-        return back()->with('error', 'Peserta tidak dijumpai atau tidak sepadan dengan acara.');
+        return redirect()->route('withdraw.confirm', ['event_id' => $event_id, 'ic_num' => $ic_num])->with('error', 'Peserta tidak dijumpai atau tidak sepadan dengan acara.');
     }
-}
+    }
+    public function withdrawalSuccess() {
+        return view('Withdrawal.success');
+    }
 }

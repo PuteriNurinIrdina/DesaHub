@@ -337,7 +337,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Utama</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('events.view') }}">Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('events.view',['account_id' => Auth::user()->id]) }}">Program</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('product.view') }}">Produk</a></li>
                 </ul>
                 <div class="log-reg">
@@ -404,7 +404,7 @@
             <div class="normal-section">
                 <li class="section-title">Program
                     <ul>
-                        <li><a href="{{ route('events.view') }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
+                        <li><a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
                         <li><a href="{{ route('user.events') }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
                     </ul>
                 </li>

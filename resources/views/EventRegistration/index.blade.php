@@ -161,9 +161,10 @@
     </div>
     @endif
     <div class="form-container">
-    <form id="registration-form" method="post" action="{{ route('register.store', ['event_id' => $event->id]) }}">
+    <form id="registration-form" method="post" action="{{ route('register.store', ['account_id' => Auth::user()->id, 'event_id' => $event->id]) }}">
     @csrf
     @method('post')
+    <input type="hidden" name="account_id" value="{{ $account_id }}">
     <input type="hidden" name="event_id" value="{{ $event->id }}">
     <label for="ic_num">No Kad Pengenalan:<span class="required"> *</span></label>
 <input type="text" id="ic_num" name="ic_num" placeholder="cth: 040520141234" required />

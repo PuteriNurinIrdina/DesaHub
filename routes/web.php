@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 //Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
 //Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
-Route::get('/event/{event_id}/register',[RegistrationController::class, 'success'])->name('registration.success');
+//Route::get('/event/{event_id}/register',[RegistrationController::class, 'success'])->name('registration.success');
 /*Route::get('/pendaftaran',[RegistrationController::class, 'index'])->name('register.index');
 Route::post('/pendaftaran',[RegistrationController::class, 'store'])->name('register.store');
 Route::get('/pendaftaran/berjaya',[RegistrationController::class, 'success'])->name('EventRegistration.success');*/
@@ -82,7 +82,7 @@ Route::get('/states-and-cities', [EventController::class, 'getStatesAndCities'])
 Route::get('/get-cities/{stateId}', [EventController::class, 'getCities']);
 
 
-Route::get('/events/view', [ViewEventController::class, 'view'])->name('events.view');
+Route::get('/{account_id}/events/view', [ViewEventController::class, 'view'])->name('events.view');
 Route::get('/events/{event}/detail', [ViewEventController::class, 'detail'])->name('events.detail');
 
 /* Route::get('/events/deleted', function () {
@@ -95,9 +95,8 @@ Route::get('/user/events', [EventController::class, 'showRegisteredEvents'])->na
 Route::get('/event/{event_id}/pendaftar', [RegistrationController::class, 'showAllRegistrants'])->name('list.pendaftar');
 Route::get('/event/{event_id}/peserta', [RegistrationController::class, 'attendees'])->name('list.peserta');
 
-Route::get('/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('event.register');
-//Route::get('/register/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
-Route::post('/event/{event_id}/register', [RegistrationController::class, 'store'])->name('register.store');
+Route::get('/{account_id}/event/{event_id}/register', [RegistrationController::class, 'showRegistrationForm'])->name('event.register');
+Route::post('/event/{account_id}/{event_id}/register', [RegistrationController::class, 'store'])->name('register.store');
 //Route::get('/register-event/{eventId}', [RegistrationController::class, 'showRegistrationForm']);
 Route::get('/withdraw/{event_id}', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.registration');
 
@@ -116,6 +115,6 @@ Route::post('/event/{event_id}/pendaftaran', [RegistrationController::class, 'st
 
 
 Route::get('/withdraw/{event_id}', [WithdrawalController::class, 'showWithdrawForm'])->name('withdraw.registration');
-Route::get('/event-registration', [RegistrationController::class, 'index'])->name('EventRegistration.index');
+//Route::get('/event-registration', [RegistrationController::class, 'index'])->name('EventRegistration.index');
 //Route::post('/event-registration', [RegistrationController::class, 'store'])->name('register.store');
-Route::post('/event-registration/{event_id}/pendaftaran', [RegistrationController::class, 'store'])->name('register.store');
+//Route::post('/event-registration/{event_id}/pendaftaran', [RegistrationController::class, 'store'])->name('register.store');

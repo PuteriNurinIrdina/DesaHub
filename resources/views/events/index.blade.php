@@ -242,7 +242,6 @@
         }
     </script>
     <a href="{{ route('events.create') }}" class="event-btn">Tambah Program</a>
-    <a href="{{ route('events.view') }}" class="event-btn">Lihat Paparan Program</a>
 
     <script>
             setTimeout(function() {

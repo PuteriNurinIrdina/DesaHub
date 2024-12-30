@@ -21,7 +21,9 @@ class ProductController extends Controller
     }
 
     public function create(){
-        return view('products.create');
+        return view('products.create', [
+            'categories' => config('categories')
+        ]);
     }
 
     public function store(Request $request){
@@ -30,7 +32,7 @@ class ProductController extends Controller
             'qty' => 'required|numeric',
             'link' => 'nullable|url',
             'price' => 'required|decimal:0,2',
-            'category' => 'required|string',
+            'category' => 'required|string|in:' . implode(',', array_keys(config('categories'))),
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
@@ -62,7 +64,10 @@ class ProductController extends Controller
             abort(403, 'Unauthorized access');
         }
 
-        return view('products.edit', ['product' => $product]);
+        return view('products.edit', [
+            'product' => $product,
+            'categories' => config('categories')
+        ]);
     }
 
     public function update(Product $product, Request $request)
@@ -76,7 +81,7 @@ class ProductController extends Controller
             'qty' => 'required|numeric',
             'link' => 'nullable|url',
             'price' => 'required|numeric',
-            'category' => 'required|string',
+            'category' => 'required|string|in:' . implode(',', array_keys(config('categories'))),
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -137,8 +142,10 @@ class ProductController extends Controller
     public function view(Request $request)
     {
        $query = Product::query();
+       $seller = null;
 
        if ($request->has('seller_id')){
+        $seller = Account::find($request->seller_id);
         $query->where('account_id', $request->seller_id);
        }
 
@@ -152,10 +159,11 @@ class ProductController extends Controller
         $query->orderBy('price', 'desc');
         }
 
-       $products = $query->with('account')->get();
+       $products = $query->with('account')->paginate(9);
 
        return view('products.products', [
         'products' => $products,
+        'seller' => $seller,
        ]);
     }
 }

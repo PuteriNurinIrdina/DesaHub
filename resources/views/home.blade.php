@@ -306,12 +306,12 @@
                 @foreach($latestProducts as $product)
                     <div class="col-lg-4 col-md-6">
                         <div class="card product-card">
-                        <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x200' }}" 
+                        <img src="{{ asset('storage/' . $product->image) ?? 'https://via.placeholder.com/300x200' }}"
                             class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">RM {{ number_format($product->price, 2) }}</p>
-                                <a href="" class="btn btn-primary btn-sm">Lihat</a>
+                                <a href="{{ route('product.view') }}" class="btn btn-primary btn-sm">Lihat</a>
                             </div>
                         </div>
                     </div>

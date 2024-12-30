@@ -53,7 +53,20 @@ class EventController extends Controller
 
         // Create the event record
         $newEvent = Event::create($data);
-        return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Ditambah!');
+
+        $data['account_id'] = Auth::id();
+
+        if ($newEvent) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Tambah',
+                'activityDetails' => 'tambah program baru: ' . $data['name'],
+            ]);
+    
+            return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Ditambah!');
+        }
+    
+        return redirect(route('events.index'))->with('error', 'Program Tidak Berjaya Ditambah.');
     }
 
         public function getStatesAndCities()
@@ -106,8 +119,17 @@ class EventController extends Controller
         }
 
         // Update the event record
-        $event->update($data);
-        return redirect(route('events.index'))->with('success', 'Maklumat Program Telah Berjaya Dikemaskini!');
+        if ($event->update($data)) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Kemaskini',
+                'activityDetails' => 'kemaskini maklumat program: ' . $data['name'],
+            ]);
+    
+            return redirect(route('events.index'))->with('success', 'Maklumat Program Telah Berjaya Dikemaskini!');
+        }
+    
+        return redirect(route('events.index'))->with('error', 'Maklumat Program Tidak Berjaya Dikemaskini.');
     }
 
     public function destroy(Event $event){
@@ -121,11 +143,15 @@ class EventController extends Controller
             Storage::delete('public/' . $posterPath);
         }  
 
-        // Delete the event record from the database
-        $event->delete();
+        if ($event->delete()) {
+            ActivityLog::create([
+                'account_id' => Auth::id(),
+                'activityType' => 'Hapus',
+                'activityDetails' => 'hapuskan program: ' . $event->name,
+            ]);
 
-        // Redirect to the deleted event confirmation page
-        return redirect(route('events.index'))->with('success', 'Program Telah Berjaya Dipadam!');
+            return redirect()->route('events.index')->with('success', 'Program Telah Berjaya Dihapuskan!');
+        }
 
         }
 

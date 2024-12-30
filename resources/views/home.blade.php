@@ -261,10 +261,10 @@
             </div>
             <div class="text-center mb-5">
                     <p class="lead text-muted">
-                    DesaHub ialah satu platform yang direka untuk menghubungkan komuniti dengan mempromosikan program dan produk tempatan.
+                    DesaHub adalah platform komuniti yang dicipta khas untuk mempromosikan program dan produk tempatan. Setiap program dan produk layak mendapat perhatian yang sewajarnya.
                     </p>
                     <p class="text-muted">
-                    Orang ramai boleh meneroka dan menyertai pelbagai program, menemui produk unik, serta membina hubungan dalam komuniti untuk kekal maklum dan aktif dalam penglibatan.</p>
+                    DesaHub membolehkan komuniti untuk kekal berhubung dengan menyokong perniagaan kecil dan mengambil bahagian dalam program yang diadakan. Sertai sekarang untuk memperkasakan diri dan ekonomi tempatan!</p>
             </div>
         </div>
     </section>
@@ -277,39 +277,20 @@
                 <h2 class="mb-5">Akan Datang</h2>
             </div>
             <div class="row g-4">
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card event-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Community Gathering">
-                        <div class="card-body">
-                            <h5 class="card-title">Kelas Asas Microsoft Excel</h5>
-                            <p class="card-text">Tingkatkan kemahiran IT anda!</p>
-                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
+                @foreach($latestEvents as $event)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card event-card">
+                            <img src="{{ $event->poster ? asset('storage/' . $event->image) : 'https://via.placeholder.com/300x200' }}" 
+                                class="card-img-top" alt="{{ $event->name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $event->name }}</h5>
+                                <p class="card-text">{{ $event->desc }}</p>
+                                <p class="card-text"><small class="text-muted">{{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</small></p>
+                                <a href="" class="btn btn-primary btn-sm">Sertai</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-               
-                <div class="col-lg-4 col-md-6">
-                    <div class="card event-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Workshop">
-                        <div class="card-body">
-                            <h5 class="card-title">Program Kesukarelawan</h5>
-                            <p class="card-text">Sumbangkan tenaga dan masa ke arah kebaikkan</p>
-                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
-                        </div>
-                    </div>
-                </div>
-          
-                <div class="col-lg-4 col-md-6">
-                    <div class="card event-card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Charity Run">
-                        <div class="card-body">
-                            <h5 class="card-title">Karnival Keusahawanan</h5>
-                            <p class="card-text">Jual dan beli barang tempatan!</p>
-                            <a href="#" class="btn btn-primary btn-sm">Sertai</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -325,7 +306,8 @@
                 @foreach($latestProducts as $product)
                     <div class="col-lg-4 col-md-6">
                         <div class="card product-card">
-                            <img src="{{ $product->image ?? 'https://via.placeholder.com/300x200' }}" class="card-img-top" alt="{{ $product->name }}">
+                        <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x200' }}" 
+                            class="card-img-top" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">RM {{ number_format($product->price, 2) }}</p>

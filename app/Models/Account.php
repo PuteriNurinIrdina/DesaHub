@@ -17,6 +17,7 @@ class Account extends Authenticatable
         'password',
         'phone',
         'profile_picture',
+        'role',
     ];
 
     protected $hidden = [

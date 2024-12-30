@@ -402,10 +402,15 @@
             <!-- Normal User Sidebar -->
             @if(Auth::user()->role === 'peserta')
             <div class="normal-section">
-                <li class="section-title">Cari
+                <li class="section-title">Program
                     <ul>
                         <li><a href="{{ route('events.view') }}"><i class="bi-calendar2-event"></i> Sertai Program</a></li>
                         <li><a href="{{ route('user.events') }}"><i class="bi-calendar2-event"></i> Program Saya</a></li>
+                    </ul>
+                </li>
+
+                <li class="section-title">Produk
+                    <ul>
                         <li><a href="{{ route('product.view') }}"><i class="bi-bag"></i> Lihat Produk</a></li>
                     </ul>
                 </li>

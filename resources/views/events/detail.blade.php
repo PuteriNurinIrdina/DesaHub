@@ -114,7 +114,7 @@
 @extends('includes.navbar')
 @section('content')
     <div class="container">
-        <h1>Event Details</h1>
+        <h1>Informasi Program</h1>
         <br>
         @if($event)
             <div class="event-detail">

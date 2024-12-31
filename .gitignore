@@ -20,3 +20,9 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+
+
+database/migrations/2024_12_30_104638_add_state_id_and_city_id_to_event_module_table.php    
+database/migrations/2024_12_30_110724_add_phone_fb_instagram_to_account_table.php
+
+database/migrations/2024_11_08_052220_create_products_table.php

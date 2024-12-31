@@ -144,7 +144,7 @@
           
             
             <label for="date_range">Tarikh:</label>
-            <input type="text" id="date_range" name="date_range" placeholder="Pilih Tarikh" class="filter-input" value="{{ request('date_range') }}">
+            <input type="text" id="date_range" name="date_range" placeholder="  -- Pilih Tarikh --" class="filter-input" value="{{ request('date_range') }}">
             <label for="type">Kategori:</label>
             <select name="type">
                 <option value="">-- Pilih Kategori --</option>
@@ -193,9 +193,6 @@
                         <button type="button">Lihat Butiran</button>
                     </a>
 
-                    <a href="{{ route('withdraw.registration', ['event_id' => $event->id]) }}" style="text-decoration: none;">
-                        <button type="button">Penarikan Pendaftaran</button>
-                    </a>
                 </div>
             </div>
             @endforeach

@@ -64,7 +64,7 @@
         .product-card .price {
             font-size: 1.2em;
             font-weight: bold;
-            color: #E74C3C;
+            color: #1C2951;
         }
 
         .product-card .buttons {
@@ -100,6 +100,13 @@
         #successMessage.hide {
             opacity: 0;
         }
+
+        .no-product-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1em;
+            color: #555;
+        }
        
     </style>
 
@@ -110,7 +117,7 @@
 @section('content')
 
 <div class="container">
-    <h1>Produk Terbaru</h1>
+    <h1>Produk Terkini</h1>
     @if(session()->has('success'))
     <div id="successMessage" class="alert alert-success">
         {{ session('success') }}
@@ -126,6 +133,15 @@
     </script>
     @endif
     <br>
+
+    @if($products->isEmpty())
+    <div class="no-product-message">
+        <p>Tiada Produk Ditambah</p>
+        <p>Adakah anda mahu menambah iklan produk anda?</p>
+        <a href="{{ route('product.view')}}" class="btn btn-primary">Tambah Iklan</a>
+    </div>
+    
+    @else
     <div class="container-2">
         @foreach($products as $product)
         <div class="product-card">
@@ -152,12 +168,16 @@
         </div>
         @endforeach
     </div>
+    @endif
     </div>
+
 <script>
     function confirmDelete() {
         return confirm("Adakah anda pasti untuk membuang produk ini?");
     }
 </script>
+
 @endsection
+
 </body>
 </html>

@@ -18,6 +18,14 @@
         .form-group {
             margin-bottom: 15px;
         }
+        .btn-submit {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -28,17 +36,23 @@
     <h1>Penarikan Pendaftaran</h1>
     <br>
     <h3>Adakah anda pasti untuk menarik pendaftaran ini?</h3>
-
     <p><strong>Nama:</strong> {{ $participant->name }}</p>
     <p><strong>No. IC:</strong> {{ $participant->ic_num }}</p>
-
-    <form action="{{ route('withdraw.confirm') }}" method="POST">
+    <form action="{{ route('withdraw.confirm', ['event_id' => $participant->event_id, 'ic_num' => $participant->ic_num]) }}" method="POST">
         @csrf
-        <input type="hidden" name="participant_id" value="{{ $participant->id }}">
-        <button type="submit" class="btn btn-submit">Teruskan Pembatalan</button>
+        <input type="hidden" name="ic_num" value="{{ $participant->ic_num }}">
+        <input type="hidden" name="event_id" value="{{ $participant->event_id }}">
+        <button type="submit" class="btn-submit">Teruskan Pembatalan</button>
     </form>
+    @if(session('success'))
+        <p class="success" style="color: green;">{{ session('success') }}</p>
+    @elseif(session('error'))
+        <p class="error" style="color: red;">{{ session('error') }}</p>
+    @endif
+
 
 </div>
+
 @endsection
 </body>
 </html>

@@ -1,0 +1,281 @@
+[33mcommit 9bb4860202fee6d8273694081e1ecef4005d1547[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: b8d67b8 5055a40
+Author: Nuha Mohamed <nuha@graduate.utm.my>
+Date:   Tue Dec 31 03:30:42 2024 +0800
+
+    Merge branch 'main' of https://github.com/PuteriNurinIrdina/DesaHub
+
+[33mcommit 5055a409fcaf140d72484aea3e46b560be78517c[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 23:00:18 2024 +0800
+
+    Commit
+
+[33mcommit cede0b7ad5ee28b38b13a109e0af75ccb91e16be[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 22:36:08 2024 +0800
+
+    Commit
+
+[33mcommit 7427930218fb8ae614c92d0d03eb55e15e159dd6[m
+Merge: 4fabada e69eec8
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 22:26:15 2024 +0800
+
+    Merge branch 'main' of https://github.com/PuteriNurinIrdina/DesaHub
+
+[33mcommit e69eec8f42a7c444259dc79e336975d95f070e4c[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 30 21:09:16 2024 +0800
+
+    done
+
+[33mcommit 4fabada7832735ac5d98c3f47713598d8a70e194[m
+Merge: 128e593 911fd27
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 20:22:17 2024 +0800
+
+    Merge branch 'main' of https://github.com/PuteriNurinIrdina/DesaHub
+
+[33mcommit 911fd275c01746c760ac99adc6e3f78d3d0dbd6e[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 30 20:10:21 2024 +0800
+
+    fixed withdrawal
+
+[33mcommit 128e593909180bca53150c4b145a3f824abbd6e9[m
+Merge: 5444668 29b3cf9
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 16:51:18 2024 +0800
+
+    Merge branch 'main' of https://github.com/PuteriNurinIrdina/DesaHub
+
+[33mcommit 29b3cf97207e429babeee49c311fefe0420737c2[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 30 16:43:09 2024 +0800
+
+    fixed admin view
+
+[33mcommit 36c82570da2f586477ac54c9f119975beab96d36[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 30 16:07:57 2024 +0800
+
+    fixed account id passing
+
+[33mcommit 5444668a28a263f7753be10d3b7457f937dbf6a1[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 30 12:44:09 2024 +0800
+
+    Commit
+
+[33mcommit 879b2edb6728704a98935312aafa2440333d8801[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Mon Dec 30 00:51:21 2024 +0800
+
+    uncomment
+
+[33mcommit ec8a62f27ad5ce7d460997b06ce8f9dfa0a1b297[m
+Merge: b4e733a eef297e
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Sun Dec 29 23:36:57 2024 +0800
+
+    merge
+
+[33mcommit b4e733a03ca5789da73d903a03d0788ffd5b1b3c[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Sun Dec 29 23:31:13 2024 +0800
+
+    Your message about the changes
+
+[33mcommit eef297e3ae3afae95de04efcb1d18f3db4bceb34[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Fri Dec 27 23:35:48 2024 +0800
+
+    Commit
+
+[33mcommit 75c764da8d8da487d22f075c850cef5403a72de5[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Fri Dec 27 18:37:54 2024 +0800
+
+    fixed event registration navigation
+
+[33mcommit 46adb71921847fb177fe10d819fbeaf0b34cf43e[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Fri Dec 27 18:32:19 2024 +0800
+
+    fixed view registrants, attendees and absence
+
+[33mcommit 7f4fa1ca65440a404bde098f345325c60ab1a2d5[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Wed Dec 25 23:57:35 2024 +0800
+
+    fixed errors
+
+[33mcommit b21b129473a2e27a4eccd5da9c61361af32d7750[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Wed Dec 25 23:52:30 2024 +0800
+
+    fixed route
+
+[33mcommit 45c5e0ece95c2a26faa3505ad147fbcbb84355ce[m
+Merge: e8feb73 db03aeb
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Wed Dec 25 23:50:37 2024 +0800
+
+    fixed registration (alhamdulillah)
+
+[33mcommit e8feb7343d637ce53c77bcb3904caa8bd960a3af[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Wed Dec 25 23:49:56 2024 +0800
+
+    fixed registration (alhamdulillah)
+
+[33mcommit db03aeba7ccd957ee6d80118541f657dd9ae4c6d[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Wed Dec 25 08:46:48 2024 +0800
+
+    Commit
+
+[33mcommit 9a503505f3abad3d870c5c0528adc7c871e9830d[m
+Merge: 8005934 aa6f2a8
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Tue Dec 24 11:31:04 2024 +0800
+
+    edit UI
+
+[33mcommit 8005934dfeeccd5cd3f2f78f126e3edcfb3cf583[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Tue Dec 24 11:17:05 2024 +0800
+
+    edit UI
+
+[33mcommit aa6f2a830e92cb40050275a0e6d2ed42f58206d1[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Tue Dec 24 11:14:19 2024 +0800
+
+    Commit
+
+[33mcommit 01c022e39f445193150e76831ccc84a524d6d843[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 08:48:55 2024 +0800
+
+    commit
+
+[33mcommit c37c158822fdff615c85a00dabcdc19740a4f4e9[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:47:51 2024 +0800
+
+    commited
+
+[33mcommit 32e2707d2b8f66a31137a945faca07f92f388e72[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:44:07 2024 +0800
+
+    commit
+
+[33mcommit e4c654f93e30b58e478e4a98f63cca2f22a3818c[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:28:57 2024 +0800
+
+    edit again
+
+[33mcommit 93acaabdaeed958042865056cdfe434c489415b5[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:22:08 2024 +0800
+
+    edited detail view event
+
+[33mcommit 8c40c4ea87364fc82cb028a8769d5e3f01b49069[m
+Merge: 53d7f83 c330398
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:18:06 2024 +0800
+
+    Resolved merge conflicts
+
+[33mcommit 53d7f83aa0111c69b13e54b44469495e7aeac845[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 06:17:07 2024 +0800
+
+    commit
+
+[33mcommit c3303983eb8e7c0abd9f8cc8f77fa29a06236c23[m
+Author: Nuha Mohamed <nuha@graduate.utm.my>
+Date:   Tue Dec 24 05:14:39 2024 +0800
+
+    product view and sort update
+
+[33mcommit b8d67b8a876329f422b6bec6244d60ee31c16749[m
+Author: Nuha Mohamed <nuha@graduate.utm.my>
+Date:   Tue Dec 24 04:27:18 2024 +0800
+
+    product view
+
+[33mcommit 7aafbde86839fb930dd694485a3fcfd210ee3581[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Tue Dec 24 03:57:54 2024 +0800
+
+    betulkan UI je
+
+[33mcommit 2b7191ed34d3262d764580a3197ca962afce5fa7[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Tue Dec 24 03:03:14 2024 +0800
+
+    Kemas Kini Program
+
+[33mcommit 456ca26818ded7c823bb46719a0af82e2d83897f[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Tue Dec 24 01:48:37 2024 +0800
+
+    events page
+
+[33mcommit 4e4025e599b762f78f6fe6d89db3e74980375fc0[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Tue Dec 24 00:28:39 2024 +0800
+
+    fixed routes from event to register
+
+[33mcommit 6a6acc9cd211725a2c410134ce2e28900a8dba98[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 23 23:38:59 2024 +0800
+
+    edit event again
+
+[33mcommit fcb9d87e3ab202c021d7b2f1af746d2193d4d350[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 23 23:37:27 2024 +0800
+
+    edited event
+
+[33mcommit b9053baee4fa2cb1d902ce0014ad18300e8490e8[m
+Merge: 6cc088d fdc91d2
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 23 23:09:17 2024 +0800
+
+    edited views:
+
+[33mcommit 6cc088d5bd66e2c6f5b9f6c5ae7fc63227c4ae09[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 23 23:08:08 2024 +0800
+
+    edited attendance, absence, registrants, and other views
+
+[33mcommit fdc91d213ad1c73852f0f00f6e3ad0e214dbcb4f[m
+Author: serinrayuni <serinurayuni@graduate.utm.my>
+Date:   Mon Dec 23 22:34:08 2024 +0800
+
+    Commit
+
+[33mcommit f45278e95427d56f55f06edb3a0f50e7bd5ff4b8[m
+Author: Puteri <puterinurinirdina@graduate.utm.my>
+Date:   Mon Dec 23 17:47:24 2024 +0800
+
+    Update EventController, views, routes, and add registered view
+
+[33mcommit bd6a0488b8460bbb382b004584de1f0c6ce92119[m
+Author: Noor Aliyah <nooraliyah@graduate.utm.my>
+Date:   Mon Dec 23 11:26:31 2024 +0800
+
+    event
+
+[33mcommit 9024936c410801fb2905216d15047b7d85f053cd[m
+Author: Noor Aliyah <noorali

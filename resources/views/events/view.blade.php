@@ -101,6 +101,7 @@
             height: auto;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
 </head>
 
 <body>
@@ -110,7 +111,7 @@
 <h1>Program</h1>
     <div class="filter-form">
         <form method="GET" action="{{ route('events.view', ['account_id' => Auth::user()->id] ) }}">
-            <label for="day">Hari:</label>
+            <!--<label for="day">Hari:</label>
             <select name="day">
                 <option value="">-- Pilih Hari --</option>
                 @foreach($days as $day)
@@ -138,8 +139,12 @@
                         {{ $year }}
                     </option>
                 @endforeach
-            </select>
+            </select>-->
 
+          
+            
+            <label for="date_range">Tarikh:</label>
+            <input type="text" id="date_range" name="date_range" placeholder="Pilih Tarikh" class="filter-input" value="{{ request('date_range') }}">
             <label for="type">Kategori:</label>
             <select name="type">
                 <option value="">-- Pilih Kategori --</option>
@@ -167,28 +172,18 @@
         @else
         <div class="event-container">
             @foreach($events as $event)
-                     <!--   <div class="event-box">
-                            <img src="{{ $event->poster }}" alt="Event Poster">
-                            <h2>{{ $event->name }}</h2>
-                            <p>Tarikh: {{ $event->date }}</p>
-                            <p>Kategori: {{ $event->type_label }}</p>
-                            <p>Negeri: {{ $event->state_name }}</p>
-                            <div class="event-buttons">
-                            <a href="" style="text-decoration: none;">
-                                <button type="button">Daftar</button>
-                            </a>
-                                <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
-                                <button type="button">Lihat Butiran</button>
-                            </a>
-                            </div>
-                        </div> -->
-               
             <div class="event-box">
                 <img src="{{ $event->poster }}" alt="Event Poster">
                 <h2>{{ $event->name }}</h2>
-                <p>Tarikh: {{ $event->date }}</p>
-                <p>Kategori: {{ $event->type }}</p>
-                <p>Negeri: {{ $event->state_name }}</p>
+                <p><strong>Tarikh: </strong> {{ $event->date }}</p>
+                <p><strong>Masa: </strong>{{ $event->formatted_event_time }}</p>
+                <p><strong>Kategori: </strong>{{ $event->type_label }}</p>
+                <p><strong>Negeri: </strong>{{ $event->state_name }}</p>
+                @if ($event->max_participants)
+                <p><strong>Had Peserta: </strong> {{ $event->max_participants }}</p>
+                @else
+                <p><strong>Had Peserta: </strong>Tiada Had</p>
+                @endif
                 <div class="event-buttons">
                     <a href="{{ route('event.register', ['account_id' => Auth::user()->id,'event_id' => $event->id]) }}" style="text-decoration: none;">
                         <button type="button">Daftar</button>
@@ -196,7 +191,11 @@
 
                     <a href="{{ route('events.detail', $event->id) }}" style="text-decoration: none;">
                         <button type="button">Lihat Butiran</button>
-                    </a>                    
+                    </a>
+
+                    <a href="{{ route('withdraw.registration', ['event_id' => $event->id]) }}" style="text-decoration: none;">
+                        <button type="button">Penarikan Pendaftaran</button>
+                    </a>
                 </div>
             </div>
             @endforeach
@@ -204,6 +203,18 @@
         @endif
     </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+    <script>
+    flatpickr("#date_range", {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        defaultDate: [
+            "{{ request('start_date') ?? '' }}", 
+            "{{ request('end_date') ?? '' }}"
+        ].filter(Boolean)
+    });
+    </script>
+
 @endsection
 </body>
 </html>

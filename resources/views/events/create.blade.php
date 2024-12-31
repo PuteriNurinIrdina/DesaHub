@@ -47,6 +47,8 @@
             font-weight: bold;
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 @extends('includes.navbar')
@@ -56,17 +58,32 @@
         
         <h1>Cipta Program</h1>
         <br>
+        @if($errors->any())
+            <div class="error-messages">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ route('events.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
-            <label for="name">Nama:<span class="text-danger">*</span></label>
+            <label for="name">Nama <span class="text-danger">*</span></label>
             <input type="text" id="name" name="name" placeholder="Nama Program" required>
             
 
-            <label for="date">Tarikh:<span class="text-danger">*</span></label>
+            <label for="date">Tarikh <span class="text-danger">*</span></label>
             <input type="date" id="date" name="date" required>
 
-            <label for="state">Negeri:<span class="text-danger">*</span></label>
+            <label for="event_time">Masa <span class="text-danger">*</span></label>
+            <input type="time" id="event_time" name="event_time" required>
+
+            <label for="address">Alamat <span class="text-danger">*</span></label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="Masukkan Alamat Penuh" required>
+
+            <label for="state">Negeri <span class="text-danger">*</span></label>
             <select id="state" name="state_id" required>
                 <option value="">-- Pilih Negeri --</option>
                 @foreach($states as $state)
@@ -74,12 +91,12 @@
                 @endforeach
             </select>
 
-            <label for="city">Bandar:<span class="text-danger">*</span></label>
+            <label for="city">Bandar <span class="text-danger">*</span></label>
             <select id="city" name="city_id" required>
                 <option value="">-- Pilih Negeri Dahulu --</option>
             </select>
 
-            <label for="type">Kategori:<span class="text-danger">*</span></label>
+            <label for="type">Kategori <span class="text-danger">*</span></label>
             <select id="type" name="type" required>
             <option value="">-- Kategori Program --</option>
             <option value="type1">ICT</option>
@@ -91,11 +108,17 @@
             <option value="type7">Pusat Perkhidmatan Setempat</option>
             <option value="type8">Lain-Lain</option>
             </select>
+
+            <label for="max_participants">Had Peserta</label>
+            <input type="number" name="max_participants" id="max_participants" class="form-control" placeholder="Had Peserta">
+
+            <label for="whatsapp_group_link">Link Group WhatsApp</label>
+            <input type="url" name="whatsapp_group_link" id="whatsapp_group_link" class="form-control" placeholder="Masukkan Link WhatsApp Group">
                 
-            <label for="desc">Penerangan:<span class="text-danger">*</span></label>
+            <label for="desc">Penerangan <span class="text-danger">*</span></label>
             <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" required >
 
-            <label for="poster">Poster:<span class="text-danger">*</span></label>
+            <label for="poster">Poster <span class="text-danger">*</span></label>
             <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg" required>
 
             <button type="submit">Simpan</button>
@@ -128,7 +151,14 @@
             
             
                 });
-    
+
+                // Initialize Flatpickr for event_time field
+                flatpickr("#event_time", {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i",
+                });
+        
         </script>
 
     </div>
@@ -136,7 +166,3 @@
 </body>
 </html>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> aa6f2a830e92cb40050275a0e6d2ed42f58206d1

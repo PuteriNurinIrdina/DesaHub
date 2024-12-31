@@ -95,6 +95,7 @@
             font-weight: bold;
         }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 @extends('includes.navbar')
@@ -116,20 +117,30 @@
             @method('put')
             
             <div class="form-group">
-                <label for="name">Nama:<span class="text-danger">*</span></label>
+                <label for="name">Nama <span class="text-danger">*</span></label>
                 <input type="text" id="name" name="name" placeholder="Nama Program" value="{{ $event->name }}" />
             </div>
 
             <div class="form-group">
-                <label for="date">Tarikh:<span class="text-danger">*</span></label>
+                <label for="date">Tarikh <span class="text-danger">*</span></label>
                 <input type="date" id="date" name="date" placeholder="Tarikh Program" value="{{ $event->date }}" />
+            </div>
+            
+            <div class="form-group">
+            <label for="event_time">Masa <span class="text-danger">*</span></label>
+            <input type="time" id="event_time" name="event_time" value="{{ $event->event_time }}" />
             </div>
 
             <div class="form-group">
-                <label for="state">Negeri:<span class="text-danger">*</span></label>
-                <select id="state" name="state_id" required>
+            <label for="address">Alamat <span class="text-danger">*</span></label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="Masukkan Alamat Penuh" value="{{ $event->address }}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="state">Negeri <span class="text-danger">*</span></label>
+                <select id="state_id" name="state_id">
                     @foreach($states as $state)
-                        <option value="{{ $state->id }}" {{ $event->state_id == $state->state_id ? 'selected' : '' }}>
+                        <option value="{{ $state->id }}" {{ $event->state_id == $state->id ? 'selected' : '' }}>
                             {{ $state->name }}
                         </option>
                     @endforeach
@@ -138,17 +149,17 @@
 
             <div class="form-group">
                 <label for="city">Bandar:<span class="text-danger">*</span></label>
-                <select id="city" name="city_id" required>
-                    @foreach($cities as $city)
-                        <option value="{{ $city->id }}" {{ $event->city_id == $city->city_id ? 'selected' : '' }}>
-                            {{ $city->name }}
-                        </option>
-                    @endforeach
-                </select>
+                    <select id="city_id" name="city_id" required>
+                        @foreach($cities as $city)
+                            <option value="{{ $city->id }}" {{ $event->city_id == $city->id ? 'selected' : '' }}>
+                                {{ $city->name }}
+                            </option>
+                        @endforeach
+                    </select>
             </div>
 
             <div class="form-group">
-                <label for="type">Kategori:<span class="text-danger">*</span></label>
+                <label for="type">Kategori <span class="text-danger">*</span></label>
                 <select id="type" name="type">
                 <!--<option value="sports" {{ request('type') == 'sports' ? 'selected' : '' }}>Sports</option>-->
                     <option value="type1" {{ $event->type == 'type1' ? 'selected' : '' }}>ICT</option>
@@ -163,12 +174,22 @@
             </div>
 
             <div class="form-group">
-                <label for="desc">Penerangan:<span class="text-danger">*</span></label>
+                <label for="max_participants">Had Peserta</label>
+                <input type="number" name="max_participants" id="max_participants" class="form-control" placeholder="Had Peserta" value="{{ $event->max_participants }}" />
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp_group_link">Link Group WhatsApp</label>
+                <input type="url" name="whatsapp_group_link" id="whatsapp_group_link" class="form-control" value="{{ old('whatsapp_group_link', $event->whatsapp_group_link ?? '') }}" placeholder="Masukkan Link WhatsApp Group"/>
+            </div>
+
+            <div class="form-group">
+                <label for="desc">Penerangan <span class="text-danger">*</span></label>
                 <input type="text" id="desc" name="desc" placeholder="Terangkan Tentang Program" value="{{ $event->desc }}" />
             </div>
 
             <div class="form-group">
-                <label for="poster">Poster:<span class="text-danger">*</span></label>
+                <label for="poster">Poster <span class="text-danger">*</span></label>
                 <input type="file" name="poster" accept="image/png, image/jpeg, image/jpg" />
                 @if($event->poster)
                     <p>Current Poster: <img src="{{ $event->poster }}" width="100" /></p>
@@ -224,6 +245,11 @@
                     @endif
                 });
         });
+        flatpickr("#event_time", {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i",
+                });
     </script>
 @endsection
 </body>

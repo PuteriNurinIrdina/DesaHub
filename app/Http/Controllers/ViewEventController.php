@@ -34,6 +34,16 @@ class ViewEventController extends Controller
            if ($request->filled('type')) {
                $query->where('type', $request->type);
            }
+
+           if ($request->filled('date_range')) {
+                $dates = explode(' to ', $request->date_range);
+                $startDate = \Carbon\Carbon::parse($dates[0])->format('Y-m-d');
+                $endDate = isset($dates[1]) ? \Carbon\Carbon::parse($dates[1])->format('Y-m-d') : $startDate;
+        
+                \Log::info('Filtering between ' . $startDate . ' and ' . $endDate);
+        
+                $query->whereBetween('date', [$startDate, $endDate]);
+            }
    
            // Fetch the filtered or all events
            $events = $query->get();

@@ -23,7 +23,6 @@
             font-weight: bold;
             color: #495057;
         }
-
         input[type="text"], input[type="file"], input[type="url"], select {
             width: 100%;
             padding: 10px;
@@ -31,7 +30,6 @@
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
-
         input[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -42,17 +40,14 @@
             cursor: pointer;
             font-size: 16px;
         }
-
         input[type="submit"]:hover{
             background-color: #138496;
         }
-        
         .error-list {
             color: #dc3545;
             list-style: none;
             padding: 0;
         }
-
     </style>
 </head>
 <body>
@@ -84,19 +79,23 @@
             <div>
                 <label for="qty">Kuantiti</label>
                 <input type="text" name="qty" placeholder="Kuantiti Produk" />
-            </div>
-            <div>
+            </div><div>
                 <label for="price">Harga</label>
                 <input type="text" name="price" placeholder="Harga (RM)"/>
             </div>
 
             <div>
-                <label for="category" style="margin-bottom: 10px;">Kategori Produk</label>
-                <select name="category" id="category" required style="margin-bottom: 15px;">
-                    <option value="" style="margin-bottom: 15px">Pilih Kategori</option>
-                    @foreach($categories as $slug => $name)
-                        <option value="{{ $slug }}" {{ old('category') == $slug ?  'selected' : ''}}> {{ $name }}</option>
-                    @endforeach
+                <label for="category">Kategori Produk</label>
+                <select name="category" id="category">
+                    <option value="runcit">Barangan Runcit</option>
+                    <option value="kesihatan">Kesihatan & Kecantikan</option>
+                    <option value="rumah">Kelengkapan Rumah</option>
+                    <option value="bayi">Bayi, Kanak-kanak & Mainan</option>
+                    <option value="fesyen_wanita">Fesyen Wanita</option>
+                    <option value="fesyen_lelaki">Fesyen Lelaki</option>
+                    <option value="Automotif">Automotif</option>
+                    <option value="haiwan">Haiwan Peliharaan</option>
+                    <option value="lainlain">Lain-lain</option>
                 </select>
             </div>
 
@@ -117,7 +116,7 @@
         </form>
     </div>
 
-@endsection
 
+@endsection
 </body>
 </html>

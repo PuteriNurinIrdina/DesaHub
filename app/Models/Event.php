@@ -20,7 +20,11 @@ class Event extends Model
         'state_id',
         'city_id',
         'state_name',
-        'city_name'
+        'city_name',
+        'event_time',
+        'address',
+        'max_participants',
+        'whatsapp_group_link'
 
     ];
 
@@ -60,6 +64,14 @@ class Event extends Model
         ];
 
         return $types[$this->type] ?? 'Unknown';
+    }
+
+    public function getFormattedEventTimeAttribute()
+    {
+        if ($this->event_time) {
+            return \Carbon\Carbon::createFromFormat('H:i:s', $this->event_time)->format('h:i A');
+        }
+        return null; // Or a default value like 'N/A'
     }
 
     public function registration()

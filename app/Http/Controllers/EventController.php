@@ -40,6 +40,10 @@ class EventController extends Controller
             'poster' => 'nullable|image|mimes:jpeg,png,jpg', 
             'state_id' => 'required|exists:states,id', // Validate that the state exists in the states table
             'city_id' => 'required|exists:cities,id',// Validate that the city exists in the cities table
+            'event_time' => 'required|date_format:H:i',
+            'address' => 'required|string',
+            'max_participants' => 'nullable|integer|min:1',
+            'whatsapp_group_link' => 'nullable|url'
         ]);
         $state = State::find($request->state_id);
         $city = City::find($request->city_id);
@@ -111,6 +115,10 @@ class EventController extends Controller
             'poster' => 'nullableimage|mimes:jpeg,png,jpg',
             'state_id' => 'required|exists:states,id',
             'city_id' => 'required|exists:cities,id',
+            'event_time' => 'required',
+            'address' => 'required|string',
+            'max_participants' => 'nullable|integer|min:1',
+            'whatsapp_group_link' => 'nullable|url'
         ]);
 
         // Handle file upload for the poster

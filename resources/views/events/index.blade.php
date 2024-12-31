@@ -37,12 +37,16 @@
         }
 
         .event-box img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
-
+        @media (max-width: 768px) {
+            .event-box {
+                padding: 10px;
+            }
+        }
         .event-box h3 {
             font-size: 1.5rem;
             font-weight: bold;
@@ -187,13 +191,20 @@
                 @endif
                 <!-- Event Info -->
                 <h3>{{ $event->name }}</h3>
-                <p><strong>Tarikh:</strong> {{ $event->date }}</p>
-                <p><strong>Kategori:</strong> {{ $event->type_label }}</p>
+                <p><strong>Tarikh: </strong> {{ $event->date }}</p>
+                <p><strong>Masa: </strong> {{ $event->formatted_event_time }}</p>
+                <p><strong>Kategori: </strong> {{ $event->type_label }}</p>
                 <!-- <p><strong>Penerangan:</strong> {{ $event->desc }}</p> -->
+                <p><strong>Alamat: </strong> {{ $event->address }}</p>
 
                 <!-- Display State and City -->
-                <p><strong>Negeri:</strong> {{ $event->state_name }}</p>
-                <p><strong>Bandar:</strong> {{ $event->city_name }}</p>
+                <p><strong>Negeri: </strong> {{ $event->state_name ?? 'N/A' }}</p>
+                <p><strong>Bandar: </strong> {{ $event->city_name ?? 'N/A' }}</p>
+                @if ($event->max_participants)
+                <p><strong>Had Peserta: </strong> {{ $event->max_participants }}</p>
+                @else
+                <p><strong>Had Peserta: </strong>Tiada Had</p>
+                @endif
                 <div class="action-buttons">
                     <!-- Edit Button -->
                     <a href="{{ route('list.pendaftar', ['event_id' => $event->id]) }}">Pendaftar</a>

@@ -280,11 +280,10 @@
                 @foreach($latestEvents as $event)
                     <div class="col-lg-4 col-md-6">
                         <div class="card event-card">
-                            <img src="{{ $event->poster ? asset('storage/' . $event->image) : 'https://via.placeholder.com/300x200' }}" 
-                                class="card-img-top" alt="{{ $event->name }}">
+                        <img src="{{ $event->poster }}" alt="Event Poster" class="card-img-top" >
                             <div class="card-body">
                                 <h5 class="card-title">{{ $event->name }}</h5>
-                                <p class="card-text">{{ $event->desc }}</p>
+                                <p class="card-text">{{ $event->type_label}}</p>
                                 <p class="card-text"><small class="text-muted">{{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</small></p>
                                 <a href="" class="btn btn-primary btn-sm">Sertai</a>
                             </div>

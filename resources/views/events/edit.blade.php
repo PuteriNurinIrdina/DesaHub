@@ -217,21 +217,19 @@
 
     <script>
         // When the state dropdown changes, fetch the cities for the selected state
-        document.getElementById('state').addEventListener('change', function() {
+        document.getElementById('state_id').addEventListener('change', function() {
             var stateId = this.value;
+            var cityDropdown = document.getElementById('city_id');
+            
+            // Reset city dropdown
+            cityDropdown.innerHTML = '<option value="">-- Pilih Bandar --</option>';
 
-            // Make an AJAX request to get the cities based on the selected state
+            if (!stateId) return;
+
+            // Fetch cities for the selected state
             fetch(`/get-cities/${stateId}`)
                 .then(response => response.json())
                 .then(data => {
-                    var cityDropdown = document.getElementById('city');
-                    cityDropdown.innerHTML = ''; // Clear the current city options
-                    var defaultOption = document.createElement('option');
-                    defaultOption.value = '';
-                    defaultOption.textContent = '-- Pilih Bandar --';
-                    cityDropdown.appendChild(defaultOption);
-
-                    // Populate the city dropdown with the cities for the selected state
                     data.cities.forEach(function(city) {
                         var option = document.createElement('option');
                         option.value = city.id;
@@ -239,11 +237,12 @@
                         cityDropdown.appendChild(option);
                     });
 
-                    // If there's an existing city, set it as selected
+                    // Pre-select city if already exists
                     @if($event->city_id)
                         cityDropdown.value = '{{ $event->city_id }}';
                     @endif
-                });
+                })
+                .catch(error => console.error('Error fetching cities:', error));
         });
         flatpickr("#event_time", {
                     enableTime: true,

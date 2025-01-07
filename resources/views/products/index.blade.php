@@ -138,7 +138,7 @@
     <div class="no-product-message">
         <p>Tiada Produk Ditambah</p>
         <p>Adakah anda mahu menambah iklan produk anda?</p>
-        <a href="{{ route('product.view')}}" class="btn btn-primary">Tambah Iklan</a>
+        <a href="{{ route('product.create')}}" class="btn btn-primary">Tambah Iklan</a>
     </div>
     
     @else

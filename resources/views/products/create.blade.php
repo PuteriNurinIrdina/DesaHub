@@ -53,6 +53,11 @@
             padding: 0;
         }
 
+        .text-danger {
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -75,23 +80,23 @@
             @csrf
             @method('post')
             <div>
-                <label for="name">Nama</label>
+                <label for="name">Nama <span class="text-danger">*</span></label>
                 <input type="text" name="name" placeholder="Nama Produk"/>
             </div>
             @error('name')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
             <div>
-                <label for="qty">Kuantiti</label>
+                <label for="qty">Kuantiti <span class="text-danger">*</span></label>
                 <input type="text" name="qty" placeholder="Kuantiti Produk" />
             </div>
             <div>
-                <label for="price">Harga</label>
+                <label for="price">Harga <span class="text-danger">*</span></label>
                 <input type="text" name="price" placeholder="Harga (RM)"/>
             </div>
 
             <div>
-                <label for="category" style="margin-bottom: 10px;">Kategori Produk</label>
+                <label for="category" style="margin-bottom: 10px;">Kategori Produk <span class="text-danger">*</span></label>
                 <select name="category" id="category" required style="margin-bottom: 15px;">
                     <option value="" style="margin-bottom: 15px">Pilih Kategori</option>
                     @foreach($categories as $slug => $name)
@@ -101,14 +106,14 @@
             </div>
 
             <div>
-                <label for="link">URL Produk</label>
+                <label for="link">URL Produk <span class="text-danger">*</span></label>
                 <input type="url" name="link" placeholder="URL produk"/>
             </div>
             <div>
-                <label for="description">Penerangan</label>
+                <label for="description">Penerangan <span class="text-danger">*</span></label>
                 <input type="text" name="description" placeholder="Terangkan Produk Anda "/>
             </div><div>
-                <label for="image">Gambar Produk</label>
+                <label for="image">Gambar Produk <span class="text-danger">*</span></label>
                 <input type="file" name="image" accept="image/*" />
             </div>
             <div>

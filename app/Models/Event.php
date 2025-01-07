@@ -28,7 +28,7 @@ class Event extends Model
 
     ];
 
-    protected static function boot()
+    /* protected static function boot()
     {
         parent::boot();
 
@@ -38,7 +38,7 @@ class Event extends Model
             $event->month = $date->format('F'); // January, February, etc.
             $event->year = $date->year; // e.g., 2024
         });
-    }
+    } */
 
     public function state()
     {

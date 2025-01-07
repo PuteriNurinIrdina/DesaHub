@@ -45,6 +45,7 @@ class EventController extends Controller
             'max_participants' => 'nullable|integer|min:1',
             'whatsapp_group_link' => 'nullable|url'
         ]);
+        
         $state = State::find($request->state_id);
         $city = City::find($request->city_id);
 
@@ -106,13 +107,14 @@ class EventController extends Controller
     }
 
     public function update(Event $event, Request $request){
+        \Log::info($request->all());
         // Validate the input data
         $data = $request->validate([
             'name' => 'required|string|max:100',
             'date' => 'required|date',
             'type' => 'required',
             'desc' => 'required|string',
-            'poster' => 'nullableimage|mimes:jpeg,png,jpg',
+            'poster' => 'nullable|image|mimes:jpeg,png,jpg',
             'state_id' => 'required|exists:states,id',
             'city_id' => 'required|exists:cities,id',
             'event_time' => 'required',
@@ -120,6 +122,15 @@ class EventController extends Controller
             'max_participants' => 'nullable|integer|min:1',
             'whatsapp_group_link' => 'nullable|url'
         ]);
+
+        $state = State::find($request->state_id);
+        $city = City::find($request->city_id);
+
+        $data['state_name'] = $state ? $state->name : null;
+        $data['city_name'] = $city ? $city->name : null;
+
+        // Save additional changes if necessary
+        $event->save();
 
         // Handle file upload for the poster
         if ($request->hasFile('poster')) {

@@ -11,7 +11,7 @@ class ChartDataController extends Controller
 {
     public function getEventsData(Request $request)
     {
-        $year = $request->input('year', date('Y')); // Default to current year if not specified
+        $year = $request->input('year', date('Y'));
 
         $events = DB::table('event_module')
             ->select('month', DB::raw('COUNT(*) as count'))
@@ -75,14 +75,14 @@ class ChartDataController extends Controller
             ->get();
 
         $categoryData = [
-            "Barangan Runcit" => 0,
-            "Kesihatan & Kecantikan" => 0,
-            "Kelengkapan Rumah" => 0,
-            "Bayi, Kanak-kanak & Mainan" => 0,
-            "Fesyen" => 0,
+            "runcit" => 0,
+            "kesihatan" => 0,
+            "rumah" => 0,
+            "bayi" => 0,
+            "fesyen" => 0,
             "Automatif" => 0,
-            "Haiwan" => 0,
-            "Lain-lain" => 0,
+            "haiwan" => 0,
+            "lainlain" => 0,
         ];
 
         foreach ($categories as $category) {

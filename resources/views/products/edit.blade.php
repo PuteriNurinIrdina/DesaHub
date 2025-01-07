@@ -59,6 +59,11 @@
             height: auto;
             border-radius: 8px;
         }
+
+        .text-danger {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -83,24 +88,24 @@
         @method('put')
     
     <div>
-        <label>Nama</label>
+        <label>Nama <span class="text-danger">*</span></label>
         <input type="text" name="name" placeholder="Nama" value="{{$product->name}}"/>
     </div>
     
     <div>
-        <label>Kuantiti</label>
+        <label>Kuantiti <span class="text-danger">*</span></label>
         <input type="text" name="qty" placeholder="Kuantiti" value="{{$product->qty}}"/>
     </div>
     
     <div>
-        <label>Harga</label>
+        <label>Harga <span class="text-danger">*</span></label>
         <input type="text" name="price" placeholder="Harga" value="{{$product->price}}"/>
     </div>
 
     <div>
         <label for="category" style="margin-bottom: 10px;">Kategori Produk</label>
         <select name="category" id="category" required style="margin-bottom: 15px;">
-            <option value="">Pilih Kategori</option>
+            <option value="">Pilih Kategori <span class="text-danger">*</span></option>
             @foreach($categories as $slug => $name)
                 <option value="{{ $slug }}" {{ old('category') == $slug ?  'selected' : ''}}> {{ $name }}</option>
             @endforeach
@@ -108,12 +113,12 @@
     </div>
 
     <div>
-        <label>URL produk</label>
+        <label>URL produk <span class="text-danger">*</span></label>
         <input type="url" name="url" placeholder="URL Produk" value="{{$product->link}}"/>
     </div>
     
     <div>
-        <label>Penerangan</label>
+        <label>Penerangan <span class="text-danger">*</span></label>
         <input type="text" name="Terangkan Produk Anda" placeholder="Terangkan Produk Anda" value="{{$product->description}}"/>
     </div>
     
@@ -125,7 +130,7 @@
     </div>
 
         <div>
-            <label for="image">Muatnaik Gambar</label>
+            <label for="image">Muatnaik Gambar <span class="text-danger">*</span></label>
             <input type="file" name="image" id="image" accept="image/*" />
         </div>
     

@@ -87,8 +87,10 @@ class AccController extends Controller
     {
         $user = auth()->user();
 
-        $currentYear = date('Y');
+        $startYear = 2024;
+        $currentYear = now()->year;
         $upcomingYears = range($currentYear, $currentYear + 5);
+
         $availableYears = collect($upcomingYears)
             ->merge(
                 DB::table('product')
@@ -101,7 +103,7 @@ class AccController extends Controller
                     ->distinct()
                     ->pluck('year')
             )
-            ->filter(fn($y) => $y >= $currentYear)
+            ->filter(fn($y) => $y >= $startYear)
             ->unique()
             ->sort();
 
@@ -117,13 +119,13 @@ class AccController extends Controller
             ->count();
 
         $totalRegisteredEvents = DB::table('_event_registration')
-            ->where('account_id', $user->id) // Match the participant's account ID
+            ->where('account_id', $user->id)
             ->when($year, fn($query) => $query->whereYear('created_at', $year))
             ->count();
 
         $totalUpcomingEvents = DB::table('_event_registration')
             ->join('event_module', '_event_registration.event_id', '=', 'event_module.id')
-            ->where('_event_registration.account_id', $user->id) // Filter by participant's account ID
+            ->where('_event_registration.account_id', $user->id)
             ->where(function ($query) {
                 $query->where('event_module.year', '>', date('Y'))
                       ->orWhere(function ($query) {

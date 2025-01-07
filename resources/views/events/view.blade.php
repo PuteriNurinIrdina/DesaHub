@@ -161,7 +161,7 @@
             <button type="submit">Cari</button>
         </form>
         <a href="{{ route('events.view',['account_id' => Auth::user()->id]) }}">
-            <button type="button">Buang Penapis</button>
+            <button type="button">Buang Tapisan</button>
         </a>
     </div>
     <div>

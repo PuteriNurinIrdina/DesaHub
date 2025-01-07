@@ -396,7 +396,8 @@
         <ul>
 
             <div class="normal-section">
-                    <li class="dashboard"><a href="{{ route('dashboard') }}"><i class="bi-house"></i> Dashboard</a></li>
+                    <li class="dashboard"><a href="{{ route('home') }}"><i class="bi-house"></i> Home</a></li>
+                    <li class="dashboard"><a href="{{ route('dashboard') }}"><i class="bi-bar-chart-steps"></i> Dashboard</a></li>
             </div>
 
             <!-- Normal User Sidebar -->

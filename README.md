@@ -64,3 +64,6 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Events Module
+For the event module to function fully, import countries.sql, states.sql and cities.sql. This is for the dropdown menu funtion in the 'events/create' and 'events/edit' interface of the webpage to fully function.
